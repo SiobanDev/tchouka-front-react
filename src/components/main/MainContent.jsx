@@ -33,12 +33,14 @@ export default function MainContent() {
             addedNoteWidth,
           }}
         >
-          <Switch>
-            <Route exact path="/apprentissage" component={Step3} />
-            <Route exact path="/percussions" component={Step2} />
-            <Route exact path="/rythme" component={Step1} />
-            <Route exact path="/" component={Home} />
-          </Switch>{" "}
+          <main>
+            <Switch>
+              <Route exact path="/apprentissage" component={Step3} />
+              <Route exact path="/percussions" component={Step2} />
+              <Route exact path="/rythme" component={Step1} />
+              <Route exact path="/" component={Home} />
+            </Switch>
+          </main>
         </PartitionContext.Provider>
       </StepContext.Provider>
     </Router>

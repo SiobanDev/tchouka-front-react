@@ -1,0 +1,28 @@
+$primary-color: #1b1b1dff;
+$red-color: #ff4436ff;
+$orange-color: #ff9036ff;
+$blue-color: #2ca4a0ff;
+
+#notes-to-choose-container {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    margin-bottom: 5%;
+  }
+  
+  #notes-to-choose-container > div {
+    width: 100px;
+    height: 100px;
+    margin: 20px;
+    display: flex;
+    justify-content: center;
+    padding: 10px;
+    background: $blue-color;
+    color: white;
+  }
+  
+  .note-to-choose {
+    max-width: 100%;
+    height: 100%;
+  }
+  

@@ -1,23 +1,29 @@
+$fonts-path: "/fonts/";
+$primary-color: #1b1b1dff;
+$red-color: #ff4436ff;
+$orange-color: #ff9036ff;
+$blue-color: #2ca4a0ff;
+
 @font-face {
   font-family: 'courier_10_pitchregular';
-  src: url('/fonts/courier_10_pitch_regular.eot');
-  src: url('/fonts/courier_10_pitch_regular.eot?#iefix') format('embedded-opentype'),
-       url('/fonts/courier_10_pitch_regular.woff2') format('woff2'),
-       url('/fonts/courier_10_pitch_regular.woff') format('woff'),
-       url('/fonts/courier_10_pitch_regular.ttf') format('truetype'),
-       url('/fonts/courier_10_pitch_regular.svg#courier_10_pitchregular') format('svg');
+  src: url($fonts-path + 'courier_10_pitch_regular.eot');
+  src: url($fonts-path + 'courier_10_pitch_regular.eot?#iefix') format('embedded-opentype'),
+       url($fonts-path + 'courier_10_pitch_regular.woff2') format('woff2'),
+       url($fonts-path + 'courier_10_pitch_regular.woff') format('woff'),
+       url($fonts-path + 'courier_10_pitch_regular.ttf') format('truetype'),
+       url($fonts-path + 'courier_10_pitch_regular.svg#courier_10_pitchregular') format('svg');
   font-weight: normal;
   font-style: normal;
 }
 
 @font-face {
   font-family: 'courier_10_pitchbold';
-  src: url('/fonts/courier_10_pitch_bold.eot');
-  src: url('/fonts/courier_10_pitch_bold.eot?#iefix') format('embedded-opentype'),
-       url('/fonts/courier_10_pitch_bold.woff2') format('woff2'),
-       url('/fonts/courier_10_pitch_bold.woff') format('woff'),
-       url('/fonts/courier_10_pitch_bold.ttf') format('truetype'),
-       url('/fonts/courier_10_pitch_bold.svg#courier_10_pitchbold') format('svg');
+  src: url($fonts-path + 'courier_10_pitch_bold.eot');
+  src: url($fonts-path + 'courier_10_pitch_bold.eot?#iefix') format('embedded-opentype'),
+       url($fonts-path + 'courier_10_pitch_bold.woff2') format('woff2'),
+       url($fonts-path + 'courier_10_pitch_bold.woff') format('woff'),
+       url($fonts-path + 'courier_10_pitch_bold.ttf') format('truetype'),
+       url($fonts-path + 'courier_10_pitch_bold.svg#courier_10_pitchbold') format('svg');
   font-weight: normal;
   font-style: normal;
 
@@ -25,12 +31,12 @@
 
 @font-face {
   font-family: 'courier_10_pitchitalic';
-  src: url('/fonts/courier_10_pitch_italic.eot');
-  src: url('/fonts/courier_10_pitch_italic.eot?#iefix') format('embedded-opentype'),
-       url('/fonts/courier_10_pitch_italic.woff2') format('woff2'),
-       url('/fonts/courier_10_pitch_italic.woff') format('woff'),
-       url('/fonts/courier_10_pitch_italic.ttf') format('truetype'),
-       url('/fonts/courier_10_pitch_italic.svg#courier_10_pitchitalic') format('svg');
+  src: url($fonts-path + 'courier_10_pitch_italic.eot');
+  src: url($fonts-path + 'courier_10_pitch_italic.eot?#iefix') format('embedded-opentype'),
+       url($fonts-path + 'courier_10_pitch_italic.woff2') format('woff2'),
+       url($fonts-path + 'courier_10_pitch_italic.woff') format('woff'),
+       url($fonts-path + 'courier_10_pitch_italic.ttf') format('truetype'),
+       url($fonts-path + 'courier_10_pitch_italic.svg#courier_10_pitchitalic') format('svg');
   font-weight: normal;
   font-style: normal;
 
@@ -42,8 +48,9 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  color: #1b1b1dff;
+  color: $primary-color;
 }
+
 
 #root{
   width: 80%;
@@ -55,3 +62,14 @@ main{
   flex-direction: column;
 }
 
+.instruction{
+  display: flex;
+  line-height: 30px;
+  justify-content: center;
+}
+
+.instruction .round-icon{
+  background-color: $orange-color;
+  border: none;
+  margin-right: 10px;
+}

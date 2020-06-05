@@ -1,3 +1,12 @@
+$primary-color: #1b1b1dff;
+$red-color: #ff4436ff;
+$orange-color: #ff9036ff;
+$blue-color: #2ca4a0ff;
+
+header{
+  margin-bottom: 50px;
+}
+
 nav ul {
   display: flex;
   justify-content: space-between;
@@ -41,21 +50,22 @@ li hr {
   width: 90%;
 }
 
-.menu-icon {
+.round-icon {
   display: flex;
   justify-content: center;
   align-items: center;
   border-radius: 50%;
-  background-color: #ff4436;
+  background-color: $red-color;
   width: 30px;
   height: 30px;
   color: white;
   font-weight: bold;
-  border: solid #ff4436 2px;
+  border: solid $red-color 2px;
 }
 
-nav ul li a {
+nav ul li a, nav ul li a:visited {
   text-decoration: none;
+  color: $primary-color;
 }
 
 .selected {

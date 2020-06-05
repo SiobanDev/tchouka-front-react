@@ -9,7 +9,7 @@ import Header from "../../views/Header";
 import PartitionContext from "../../context/PartitionContext";
 import StepContext from "../../context/StepContext";
 
-export default function MainContent() {
+const MainContent = () => {
   var freeTime = 42;
   const addedNoteWidth = 5;
   const [allNotesWidth, setAllNotesWidth] = useState(0);
@@ -46,3 +46,5 @@ export default function MainContent() {
     </Router>
   );
 }
+
+export default MainContent;

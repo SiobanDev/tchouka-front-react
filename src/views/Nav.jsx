@@ -2,62 +2,43 @@ import React, { useContext, useEffect } from "react";
 import { NavLink } from "react-router-dom";
 import "./NavStyle.scss";
 import StepContext from "../context/StepContext";
+import {updateNavIconStyle} from "./Nav.service";
 
 const Nav = () => {
   const stepContext = useContext(StepContext);
   const navLinkList = document.getElementsByClassName("navbar-link");
-  const navIconsList = document.getElementsByClassName("menu-icon");
+  const navIconsList = document.getElementsByClassName("round-icon");
 
   useEffect(() => {
-    if (navLinkList.length > 0 && navIconsList.length > 0) {
-      Array.from(navLinkList).map((navLink, i) => {
-        if (navLink.classList.contains("selected")) {
-          navIconsList[i].style.color = "#ff4436";
-          navIconsList[i].style.background = "white";
-          navIconsList[i].style.border = "solid #ff4436 2px";
-        }
-
-        navLink.addEventListener("click", () => {
-          for (let navIcon of navIconsList) {
-            navIcon.style.color = "white";
-            navIcon.style.background = "#ff4436";
-            navIcon.style.border = "solid #ff4436 2px";
-          }
-
-          navIconsList[i].style.color = "#ff4436";
-          navIconsList[i].style.background = "white";
-          navIconsList[i].style.border = "solid #ff4436 2px";
-        });
-      });
-    }
+    updateNavIconStyle(navLinkList, navIconsList)
   }, [navLinkList, navIconsList]);
 
   return (
     <nav role="navigation">
       <ul className="navbar-menu up-menu">
         <li id="navbar-element-0" className="navbar-element">
-          <span className="fas fa-home menu-icon"></span>
+          <span className="fas fa-home round-icon"></span>
         </li>
         <li className="line">
           <hr color="#2CA4A0" />
         </li>
 
         <li id="navbar-element-1" className="navbar-element">
-          <span className="menu-icon">1</span>
+          <span className="round-icon">1</span>
         </li>
         <li className="line">
           <hr color="#2CA4A0" />
         </li>
 
         <li id="navbar-element-2" className="navbar-element">
-          <span className="menu-icon">2</span>
+          <span className="round-icon">2</span>
         </li>
         <li className="line">
           <hr color="#2CA4A0" />
         </li>
 
         <li id="navbar-element-3" className="navbar-element">
-          <span className="menu-icon">3</span>
+          <span className="round-icon">3</span>
         </li>
       </ul>
 

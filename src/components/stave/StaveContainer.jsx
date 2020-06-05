@@ -1,6 +1,6 @@
 import React, { useContext } from "react";
 //styles
-import "./Staves.style.css";
+import "./Staves.style.scss";
 //components
 import Stave from "./Stave";
 //context

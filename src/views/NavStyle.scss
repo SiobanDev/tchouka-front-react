@@ -4,7 +4,7 @@ $orange-color: #ff9036ff;
 $blue-color: #2ca4a0ff;
 
 header{
-  margin-bottom: 50px;
+  margin-bottom: 0px;
 }
 
 nav ul {
@@ -68,6 +68,6 @@ nav ul li a, nav ul li a:visited {
   color: $primary-color;
 }
 
-.selected {
-  font-weight: bold;
+nav ul li a.active {
+  color: $blue-color;
 }

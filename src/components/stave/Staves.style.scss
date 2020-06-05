@@ -1,3 +1,8 @@
+$primary-color: #1b1b1dff;
+$red-color: #ff4436ff;
+$orange-color: #ff9036ff;
+$blue-color: #2ca4a0ff;
+
 .staves-container {
   display: flex;
   justify-content: center;
@@ -10,7 +15,7 @@
   height: 25%;
   width: 100%;
   position: relative;
-  background: rgb(255, 102, 0);
+  background: $red-color;
   margin: 50px 0;
   display: flex;
 }

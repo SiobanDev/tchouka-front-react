@@ -1,6 +1,6 @@
 import React from "react";
 //styles
-import "./Staves.style.css";
+import "./Staves.style.scss";
 import AddedNote from "./AddedNote";
 
 const Stave = ({ id, partitionNotes }) => {

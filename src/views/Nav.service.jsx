@@ -8,11 +8,7 @@ export const updateNavIconStyle = (navLinkList,navIconsList) =>{
             navIconsList[i].style.border = "solid #ff4436 2px";
           }
   
-          console.log("location: " + window.location);
-          console.log("navLink: " + navLink);
-  
           if(window.location.href === navLink.href){
-            console.log("test réussi: ");
             navIconsList[i].style.color = "#ff4436";
             navIconsList[i].style.background = "white";
             navIconsList[i].style.border = "solid #ff4436 2px";

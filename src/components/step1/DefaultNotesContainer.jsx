@@ -1,11 +1,13 @@
 import React, { useContext, useEffect, useState } from "react";
-//data
+//services
 import { getDefaultNotes } from "../../utils/utils";
 //context
 import PartitionContext from "../../context/PartitionContext";
 import NotesToChoose from "./NoteToChoose";
 //styles
 import "./DefaultNotesContainer.style.scss";
+//constants
+
 
 export const DefaultNotesContainer = () => {
   let [availableNotes, setAvailableNotes] = useState([]);
@@ -15,10 +17,23 @@ export const DefaultNotesContainer = () => {
   let allNotesWidth = partitionContext.allNotesWidth;
   let setAllNotesWidth = partitionContext.setAllNotesWidth;
   const addedNoteWidth = partitionContext.addedNoteWidth;
+  const defaultNotesCaptionList = [
+    "4 temps",
+    "2 temps",
+    "1 temps",
+    "1/2 temps",
+    "1/4 temps",
+  ];
   const getNotes = async () => {
-    const notes = await getDefaultNotes();
-    setAvailableNotes(notes);
+    try {
+      const notes = await getDefaultNotes();
+      setAvailableNotes(notes.reverse());
+    } catch (e) {
+      console.log("Error in getNotes in DefaultNotesContainer : " + e);
+    }
   };
+
+  console.log("defaultNotesCaptionList : " + defaultNotesCaptionList);
 
   useEffect(() => {
     getNotes();
@@ -28,20 +43,27 @@ export const DefaultNotesContainer = () => {
     "availableNotes in NotesToChoose : " + JSON.stringify(availableNotes)
   );
 
-  if (availableNotes && availableNotes.length > 0) {
+  if (
+    availableNotes &&
+    availableNotes.length > 0 &&
+    defaultNotesCaptionList
+  ) {
     return (
       <div id="notes-to-choose-container">
-        {availableNotes.map((note) => {
-          return (
-            <NotesToChoose
-              imageSource={note.noteImage}
-              onClick={() => {
-                setPartition([...partition, note]);
-                setAllNotesWidth(allNotesWidth + addedNoteWidth);
-              }}
-              key={note.id}
-            />
-          );
+        {availableNotes.map((note, i) => {
+            return (
+              <div className="available-note-container" key={note.id}>
+                <NotesToChoose
+                  imageSource={note.noteImage}
+                  onClick={() => {
+                    setPartition([...partition, note]);
+                    setAllNotesWidth(allNotesWidth + addedNoteWidth);
+                  }}
+                />
+                <p className="note-caption">{defaultNotesCaptionList[i]}</p>
+              </div>
+            );
+         
         })}
       </div>
     );

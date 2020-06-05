@@ -10,19 +10,30 @@ $blue-color: #2ca4a0ff;
     margin-bottom: 5%;
   }
   
-  #notes-to-choose-container > div {
-    width: 100px;
-    height: 100px;
+  .available-note-container > div {
+    width: 60px;
+    height: 60px;
     margin: 20px;
     display: flex;
     justify-content: center;
     padding: 10px;
     background: $blue-color;
     color: white;
+    cursor: pointer;
   }
   
   .note-to-choose {
     max-width: 100%;
     height: 100%;
+  }
+
+  .available-note-container{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .note-caption{
+    margin: 0;
   }
   

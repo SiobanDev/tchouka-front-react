@@ -51,13 +51,15 @@ body {
   color: $primary-color;
 }
 
-
 #root{
-  width: 80%;
-  margin: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 }
 
 main{
+  width: 80%;
   display: flex;
   flex-direction: column;
 }

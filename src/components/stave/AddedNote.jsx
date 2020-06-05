@@ -1,6 +1,6 @@
 import React, { useContext } from "react";
 //styles
-import "./Staves.style.css";
+import "./Staves.style.scss";
 
 //context
 import PartitionContext from "../../context/PartitionContext";
@@ -14,7 +14,7 @@ const AddedNote = ({ noteData }) => {
     return (
       <img
         className="added-note"
-        src={noteData.image}
+        src={noteData.noteImage}
         alt="added-note"
         style={{ width: `${addedNoteWidth}%`}}
       />

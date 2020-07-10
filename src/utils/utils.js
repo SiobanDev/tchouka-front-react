@@ -1,16 +1,4 @@
-import {
-  apiUrl,
-  quarterBeatDuration,
-  halfBeatDuration,
-  oneBeatDuration,
-  TwoBeatsDuration,
-  FourBeatsDuration,
-  quarterBeatImage,
-  halfBeatImage,
-  oneBeatImage,
-  TwoBeatsImage,
-  FourBeatsImage,
-} from "../config/constants";
+import { apiUrl } from "../config/mediasConstants";
 
 export const fetchNotesData = async () => {
   try {
@@ -36,7 +24,7 @@ export const getDefaultNotes = async () => {
 
     if (apiResponse && apiResponse.ok) {
       const availableNotesList = await apiResponse.json();
-      console.log("availableNotesList in utils: " + JSON.stringify(availableNotesList));
+      // console.log("availableNotesList in utils: " + JSON.stringify(availableNotesList));
 
       return availableNotesList;
     }
@@ -44,5 +32,25 @@ export const getDefaultNotes = async () => {
     console.log("Error trying to get default notes : " + apiResponse.status);
   } catch (e) {
     console.log(e);
+  }
+};
+
+export const handleClickToAnotherPage = (stepContext) => {
+  const LinkList = document.getElementsByClassName("navbar-link");
+  var nextStepsList = [];
+
+  if (LinkList) {
+    Array.from(LinkList).map((link) => link.classList.remove("active"));
+
+    if (nextStepsList && stepContext) {
+      console.log("stepContext.endedStep: " + stepContext.endedStep);
+
+      LinkList[stepContext.endedStep].classList.add("active");
+
+      for (var i = 0; i <= stepContext.endedStep; i++) {
+        nextStepsList.includes(i);
+        console.log("nextStepsList : " + nextStepsList);
+      }
+    }
   }
 };

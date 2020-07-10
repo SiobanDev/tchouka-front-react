@@ -1,0 +1,32 @@
+$primary-color: #1b1b1dff;
+$red-color: #ff4436ff;
+$orange-color: #ff9036ff;
+$blue-color: #2ca4a0ff;
+$hover: false;
+
+#next-step {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+}
+
+#next-step a {
+  text-decoration: none;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  color: $primary-color;
+}
+
+#next-step a:hover {
+  font-weight: bold;
+}
+
+#next-step .round-icon {
+  background: none;
+  color: $primary-color;
+  border: none;
+  font-size: 30px;
+}

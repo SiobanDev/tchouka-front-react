@@ -1,19 +1,17 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 //styles
 import "./Staves.style.scss";
 //components
 import Stave from "./Stave";
 //context
 import PartitionContext from "../../context/PartitionContext";
+import { colouredStave } from "../../config/mediasConstants";
 
-const StaveContainer = ({partition}) => {
+const StaveContainer = () => {
   const partitionContext = useContext(PartitionContext);
-  partition = partitionContext.partition;
+  const partition = partitionContext.partition;
   let firstStaveNotes = [];
   let secondStaveNotes = [];
-
-  console.log("partition " + JSON.stringify(partition));
-  console.log("allNotesWidth " + partitionContext.allNotesWidth);
 
   if (partition.length > 0) {
     firstStaveNotes = partition.slice(0, 20);
@@ -22,12 +20,22 @@ const StaveContainer = ({partition}) => {
     // console.log("firstStaveNotes dans StaveContainer " + JSON.stringify(firstStaveNotes));
   }
 
+  useEffect(() => {}, [partition]);
+
   // console.log("partition dans StaveContainer " + JSON.stringify(partition));
+  if (partition.length > 0) {
+    return (
+      <div className="staves-container">
+        <Stave id="1" partitionNotes={firstStaveNotes} />
+        <Stave id="2" partitionNotes={secondStaveNotes} />
+      </div>
+    );
+  }
 
   return (
     <div className="staves-container">
-      <Stave id="1" partitionNotes={firstStaveNotes} />
-      <Stave id="2" partitionNotes={secondStaveNotes} />
+      <img className="stave" src={colouredStave} alt="coloured-stave" />
+      <img className="stave" src={colouredStave} alt="coloured-stave" />
     </div>
   );
 };

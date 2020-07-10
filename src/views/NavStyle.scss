@@ -50,19 +50,6 @@ li hr {
   width: 90%;
 }
 
-.round-icon {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  border-radius: 50%;
-  background-color: $red-color;
-  width: 30px;
-  height: 30px;
-  color: white;
-  font-weight: bold;
-  border: solid $red-color 2px;
-}
-
 nav ul li a, nav ul li a:visited {
   text-decoration: none;
   color: $primary-color;

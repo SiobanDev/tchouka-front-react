@@ -1,0 +1,15 @@
+#step2 {
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  display: flex;
+}
+
+.model-container {
+  width: 30%;
+}
+
+#step2 .staves-container {
+  width: 65%;
+}

@@ -1,16 +1,54 @@
-import React from "react";
+import React, { useContext, useEffect } from "react";
 //styles
 import "./Step1.style.scss";
 //components
-import DefaultNotesContainer from "./DefaultNotesContainer";
+import AvailableNotesContainer from "./AvailableNotesContainer";
 import StaveContainer from "../stave/StaveContainer";
+import PartitionContext from "../../context/PartitionContext";
+import NextStep from "../main/NextStep";
+import StepContext from "../../context/StepContext";
+import { step2Url } from "../../config/urlConstants";
+import { handleClickToAnotherPage } from "../../utils/utils";
 
 const Step1 = () => {
+  const partitionContext = useContext(PartitionContext);
+  const partition = partitionContext.partition;
+  const stepContext = useContext(StepContext);
+
+  const handleBackspace = () => {
+    console.log("partition before : " + partition);
+    if (partition.length > 0) {
+      partition.pop();
+      partitionContext.setPartition(partition);
+      console.log("partition after: " +JSON.stringify(partition));
+    }
+  };
+
+  const handleReset = () => {
+    partitionContext.setPartition([]);
+  };
+
+  const handleClick = () => {
+      stepContext.setEndedStep(1);
+      handleClickToAnotherPage();
+  };
+
   return (
     <section id="step1">
-      <p className="instruction"><span className="round-icon">1</span>J'écris ma parition rythmique en cliquant sur les notes.</p>
-      <DefaultNotesContainer />
-      <StaveContainer partition={[]} />
+      <p className="instruction">
+        <span className="round-icon">1</span>J'écris ma partition rythmique en
+        cliquant sur les notes.
+      </p>
+
+      <AvailableNotesContainer />
+      <i
+        className="fas fa-backspace instruction-button"
+        onClick={handleBackspace}
+      ></i>
+      <i className="fas fa-trash instruction-button" onClick={handleReset}></i>
+      <StaveContainer />
+
+      <NextStep handleClick={handleClick} nextPageUrl={step2Url} />
     </section>
   );
 };

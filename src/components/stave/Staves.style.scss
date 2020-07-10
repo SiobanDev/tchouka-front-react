@@ -12,12 +12,13 @@ $blue-color: #2ca4a0ff;
 }
 
 .stave {
-  height: 25%;
+  height: 80px;
   width: 100%;
   position: relative;
   background: $red-color;
-  margin: 50px 0;
+  margin-bottom: 40px;
   display: flex;
+  padding: 0 10px;
 }
 
 .added-note{

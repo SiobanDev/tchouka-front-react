@@ -1,6 +1,6 @@
 import React from "react";
 
-export default function NotesToChoose({ imageSource, onClick }) {
+export default function AvailableNote({ imageSource, onClick }) {
   return (
     <div onClick={onClick}>
       <img

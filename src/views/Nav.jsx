@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import "./NavStyle.scss";
 import StepContext from "../context/StepContext";
 import {updateNavIconStyle} from "./Nav.service";
+import { handleClickToAnotherPage } from "../utils/utils";
 
 const Nav = () => {
   const stepContext = useContext(StepContext);
@@ -12,20 +13,6 @@ const Nav = () => {
   useEffect(() => {
     updateNavIconStyle(LinkList, navIconsList)
   }, [LinkList, navIconsList]);
-
-  const handleClick = (event, nextStepsList) =>{
-    if(LinkList){
-      console.log("Linklist: " + LinkList);
-
-      Array.from(LinkList).map(link => link.classList.remove("active"));
-    }
-    if(event){
-      event.target.classList.add("active");
-    }
-    if(nextStepsList){
-      nextStepsList.includes(stepContext.endedStep)
-    }
-  }
 
   return (
     <nav role="navigation">
@@ -61,7 +48,7 @@ const Nav = () => {
           <Link
             className="navbar-link"
             to="/"
-            onClick={(event)=>handleClick(event)}
+            onClick={()=>handleClickToAnotherPage(stepContext)}
           >
             ACCUEIL
           </Link>
@@ -71,7 +58,7 @@ const Nav = () => {
           <Link
             className="navbar-link"
             to="/rythme"
-            onClick={(event)=>handleClick(event, [0, 1, 2, 3])}
+            onClick={()=>handleClickToAnotherPage(stepContext)}
            
           >
             RYTHME
@@ -82,7 +69,7 @@ const Nav = () => {
           <Link
             className="navbar-link"
             to="/percussions"
-            onClick={(event)=>handleClick(event, [1, 2, 3])}
+            onClick={()=>handleClickToAnotherPage(stepContext)}
             
           >
             PERCUSSIONS
@@ -92,7 +79,7 @@ const Nav = () => {
           <Link
             className="navbar-link"
             to="/apprentissage"
-            onClick={(event)=>handleClick(event, [1, 2, 3])}
+            onClick={()=>handleClickToAnotherPage(stepContext)}
           >
             APPRENTISSAGE
           </Link>

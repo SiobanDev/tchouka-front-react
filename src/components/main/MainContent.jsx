@@ -22,7 +22,7 @@ const MainContent = () => {
   return (
     <Router>
       <Header />
-      <StepContext.Provider value={endedStep}>
+      <StepContext.Provider value={{endedStep, setEndedStep}}>
         <PartitionContext.Provider
           value={{
             partition,

@@ -42,6 +42,10 @@ $blue-color: #2ca4a0ff;
 
 }
 
+*{
+  box-sizing: border-box;
+}
+
 body {
   margin: 0;
   font-family: "courier_10_pitchregular", 'Courier New', Courier, 'Helvetica Neue',
@@ -64,14 +68,41 @@ main{
   flex-direction: column;
 }
 
+main > section {
+  margin-bottom: 40px;
+}
+
+.round-icon {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50%;
+  background-color: $red-color;
+  width: 30px;
+  height: 30px;
+  color: white;
+  font-weight: bold;
+  border: solid $red-color 2px;
+  min-width: 30px;
+}
+
 .instruction{
   display: flex;
   line-height: 30px;
   justify-content: center;
+  text-align: left;
 }
 
 .instruction .round-icon{
   background-color: $orange-color;
   border: none;
   margin-right: 10px;
+}
+
+.instruction-button{
+  color: $orange-color;
+  font-size: 130%;
+  margin: 10px;
+  cursor: pointer;
+  margin: 5% 10px;
 }

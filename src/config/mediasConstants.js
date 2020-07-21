@@ -6,48 +6,80 @@ export const oneBeatDuration = 1000;
 export const TwoBeatsDuration = 2000;
 export const FourBeatsDuration = 4000;
 
+const audioPath = "/media/audio/";
 const imagePath = "/media/images/";
 const movementPath = "/media/images/movements/";
+const notePath = "/media/images/notes/";
 
-export const colouredStave = imagePath + "coloured-stave.svg";
-// export const quarterBeatImage = imagePath + "quarter-beat.svg";
-// export const halfBeatImage = imagePath + "half-beat.svg";
-// export const oneBeatImage = imagePath + "one-beat.svg";
-// export const TwoBeatsImage = imagePath + "two-beats.svg";
-// export const FourBeatsImage = imagePath + "four-beats.svg";
+export const redStave = imagePath + "red-stave.svg";
+export const blueStave = imagePath + "blue-stave.svg";
+// export const quarterBeatImage = notePath + "quarter-beat.svg";
+// export const halfBeatImage = notePath + "half-beat.svg";
+// export const oneBeatImage = notePath + "one-beat.svg";
+// export const TwoBeatsImage = notePath + "two-beats.svg";
+// export const FourBeatsImage = notePath + "four-beats.svg";
 
-export const jpNeutre = movementPath + "position-neutre.svg"
-// export const biImages = [imagePath + "bi-rd.svg"];
-// export const bouImages = [imagePath + "bou-rd.svg"];
-// export const claImages = [imagePath + "cla-rd.svg"];
-// export const diImages = [imagePath + "di-rd.svg"];
-// export const douImages = [imagePath + "dou-rd.svg"];
-// export const piImages = [
-//   imagePath + "pi-debut-rd.svg",
-//   imagePath + "pi-fin-rd.svg",
-// ];
-// export const pouImages = [
-//   imagePath + "pou-debut-rd.svg",
-//   imagePath + "pou-fin-rd.svg",
-// ];
-// export const tchiImages = [
-//   imagePath + "tchi-debut-rd.svg",
-//   imagePath + "tchi-fin-rd.svg",
-// ];
-// export const tchouImages = [
-//   imagePath + "tchou-debut-rd.svg",
-//   imagePath + "tchou-fin-rd.svg",
-// ];
+export const bodyPartList = [
+  "tchou",
+  "tchi",
+  "cla",
+  "bou",
+  "bi",
+  "dou",
+  "di",
+  "pou",
+  "pi",
+];
 
-const audioPath = "/media/audio/";
-export const biSound = audioPath + "bi.mp3";
-export const bouSound = audioPath + "bou.mp3";
-export const claSound = audioPath + "cla.mp3";
-export const diSound = audioPath + "di.mp3";
-export const douSound = audioPath + "dou.mp3";
-export const piSound = audioPath + "pi.mp3";
-export const pouSound = audioPath + "pou.mp3";
-export const tchiSound = audioPath + "tchi.mp3";
-export const tchouSound = audioPath + "tchou.mp3";
+export const jpNeutre = movementPath + "position-neutre.svg";
+export const jpNeutreTransp = movementPath + "position-neutre-transp.svg";
+const biImages = [movementPath + "bi-rd.svg"];
+const bouImages = [movementPath + "bou-rd.svg"];
+const claImages = [movementPath + "cla-rd.svg"];
+const diImages = [movementPath + "di-rd.svg"];
+const douImages = [movementPath + "dou-rd.svg"];
+const piImages = [
+  movementPath + "pi-debut-rd.svg",
+  movementPath + "pi-fin-rd.svg",
+];
+const pouImages = [
+  movementPath + "pou-debut-rd.svg",
+  movementPath + "pou-fin-rd.svg",
+];
+const tchiImages = [
+  movementPath + "tchi-debut-rd.svg",
+  movementPath + "tchi-fin-rd.svg",
+];
+const tchouImages = [
+  movementPath + "tchou-debut-rd.svg",
+  movementPath + "tchou-fin-rd.svg",
+];
+export const movementList = {bi: biImages,
+  bou: bouImages,
+  cla: claImages,
+  di: diImages,
+  dou: douImages,
+  pi: piImages,
+  pou: pouImages,
+  tchi: tchiImages,
+  tchou: tchouImages,};
 
+const biSound = audioPath + "bi.mp3";
+const bouSound = audioPath + "bou.mp3";
+const claSound = audioPath + "cla.mp3";
+const diSound = audioPath + "di.mp3";
+const douSound = audioPath + "dou.mp3";
+const piSound = audioPath + "pi.mp3";
+const pouSound = audioPath + "pou.mp3";
+const tchiSound = audioPath + "tchi.mp3";
+const tchouSound = audioPath + "tchou.mp3";
 
+export const soundList = {bi: biSound,
+  bou: bouSound,
+  cla: claSound,
+  di: diSound,
+  dou: douSound,
+  pi: piSound,
+  pou: pouSound,
+  tchi: tchiSound,
+  tchi: tchouSound,};

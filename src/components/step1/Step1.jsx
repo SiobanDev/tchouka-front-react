@@ -3,7 +3,7 @@ import React, { useContext, useEffect } from "react";
 import "./Step1.style.scss";
 //components
 import AvailableNotesContainer from "./AvailableNotesContainer";
-import StaveContainer from "../stave/StaveContainer";
+import StaveContainerStep1 from "./StaveContainerStep1";
 import PartitionContext from "../../context/PartitionContext";
 import NextStep from "../main/NextStep";
 import StepContext from "../../context/StepContext";
@@ -30,7 +30,7 @@ const Step1 = () => {
 
   const handleClick = () => {
       stepContext.setEndedStep(1);
-      handleClickToAnotherPage();
+      handleClickToAnotherPage(stepContext, 2);
   };
 
   return (
@@ -46,7 +46,7 @@ const Step1 = () => {
         onClick={handleBackspace}
       ></i>
       <i className="fas fa-trash instruction-button" onClick={handleReset}></i>
-      <StaveContainer />
+      <StaveContainerStep1 />
 
       <NextStep handleClick={handleClick} nextPageUrl={step2Url} />
     </section>

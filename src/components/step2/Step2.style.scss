@@ -1,15 +1,48 @@
+$primary-color: #1b1b1dff;
+$red-color: #ff4436ff;
+$orange-color: #ff9036ff;
+$blue-color: #2ca4a0ff;
+
 #step2 {
   flex-direction: row;
   flex-wrap: wrap;
   justify-content: space-between;
-  align-items: center;
+  align-items: flex-start;
   display: flex;
 }
 
-.model-container {
-  width: 30%;
+#step2 .column1 {
+  width: 35%;
+}
+
+#step2 .column2 {
+  width: 55%;
 }
 
 #step2 .staves-container {
-  width: 65%;
+  justify-content: space-between;
 }
+
+#step2 .staves-container .stave {
+  background: $blue-color;
+  min-height: 50px;
+  margin-bottom: 8%;
+}
+
+#step2 .word-stave{
+  width: 100%;
+  display: flex;
+  padding: 0 10px;
+  min-height: 30px;
+}
+
+#step2 .added-note, .word-stave .word-container{
+  width: 10%;
+}
+
+#step2 .word-stave .word-container{
+  color: $red-color;
+  font-weight: bold;
+  font-size: 120%;
+}
+

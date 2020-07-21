@@ -4,15 +4,15 @@ import { Link } from "react-router-dom";
 import "./NextStep.style.scss";
 
 export default function NextStep({ handleClick, nextPageUrl }) {
+  
   return (
     <div id="next-step">
-      <Link to={nextPageUrl}>
+      <Link to={nextPageUrl} onClick={handleClick}>
         <i
           className="fas fa-arrow-circle-right round-icon"
-          onClick={handleClick}
         ></i>
       </Link>
-      <Link to={nextPageUrl}>Étape suivante</Link>
+      <Link to={nextPageUrl} onClick={handleClick}>Étape suivante</Link>
     </div>
   );
 }

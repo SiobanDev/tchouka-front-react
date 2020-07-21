@@ -1,13 +1,13 @@
 import React, { useContext, useEffect } from "react";
 //styles
-import "./Staves.style.scss";
+import "../stave/Staves.style.scss";
 //components
-import Stave from "./Stave";
+import StaveStep1 from "./StaveStep1";
 //context
 import PartitionContext from "../../context/PartitionContext";
-import { colouredStave } from "../../config/mediasConstants";
+import { redStave } from "../../config/mediasConstants";
 
-const StaveContainer = () => {
+const StaveContainerStep1 = () => {
   const partitionContext = useContext(PartitionContext);
   const partition = partitionContext.partition;
   let firstStaveNotes = [];
@@ -26,18 +26,18 @@ const StaveContainer = () => {
   if (partition.length > 0) {
     return (
       <div className="staves-container">
-        <Stave id="1" partitionNotes={firstStaveNotes} />
-        <Stave id="2" partitionNotes={secondStaveNotes} />
+        <StaveStep1 id="1" partitionNotes={firstStaveNotes} />
+        <StaveStep1 id="2" partitionNotes={secondStaveNotes} />
       </div>
     );
   }
 
   return (
     <div className="staves-container">
-      <img className="stave" src={colouredStave} alt="coloured-stave" />
-      <img className="stave" src={colouredStave} alt="coloured-stave" />
+      <img className="stave" src={redStave} alt="coloured-stave" />
+      <img className="stave" src={redStave} alt="coloured-stave" />
     </div>
   );
 };
 
-export default StaveContainer;
+export default StaveContainerStep1;

@@ -1,14 +1,77 @@
+$primary-color: #1b1b1dff;
+$red-color: #ff4436ff;
+$orange-color: #ff9036ff;
+$blue-color: #2ca4a0ff;
 
-.model{
-  width: 100%;
-  max-height: 500px;
+.model-container {
+  position: relative;
 }
 
-.body-part{
+.model {
+  width: 100%;
+  height: auto;
+}
+
+.model-transp {
   position: absolute;
 }
 
-#body-part-tchou{
-  left: 20%;
-  top: 25%;
+.body-part {
+  position: absolute;
+  border-radius: 50%;
+  width: 15%;
+  cursor: pointer;
+  border: 4px solid $red-color;
+  padding-bottom: calc(15% - 8px);
+}
+
+#body-part-tchou {
+  left: 6%;
+  top: 10%;
+}
+
+#body-part-tchi {
+  right: 6%;
+  top: 10%;
+}
+
+#body-part-cla {
+  left: 42.5%;
+  top: 20%;
+}
+
+#body-part-bou {
+  left: 35%;
+  top: 10%;
+}
+
+#body-part-bi {
+  right: 35%;
+  top: 10%;
+}
+
+#body-part-dou {
+  left: 31%;
+  top: 50%;
+}
+
+#body-part-di {
+  right: 31%;
+  top: 50%;
+}
+
+#body-part-pou {
+  left: 25%;
+  top: 90%;
+}
+
+#body-part-pi {
+  right: 25%;
+  top: 90%;
+}
+
+.body-part:hover {
+  background: $orange-color;
+  padding-bottom: 15%;
+  border: none;
 }

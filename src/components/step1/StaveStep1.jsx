@@ -1,10 +1,11 @@
 import React from "react";
 //styles
-import "./Staves.style.scss";
-import AddedNote from "./AddedNote";
+import "../stave/Staves.style.scss";
+import AddedNote from "../stave/AddedNote";
 
-const Stave = ({ id, partitionNotes }) => {
+const StaveStep1 = ({ id, partitionNotes }) => {
   // console.log("notes dans Stave " + JSON.stringify(partitionNotes));
+  if(partitionNotes){
     return (
       <div id={`stave-${id}`} className="stave">
         {partitionNotes.map((note, i) => {
@@ -13,6 +14,9 @@ const Stave = ({ id, partitionNotes }) => {
         })}
       </div>
     );
+  }
+  return null;
 };
 
-export default Stave;
+
+export default StaveStep1;

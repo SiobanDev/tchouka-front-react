@@ -1,9 +1,9 @@
 import React, { useContext, useEffect } from "react";
 import { Link } from "react-router-dom";
 import "./NavStyle.scss";
-import StepContext from "../context/StepContext";
-import {updateNavIconStyle} from "./Nav.service";
+import { updateNavIconStyle } from "./Nav.service";
 import { handleClickToAnotherPage } from "../utils/utils";
+import StepContext from "../context/StepContext";
 
 const Nav = () => {
   const stepContext = useContext(StepContext);
@@ -11,8 +11,8 @@ const Nav = () => {
   const navIconsList = document.getElementsByClassName("menu-icon");
 
   useEffect(() => {
-    updateNavIconStyle(LinkList, navIconsList)
-  }, [LinkList, navIconsList]);
+    updateNavIconStyle(LinkList, navIconsList);
+  }, [LinkList, navIconsList, stepContext]);
 
   return (
     <nav role="navigation">
@@ -48,7 +48,9 @@ const Nav = () => {
           <Link
             className="navbar-link"
             to="/"
-            onClick={()=>handleClickToAnotherPage(stepContext)}
+            onClick={() => {
+              handleClickToAnotherPage(stepContext, 0);
+            }}
           >
             ACCUEIL
           </Link>
@@ -58,8 +60,9 @@ const Nav = () => {
           <Link
             className="navbar-link"
             to="/rythme"
-            onClick={()=>handleClickToAnotherPage(stepContext)}
-           
+            onClick={() => {
+              handleClickToAnotherPage(stepContext, 1);
+            }}
           >
             RYTHME
           </Link>
@@ -69,8 +72,9 @@ const Nav = () => {
           <Link
             className="navbar-link"
             to="/percussions"
-            onClick={()=>handleClickToAnotherPage(stepContext)}
-            
+            onClick={() => {
+              handleClickToAnotherPage(stepContext, 2);
+            }}
           >
             PERCUSSIONS
           </Link>
@@ -79,7 +83,9 @@ const Nav = () => {
           <Link
             className="navbar-link"
             to="/apprentissage"
-            onClick={()=>handleClickToAnotherPage(stepContext)}
+            onClick={() => {
+              handleClickToAnotherPage(stepContext, 3);
+            }}
           >
             APPRENTISSAGE
           </Link>

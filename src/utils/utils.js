@@ -35,7 +35,7 @@ export const getDefaultNotes = async () => {
   }
 };
 
-export const handleClickToAnotherPage = (stepContext) => {
+export const handleClickToAnotherPage = (stepContext, nextStep) => {
   const LinkList = document.getElementsByClassName("navbar-link");
   var nextStepsList = [];
 
@@ -43,11 +43,12 @@ export const handleClickToAnotherPage = (stepContext) => {
     Array.from(LinkList).map((link) => link.classList.remove("active"));
 
     if (nextStepsList && stepContext) {
+      stepContext.setEndedStep(nextStep);
       console.log("stepContext.endedStep: " + stepContext.endedStep);
 
-      LinkList[stepContext.endedStep].classList.add("active");
+      LinkList[nextStep].classList.add("active");
 
-      for (var i = 0; i <= stepContext.endedStep; i++) {
+      for (var i = 0; i <= nextStep; i++) {
         nextStepsList.includes(i);
         console.log("nextStepsList : " + nextStepsList);
       }

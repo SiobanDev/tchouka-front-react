@@ -1,6 +1,6 @@
 import React from "react";
 
-export default function AvailableNote({ imageSource, onClick }) {
+const AvailableNote = ({ imageSource, onClick }) => {
   return (
     <div onClick={onClick}>
       <img
@@ -11,3 +11,5 @@ export default function AvailableNote({ imageSource, onClick }) {
     </div>
   );
 }
+
+export default AvailableNote;

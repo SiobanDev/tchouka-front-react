@@ -35,7 +35,6 @@ const StaveContainerStep1 = () => {
   return (
     <div className="staves-container">
       <img className="stave" src={redStave} alt="coloured-stave" />
-      <img className="stave" src={redStave} alt="coloured-stave" />
     </div>
   );
 };

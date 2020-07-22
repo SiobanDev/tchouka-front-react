@@ -4,13 +4,13 @@ import "./Step2.style.scss";
 //components
 import Partition from "./Partition";
 import ModelJP from "./ModelJP";
-import NextStep from "../main/NextStep";
 import StepContext from "../../context/StepContext";
-import { step3Url } from "../../config/urlConstants";
+import { step3Url, step1Url } from "../../config/urlConstants";
 import { handleClickToAnotherPage } from "../../utils/utils";
 import CompositionContext from "../../context/CompositionContext";
+import StepButtons from "../main/StepButtons";
 
-export default function Step2() {
+const Step2 = () => {
   const stepContext = useContext(StepContext);
   const compositionContext = useContext(CompositionContext);
   const composition = compositionContext.partition;
@@ -28,9 +28,14 @@ export default function Step2() {
     composition.setPartition([]);
   };
 
-  const handleClick = () => {
+  const goToPreviousStep = () => {
+    stepContext.setEndedStep(1);
+    handleClickToAnotherPage(stepContext, 1);
+  };
+
+  const goToNextStep = () => {
     stepContext.setEndedStep(2);
-    handleClickToAnotherPage();
+    handleClickToAnotherPage(stepContext, 3);
   };
 
   return (
@@ -57,7 +62,14 @@ export default function Step2() {
       </div>
 
       {/* TO DO :  send the compo to BDD*/}
-      <NextStep handleClick={handleClick} nextPageUrl={step3Url} />
+      <StepButtons
+        goToPreviousStep={goToPreviousStep}
+        goToNextStep={goToNextStep}
+        previousStepUrl={step1Url}
+        nextStepUrl={step3Url}
+      />
     </section>
   );
-}
+};
+
+export default Step2;

@@ -1,9 +1,7 @@
-import React, { useContext } from "react";
+import React from "react";
 //styles
 import "../stave/Staves.style.scss";
 import AddedNote from "../stave/AddedNote";
-import CompositionContext from "../../context/CompositionContext";
-import { useEffect } from "react";
 import SingingWordsStave from "./SingingWordsStave";
 
 const StaveStep2 = ({ notesList, id }) => {

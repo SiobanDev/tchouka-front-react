@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState } from "react";
 //services
-import { getDefaultNotes } from "../../utils/utils";
+import { apiFetchDefaultNotes } from "../../services/apiServices";
 //context
 import PartitionContext from "../../context/PartitionContext";
 import AvailableNote from "./AvailableNote";
@@ -23,10 +23,14 @@ export const AvailableNotesContainer = () => {
     "1/2 temps",
     "1/4 temps",
   ];
+  
   const getNotes = React.useCallback(async () => {
     try {
-      const notes = await getDefaultNotes();
-      setAvailableNotes(notes.reverse());
+      const formattedApiResponse = await apiFetchDefaultNotes();
+      if (formattedApiResponse) {
+        setAvailableNotes(formattedApiResponse.data.reverse());
+      }
+      console.log(formattedApiResponse.message);
     } catch (e) {
       console.log("Error in getNotes in AvailableNotesContainer : " + e);
     }

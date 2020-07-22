@@ -3,15 +3,20 @@ $red-color: #ff4436ff;
 $orange-color: #ff9036ff;
 $blue-color: #2ca4a0ff;
 
-#next-step {
+#step-buttons-container {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+}
+
+.joint-step {
   display: flex;
   flex-direction: column;
   align-items: center;
-  width: 100%;
   margin-top: 5%;
 }
 
-#next-step a {
+.joint-step a {
   text-decoration: none;
   text-align: center;
   display: flex;
@@ -21,13 +26,21 @@ $blue-color: #2ca4a0ff;
   margin-bottom: 10px;
 }
 
-#next-step a:hover {
+.joint-step a:hover {
   font-weight: bold;
 }
 
-#next-step .round-icon {
+.joint-step .round-icon {
   background: none;
   color: $primary-color;
   border: none;
   font-size: 30px;
+}
+
+#previous-step {
+  margin-right: 5%;
+}
+
+#next-step {
+  margin-left: 5%;
 }

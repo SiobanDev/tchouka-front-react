@@ -2,7 +2,6 @@ import React, { useContext } from "react";
 //styles
 import "../stave/Staves.style.scss";
 import CompositionContext from "../../context/CompositionContext";
-import { useEffect } from "react";
 
 const SingingWordsStave = () => {
   // console.log("notes dans Stave " + JSON.stringify(partitionNotes));

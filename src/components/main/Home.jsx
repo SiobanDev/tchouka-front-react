@@ -4,6 +4,8 @@ import "./Home.scss";
 
 class Home extends Component {
   render() {
+    localStorage.clear();
+
     return (
       <>
         <h3>HELLO !</h3>

@@ -1,0 +1,19 @@
+import React from "react";
+import { Link } from "react-router-dom";
+//styles
+import "./StepButtons.style.scss";
+
+const NextStepButton = ({ handleClick, nextPageUrl }) => {
+  return (
+    <div id="next-step" className="joint-step">
+      <Link to={nextPageUrl} onClick={handleClick}>
+        <i className="fas fa-arrow-circle-right round-icon"></i>
+      </Link>
+      <Link to={nextPageUrl} onClick={handleClick}>
+        Étape suivante
+      </Link>
+    </div>
+  );
+};
+
+export default NextStepButton;

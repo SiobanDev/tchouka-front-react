@@ -15,10 +15,15 @@ const Partition = () => {
   let staveNumber = Math.trunc(partition.length / chunkSize);
   // console.log("staveNumber : " + staveNumber);
   let staveStep2List = [];
+  let partitionToSplit = [];
+  
+  if (localStorage.getItem("partition")) {
+    partitionToSplit = JSON.parse(localStorage.getItem("partition"));
+  } else {
+    partitionToSplit = [...partition];
+  }
 
   for (let i = 0; i <= staveNumber; i++) {
-    const partitionToSplit = [...partition];
-
     staveStep2List.push(
       <StaveStep2
         id={i}

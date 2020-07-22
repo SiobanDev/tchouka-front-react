@@ -1,3 +1,5 @@
-export default function Step3() {
+const Step3 = () => {
     return null;
 }
+
+export default Step3;

@@ -9,6 +9,8 @@ import Header from "../../views/Header";
 import PartitionContext from "../../context/PartitionContext";
 import StepContext from "../../context/StepContext";
 import CompositionContext from "../../context/CompositionContext";
+import { useEffect } from "react";
+import { updateCurrentStep } from "./MainContent.service";
 
 const MainContent = () => {
   var freeTime = 42;
@@ -20,8 +22,12 @@ const MainContent = () => {
 
   // console.log("partition dans MainContent " + JSON.stringify(partition));
   // console.log("allNotesWidth dans MainContent" + allNotesWidth);
-    console.log("composition dans MainContent " + JSON.stringify(composition));
+  console.log("composition dans MainContent " + JSON.stringify(composition));
 
+  useEffect(() => {
+    updateCurrentStep(setEndedStep);
+    console.log("endedStep in MainContent: " + endedStep);
+  }, []);
 
   return (
     <Router>

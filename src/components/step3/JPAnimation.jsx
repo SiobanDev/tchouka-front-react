@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useContext } from "react";
 //components
 //data
 //styles
@@ -6,37 +6,43 @@ import "./Step3.style.scss";
 //libraries
 import { motion } from "framer-motion";
 import { useState } from "react";
+import CompositionContext from "../../context/CompositionContext";
 
-const JPAnimation = ({ notes, timeCode, startAnimation }) => {
+const JPAnimation = ({ timeCode, startAnimation }) => {
+  const compositionContext = useContext(CompositionContext);
+  const composition = compositionContext.composition;
   const [noteIndex, setNoteIndex] = useState(0);
   const [movementIndex, setMovementIndex] = useState(0);
   let timer = null;
 
   if (startAnimation) {
-    if (notes[noteIndex].movement.length > 1 && movementIndex < notes[noteIndex].movement.length) {
+    if (
+      composition[noteIndex].movementList.length > 1 &&
+      movementIndex < composition[noteIndex].movementList.length
+    ) {
       timer = setTimeout(() => {
-        if (noteIndex < notes.length) {
+        if (noteIndex < composition.length) {
           setNoteIndex(noteIndex);
         }
-      }, (notes[noteIndex].duration * 1000) / 2);
+      }, (composition[noteIndex].duration * 1000) / 2);
 
       clearTimeout(timer);
 
       setMovementIndex(movementIndex + 1);
 
       timer = setTimeout(() => {
-        if (noteIndex < notes.length) {
+        if (noteIndex < composition.length) {
           setNoteIndex(noteIndex);
         }
-      }, (notes[noteIndex].duration * 1000) / 2);
+      }, (composition[noteIndex].duration * 1000) / 2);
 
       clearTimeout(timer);
     } else {
       timer = setTimeout(() => {
-        if (noteIndex < notes.length) {
-          setNoteIndex(noteIndex++);
+        if (noteIndex < composition.length) {
+          setNoteIndex(noteIndex + 1);
         }
-      }, notes[noteIndex].duration * 1000);
+      }, composition[noteIndex].duration * 1000);
       clearTimeout(timer);
     }
   }
@@ -71,13 +77,13 @@ const JPAnimation = ({ notes, timeCode, startAnimation }) => {
   //   for (let y = 0; y < notes[i].movement.length; y++) {
   console.log("timeCode in JPAnimation: " + timeCode);
 
-  if (timeCode === getDurationOfAllPreviousNotes(notes, noteIndex)) {
+  if (timeCode === getDurationOfAllPreviousNotes(composition, noteIndex)) {
     return (
       <motion.img
         id={`image-jp-${noteIndex}-${movementIndex}`}
         className="movement-image"
         key={`key-${noteIndex}-${movementIndex}`}
-        src={notes[noteIndex].movement[movementIndex]}
+        src={composition[noteIndex].movementList[movementIndex]}
         initial={{ opacity: 1, position: "absolute" }}
         exit={{ opacity: 0 }}
         transition={{
@@ -95,11 +101,11 @@ const JPAnimation = ({ notes, timeCode, startAnimation }) => {
     <img
       className="movement-image"
       src={
-        notes[notes.length - 1].movement[
-          notes[notes.length - 1].movement.length - 1
+        composition[composition.length - 1].movementList[
+          composition[composition.length - 1].movementList.length - 1
         ]
       }
-      alt="last-image-of-jp"
+      alt="last-movement-of-jp"
     />
   );
 

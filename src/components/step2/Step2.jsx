@@ -5,6 +5,7 @@ import "./Step2.style.scss";
 import Partition from "./Partition";
 import ModelJP from "./ModelJP";
 import StepContext from "../../context/StepContext";
+import PartitionContext from "../../context/PartitionContext";
 import { step3Url, step1Url } from "../../config/urlConstants";
 import CompositionContext from "../../context/CompositionContext";
 import StepButtons from "../main/StepButtons";
@@ -13,6 +14,8 @@ import { useEffect } from "react";
 import { updateCurrentStepDependingOnUrl } from "../main/MainContent.service";
 
 const Step2 = () => {
+  const partitionContext = useContext(PartitionContext);
+  const partition = partitionContext.partition;
   const { setCurrentStep } = useContext(StepContext);
   const compositionContext = useContext(CompositionContext);
   const composition = compositionContext.composition;
@@ -20,7 +23,9 @@ const Step2 = () => {
   useEffect(() => {
     console.log("useEffect dans Step2");
     setCurrentStep(2);
-  }, [setCurrentStep]);
+    console.log("composition dans Step2 : " + JSON.stringify(composition));
+
+  }, [composition, setCurrentStep]);
 
   // console.log("endedStep in Step2: " + stepContext.endedStep);
 
@@ -49,6 +54,9 @@ const Step2 = () => {
   const goToNextStep = () => {
     // updateNavIconStyle(2);
     // stepContext.setCurrentStep(3);
+    if(partition.length !== composition.length){
+      //TO DO : don't allow step3 if there isn't both joined singing word and sound for each note. 
+    }
   };
 
   return (

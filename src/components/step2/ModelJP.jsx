@@ -38,13 +38,13 @@ const ModelJP = () => {
       const newCompositionItem = {
         id: partition[clickNumber].id,
         duration: partition[clickNumber].duration,
-        movementList: movementList[`${name}Images`],
+        movementList: movementList[name],
         singingWord: name,
-        sound: soundList[`${name}Sound`],
+        sound: soundList[name],
       };
 
       compositionContext.setComposition(composition => [...composition, newCompositionItem])
-      // console.log("composition in BodyPart :" + JSON.stringify(composition));
+      console.log("composition in BodyPart :" + JSON.stringify(compositionContext.composition));
     }
   };
 

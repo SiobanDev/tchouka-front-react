@@ -3,7 +3,7 @@ $red-color: #ff4436ff;
 $orange-color: #ff9036ff;
 $blue-color: #2ca4a0ff;
 
-header{
+header {
   margin-bottom: 0px;
 }
 
@@ -14,15 +14,15 @@ nav ul {
   padding-inline-start: 0;
 }
 
-nav .up-menu {
+nav #icon-menu {
   margin-bottom: 8px;
 }
 
-nav .down-menu {
+nav #link-menu {
   justify-content: space-between;
 }
 
-nav .up-menu li {
+nav #icon-menu li {
   list-style: none;
   display: flex;
   align-items: center;
@@ -37,7 +37,7 @@ nav .up-menu li {
   margin-right: calc((25% - 30px) / 2);
 }
 
-nav .down-menu li {
+nav #link-menu li {
   list-style: none;
   display: flex;
   flex-direction: column;
@@ -50,11 +50,14 @@ li hr {
   width: 90%;
 }
 
-nav ul li a, nav ul li a:visited {
+nav ul li a,
+nav ul li a:visited {
   text-decoration: none;
   color: $primary-color;
 }
 
-nav ul li a.active {
-  color: $blue-color;
+nav ul li span.active {
+  color: #ff4436;
+  background-color: white;
+  border: solid 2px #ff4436;
 }

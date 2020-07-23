@@ -10,7 +10,7 @@ import PartitionContext from "../../context/PartitionContext";
 import StepContext from "../../context/StepContext";
 import CompositionContext from "../../context/CompositionContext";
 import { useEffect } from "react";
-import { updateCurrentStep } from "./MainContent.service";
+import { updateCurrentStepDependingOnUrl } from "./MainContent.service";
 
 const MainContent = () => {
   var freeTime = 42;
@@ -18,20 +18,17 @@ const MainContent = () => {
   const [allNotesWidth, setAllNotesWidth] = useState(0);
   const [partition, setPartition] = useState([]);
   const [composition, setComposition] = useState([]);
-  const [endedStep, setEndedStep] = useState(0);
+  const [currentStep, setCurrentStep] = useState(0);
 
   // console.log("partition dans MainContent " + JSON.stringify(partition));
   // console.log("allNotesWidth dans MainContent" + allNotesWidth);
-  console.log("composition dans MainContent " + JSON.stringify(composition));
-
-  useEffect(() => {
-    updateCurrentStep(setEndedStep);
-    console.log("endedStep in MainContent: " + endedStep);
-  }, []);
+  // console.log("composition dans MainContent " + JSON.stringify(composition));
 
   return (
     <Router>
-      <StepContext.Provider value={{ endedStep, setEndedStep }}>
+      <StepContext.Provider
+        value={{ currentStep, setCurrentStep }}
+      >
         <Header />
         <PartitionContext.Provider
           value={{

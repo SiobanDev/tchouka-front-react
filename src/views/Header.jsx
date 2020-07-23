@@ -1,7 +1,8 @@
 import React from "react";
-import Nav from "./Nav";
+import Nav from "../components/main/Nav";
 //styles
 import "./Header.style.scss";
+
 
 const Header = () => {
   return (

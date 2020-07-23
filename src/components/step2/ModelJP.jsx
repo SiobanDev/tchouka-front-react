@@ -3,14 +3,21 @@ import React, { useState } from "react";
 import {
   jpNeutre,
   jpNeutreTransp,
-  claImages,
-  bouImages,
-  douImages,
-  pouImages,
   soundList,
   movementList,
   bodyPartList,
 } from "../../config/mediasConstants";
+// import {
+//   jpNeutre,
+//   jpNeutreTransp,
+//   claImages,
+//   bouImages,
+//   douImages,
+//   pouImages,
+//   soundList,
+//   movementList,
+//   bodyPartList,
+// } from "../../config/mediasConstants";
 //styles
 import "./ModelJP.style.scss";
 import BodyPart from "./BodyPart";
@@ -22,7 +29,6 @@ const ModelJP = () => {
   const partitionContext = useContext(PartitionContext);
   const partition = partitionContext.partition;
   const compositionContext = useContext(CompositionContext);
-  const composition = compositionContext.composition;
   const [clickNumber, setClickNumber] = useState(0);
 
   const createComposition = (name) => {

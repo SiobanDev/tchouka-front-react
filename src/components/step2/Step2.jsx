@@ -6,36 +6,49 @@ import Partition from "./Partition";
 import ModelJP from "./ModelJP";
 import StepContext from "../../context/StepContext";
 import { step3Url, step1Url } from "../../config/urlConstants";
-import { handleClickToAnotherPage } from "../../utils/utils";
 import CompositionContext from "../../context/CompositionContext";
 import StepButtons from "../main/StepButtons";
+import { updateNavIconStyle } from "../main/Nav.service";
+import { useEffect } from "react";
+import { updateCurrentStepDependingOnUrl } from "../main/MainContent.service";
 
 const Step2 = () => {
-  const stepContext = useContext(StepContext);
+  const { setCurrentStep } = useContext(StepContext);
   const compositionContext = useContext(CompositionContext);
-  const composition = compositionContext.partition;
+  const composition = compositionContext.composition;
+
+  useEffect(() => {
+    console.log("useEffect dans Step2");
+    setCurrentStep(2);
+  }, [setCurrentStep]);
+
+  // console.log("endedStep in Step2: " + stepContext.endedStep);
 
   const handleBackspace = () => {
-    console.log("partition before : " + composition);
+    // console.log("partition before : " + composition);
     if (composition.length > 0) {
-      composition.pop();
-      composition.setPartition(composition);
-      console.log("partition after: " + JSON.stringify(composition));
+      compositionContext.setComposition(
+        composition.splice(0, composition.length - 1)
+      );
+
+      // composition.pop();
+      // composition.setPartition(composition);
+      // console.log("partition after: " + JSON.stringify(composition));
     }
   };
 
   const handleReset = () => {
-    composition.setPartition([]);
+    compositionContext.setComposition([]);
   };
 
   const goToPreviousStep = () => {
-    stepContext.setEndedStep(1);
-    handleClickToAnotherPage(stepContext, 1);
+    // updateNavIconStyle(1);
+    // stepContext.setCurrentStep(1);
   };
 
   const goToNextStep = () => {
-    stepContext.setEndedStep(2);
-    handleClickToAnotherPage(stepContext, 3);
+    // updateNavIconStyle(2);
+    // stepContext.setCurrentStep(3);
   };
 
   return (
@@ -63,6 +76,8 @@ const Step2 = () => {
 
       {/* TO DO :  send the compo to BDD*/}
       <StepButtons
+        IsNextButton={true}
+        IsPreviousButton={true}
         goToPreviousStep={goToPreviousStep}
         goToNextStep={goToNextStep}
         previousStepUrl={step1Url}

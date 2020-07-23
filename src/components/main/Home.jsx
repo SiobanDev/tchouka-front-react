@@ -1,23 +1,41 @@
-import React, { Component } from "react";
-import { Link } from "react-router-dom";
+import React, { useEffect, useContext } from "react";
 import "./Home.scss";
+import { updateNavIconStyle } from "./Nav.service";
+import NextStepButton from "./NextStepButton";
+import { step1Url } from "../../config/urlConstants";
+import StepContext from "../../context/StepContext";
+import { Link } from "react-router-dom";
+import StepButtons from "./StepButtons";
 
-class Home extends Component {
-  render() {
-    localStorage.clear();
+const Home = () => {
+  localStorage.clear();
+  const stepContext = useContext(StepContext);
 
-    return (
-      <>
-        <h3>HELLO !</h3>
-        <p>Welcome to our Body Percussion App created with love.</p>
-        <p>
-          Follow the steps to be able to create your own percussion tutorial.
-        </p>
-        <p>We hope you enjoy ! </p>
-        <Link to="/rythme">Start</Link>
-      </>
-    );
-  }
-}
+  useEffect(() => {
+    console.log("useEffect dans Home");
+    stepContext.setCurrentStep(0);
+  }, [stepContext]);
+
+  return (
+    <>
+      <h3>BONJOUR !</h3>
+      <p>
+        Bienvenue sur Tchouka où tu vas pouvoir créer ton propre tutoriel de
+        percussions corporelles.
+      </p>
+
+      <p>Amuse-toi bien ;) ! </p>
+      <StepButtons
+        IsNextButton={true}
+        IsPreviousButton={false}
+        isHomeButton={true}
+        goToPreviousStep={() => {}}
+        goToNextStep={() => {}}
+        previousStepUrl={""}
+        nextStepUrl={step1Url}
+      />
+    </>
+  );
+};
 
 export default Home;

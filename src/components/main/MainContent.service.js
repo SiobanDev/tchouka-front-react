@@ -5,25 +5,25 @@ import {
   homeUrl,
 } from "../../config/urlConstants";
 
-export const updateCurrentStep = (setStepContext) => {
-  console.log("window.location.pathname : " + window.location.pathname);
-  console.log("step1Url : " + step1Url);
+export const updateCurrentStepDependingOnUrl = (setCurrentStep) => {
+  // console.log("window.location.pathname : " + window.location.pathname);
+  // console.log("step1Url : " + step1Url);
 
   switch (window.location.pathname) {
     case homeUrl:
-      setStepContext(0);
+      setCurrentStep(0);
       break;
     case step1Url:
-      setStepContext(0);
+      setCurrentStep(1);
       break;
     case step2Url:
-      setStepContext(1);
+      setCurrentStep(2);
       break;
     case step3Url:
-      setStepContext(2);
+      setCurrentStep(3);
       break;
     default:
-      setStepContext(0);
+      setCurrentStep(0);
       break;
   }
 };

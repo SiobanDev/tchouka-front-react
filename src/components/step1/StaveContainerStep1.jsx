@@ -13,6 +13,8 @@ const StaveContainerStep1 = () => {
   let firstStaveNotes = [];
   let secondStaveNotes = [];
 
+  console.log("partition dans StaveContainerStep1 : " + partition);
+
   if (partition.length > 0) {
     firstStaveNotes = partition.slice(0, 20);
     secondStaveNotes = partition.slice(20, 39);

@@ -7,28 +7,32 @@ import StaveContainerStep1 from "./StaveContainerStep1";
 import PartitionContext from "../../context/PartitionContext";
 import StepContext from "../../context/StepContext";
 import { step2Url, homeUrl } from "../../config/urlConstants";
-import { handleClickToAnotherPage } from "../../utils/utils";
 import StepButtons from "../main/StepButtons";
 import { useEffect } from "react";
+import { updateNavIconStyle } from "../main/Nav.service";
 
 const Step1 = () => {
   const partitionContext = useContext(PartitionContext);
   const partition = partitionContext.partition;
-  const stepContext = useContext(StepContext);
+  const { setCurrentStep } = useContext(StepContext);
+
+  // console.log("endedStep in Step1: " + stepContext.endedStep);
 
   useEffect(() => {
+    console.log("useEffect dans Step1");
+    setCurrentStep(1);
+
     if (localStorage.getItem("partition")) {
       partitionContext.setPartition(
         JSON.parse(localStorage.getItem("partition"))
       );
     }
-  }, []);
+  }, [setCurrentStep, partitionContext]);
 
   const handleBackspace = () => {
     console.log("partition before : " + partition);
     if (partition.length > 0) {
-      partitionContext.setPartition(partition.pop());
-      console.log("partition after: " + JSON.stringify(partition));
+      partitionContext.setPartition(partition.splice(0, partition.length - 1));
     }
   };
 
@@ -38,14 +42,14 @@ const Step1 = () => {
   };
 
   const goToPreviousStep = () => {
-    stepContext.setEndedStep(0);
-    handleClickToAnotherPage(stepContext, 1);
+    // updateNavIconStyle(0);
+    // stepContext.setCurrentStep(0);
     localStorage.removeItem("partition");
   };
 
   const goToNextStep = () => {
-    stepContext.setEndedStep(1);
-    handleClickToAnotherPage(stepContext, 2);
+    // updateNavIconStyle(2);
+    // stepContext.setCurrentStep(1);
     localStorage.setItem("partition", JSON.stringify(partition));
   };
 
@@ -65,6 +69,8 @@ const Step1 = () => {
       <StaveContainerStep1 />
 
       <StepButtons
+        IsNextButton={true}
+        IsPreviousButton={true}
         goToPreviousStep={goToPreviousStep}
         goToNextStep={goToNextStep}
         previousStepUrl={homeUrl}

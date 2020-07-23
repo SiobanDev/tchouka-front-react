@@ -9,7 +9,7 @@ export const FourBeatsDuration = 4000;
 const audioPath = "/media/audio/";
 const imagePath = "/media/images/";
 const movementPath = "/media/images/movements/";
-const notePath = "/media/images/notes/";
+// const notePath = "/media/images/notes/";
 
 export const redStave = imagePath + "red-stave.svg";
 export const blueStave = imagePath + "blue-stave.svg";
@@ -54,7 +54,8 @@ const tchouImages = [
   movementPath + "tchou-debut-rd.svg",
   movementPath + "tchou-fin-rd.svg",
 ];
-export const movementList = {bi: biImages,
+export const movementList = {
+  bi: biImages,
   bou: bouImages,
   cla: claImages,
   di: diImages,
@@ -62,7 +63,8 @@ export const movementList = {bi: biImages,
   pi: piImages,
   pou: pouImages,
   tchi: tchiImages,
-  tchou: tchouImages,};
+  tchou: tchouImages,
+};
 
 const biSound = audioPath + "bi.mp3";
 const bouSound = audioPath + "bou.mp3";
@@ -74,7 +76,8 @@ const pouSound = audioPath + "pou.mp3";
 const tchiSound = audioPath + "tchi.mp3";
 const tchouSound = audioPath + "tchou.mp3";
 
-export const soundList = {bi: biSound,
+export const soundList = {
+  bi: biSound,
   bou: bouSound,
   cla: claSound,
   di: diSound,
@@ -82,4 +85,5 @@ export const soundList = {bi: biSound,
   pi: piSound,
   pou: pouSound,
   tchi: tchiSound,
-  tchi: tchouSound,};
+  tchou: tchouSound,
+};

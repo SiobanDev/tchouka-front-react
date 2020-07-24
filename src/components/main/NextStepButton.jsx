@@ -1,8 +1,7 @@
-import React, { useContext, useEffect } from "react";
+import React, {  } from "react";
 import { Link } from "react-router-dom";
 //styles
 import "./StepButtons.style.scss";
-import StepContext from "../../context/StepContext";
 
 const NextStepButton = ({ handleClick, nextPageUrl, isHomeButton }) => {
   if (isHomeButton) {

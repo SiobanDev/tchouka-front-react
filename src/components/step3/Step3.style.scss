@@ -3,6 +3,11 @@ $red-color: #ff4436ff;
 $orange-color: #ff9036ff;
 $blue-color: #2ca4a0ff;
 
+.play-button-container{
+  display: flex;
+  justify-content: center;
+}
+
 .movement-image{
   width: 300px;
   height: auto;

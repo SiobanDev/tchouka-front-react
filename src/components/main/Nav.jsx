@@ -5,7 +5,7 @@ import { updateNavIconStyle } from "./Nav.service";
 import StepContext from "../../context/StepContext";
 
 const Nav = () => {
-  const stepContext = useContext(StepContext);
+  const {currentStep, setCurrentStep} = useContext(StepContext);
 
   let iconElements = [];
 
@@ -19,8 +19,8 @@ const Nav = () => {
   const urlMenuList = ["/", "/rythme", "/percussions", "/apprentissage"];
 
   useEffect(() => {
-    updateNavIconStyle(stepContext.currentStep);
-  }, [stepContext.currentStep]);
+    updateNavIconStyle(currentStep);
+  }, [currentStep]);
 
   for (let i = 1; i < itemNameMenuList.length; i++) {
     iconElements.push(
@@ -42,7 +42,7 @@ const Nav = () => {
           className="navbar-link"
           to={urlMenuList[i]}
           onClick={() => {
-            stepContext.setCurrentStep(i);
+            setCurrentStep(i);
           }}
         >
           {itemNameMenuList[i]}
@@ -66,7 +66,7 @@ const Nav = () => {
             className="navbar-link"
             to="/"
             onClick={() => {
-              stepContext.setCurrentStep(0);
+              setCurrentStep(0);
             }}
           >
             ACCUEIL

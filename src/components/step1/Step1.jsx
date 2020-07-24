@@ -12,32 +12,32 @@ import { useEffect } from "react";
 import { updateNavIconStyle } from "../main/Nav.service";
 
 const Step1 = () => {
-  const partitionContext = useContext(PartitionContext);
-  const partition = partitionContext.partition;
+  const { partition, setPartition } = useContext(PartitionContext);
   const { setCurrentStep } = useContext(StepContext);
+  const localStgPartitionToObjt = JSON.parse(localStorage.getItem("partition"));
 
   // console.log("endedStep in Step1: " + stepContext.endedStep);
 
   useEffect(() => {
-    console.log("useEffect dans Step1");
     setCurrentStep(1);
 
-    if (localStorage.getItem("partition")) {
-      partitionContext.setPartition(
-        JSON.parse(localStorage.getItem("partition"))
-      );
+    if (
+      localStorage.getItem("partition") &&
+      partition.length !== localStgPartitionToObjt.length
+    ) {
+      setPartition(JSON.parse(localStorage.getItem("partition")));
     }
-  }, [setCurrentStep, partitionContext]);
+  }, [setCurrentStep, setPartition, partition, localStgPartitionToObjt]);
 
   const handleBackspace = () => {
     console.log("partition before : " + partition);
     if (partition.length > 0) {
-      partitionContext.setPartition(partition.splice(0, partition.length - 1));
+      setPartition(partition.splice(0, partition.length - 1));
     }
   };
 
   const handleReset = () => {
-    partitionContext.setPartition([]);
+    setPartition([]);
     localStorage.removeItem("partition");
   };
 

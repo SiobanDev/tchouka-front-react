@@ -10,12 +10,14 @@ import "./AvailableNotesContainer.style.scss";
 
 export const AvailableNotesContainer = () => {
   let [availableNotes, setAvailableNotes] = useState([]);
-  const partitionContext = useContext(PartitionContext);
-  const partition = partitionContext.partition;
-  const setPartition = partitionContext.setPartition;
-  let allNotesWidth = partitionContext.allNotesWidth;
-  let setAllNotesWidth = partitionContext.setAllNotesWidth;
-  const addedNoteWidth = partitionContext.addedNoteWidth;
+  const {
+    partition,
+    setPartition,
+    allNotesWidth,
+    setAllNotesWidth,
+    addedNoteWidth,
+  } = useContext(PartitionContext);
+
   const defaultNotesCaptionList = [
     "4 temps",
     "2 temps",
@@ -23,7 +25,7 @@ export const AvailableNotesContainer = () => {
     "1/2 temps",
     "1/4 temps",
   ];
-  
+
   const getNotes = React.useCallback(async () => {
     try {
       const formattedApiResponse = await apiFetchDefaultNotes();

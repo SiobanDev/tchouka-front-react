@@ -8,8 +8,7 @@ import PartitionContext from "../../context/PartitionContext";
 import { redStave } from "../../config/mediasConstants";
 
 const StaveContainerStep1 = () => {
-  const partitionContext = useContext(PartitionContext);
-  const partition = partitionContext.partition;
+  const {partition} = useContext(PartitionContext);
   let firstStaveNotes = [];
   let secondStaveNotes = [];
 

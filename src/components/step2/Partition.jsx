@@ -10,8 +10,7 @@ import { blueStave } from "../../config/mediasConstants";
  */
 const Partition = () => {
   const chunkSize = 10;
-  const partitionContext = useContext(PartitionContext);
-  const partition = partitionContext.partition;
+  const {partition} = useContext(PartitionContext);
   let staveNumber = Math.trunc(partition.length / chunkSize);
   // console.log("staveNumber : " + staveNumber);
   let staveStep2List = [];

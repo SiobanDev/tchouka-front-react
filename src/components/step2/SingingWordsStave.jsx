@@ -5,8 +5,7 @@ import CompositionContext from "../../context/CompositionContext";
 
 const SingingWordsStave = () => {
   // console.log("notes dans Stave " + JSON.stringify(partitionNotes));
-  const compositionContext = useContext(CompositionContext);
-  const composition = compositionContext.composition;
+  const {composition} = useContext(CompositionContext);
 
 //   useEffect(()=>{},[composition.length])
 

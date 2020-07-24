@@ -9,12 +9,12 @@ import StepButtons from "./StepButtons";
 
 const Home = () => {
   localStorage.clear();
-  const stepContext = useContext(StepContext);
+  const {setCurrentStep} = useContext(StepContext);
 
   useEffect(() => {
     console.log("useEffect dans Home");
-    stepContext.setCurrentStep(0);
-  }, [stepContext]);
+    setCurrentStep(0);
+  }, [setCurrentStep]);
 
   return (
     <>

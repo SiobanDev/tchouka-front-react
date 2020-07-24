@@ -9,8 +9,7 @@ import { useState } from "react";
 import CompositionContext from "../../context/CompositionContext";
 
 const JPAnimation = ({ timeCode, startAnimation }) => {
-  const compositionContext = useContext(CompositionContext);
-  const composition = compositionContext.composition;
+  const {composition} = useContext(CompositionContext);
   const [noteIndex, setNoteIndex] = useState(0);
   const [movementIndex, setMovementIndex] = useState(0);
   let timer = null;

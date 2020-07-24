@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 //styles
 import "./Step2.style.scss";
 //components
@@ -9,53 +9,57 @@ import PartitionContext from "../../context/PartitionContext";
 import { step3Url, step1Url } from "../../config/urlConstants";
 import CompositionContext from "../../context/CompositionContext";
 import StepButtons from "../main/StepButtons";
-import { updateNavIconStyle } from "../main/Nav.service";
 import { useEffect } from "react";
-import { updateCurrentStepDependingOnUrl } from "../main/MainContent.service";
 
 const Step2 = () => {
-  const partitionContext = useContext(PartitionContext);
-  const partition = partitionContext.partition;
+  const { partition, setPartition } = useContext(PartitionContext);
   const { setCurrentStep } = useContext(StepContext);
-  const compositionContext = useContext(CompositionContext);
-  const composition = compositionContext.composition;
+  const { composition, setComposition, setIsLastItemRemoved } = useContext(CompositionContext);
+
+  // console.log("composition dans Step2 : " + JSON.stringify(composition));
 
   useEffect(() => {
-    console.log("useEffect dans Step2");
     setCurrentStep(2);
-    console.log("composition dans Step2 : " + JSON.stringify(composition));
 
-  }, [composition, setCurrentStep]);
+    // console.log("partition dans Step2 : " + JSON.stringify(partition));
 
-  // console.log("endedStep in Step2: " + stepContext.endedStep);
+    if (
+      localStorage.getItem("partition") &&
+      JSON.stringify(partition).length !==
+        localStorage.getItem("partition").length
+    ) {
+      // console.log("verif boucle Storage panti");
+      setPartition(JSON.parse(localStorage.getItem("partition")));
+    }
+
+    // if (localStorage.getItem("composition") && JSON.stringify(composition).length !== localStorage.getItem("composition").length) {
+    //   console.log("verif boucle Storage compo");
+    //   setComposition(JSON.parse(localStorage.getItem("composition")));
+    // }
+  }, [setCurrentStep, setPartition, partition]);
+
+  // console.log("endedStep in Step2: " + endedStep);
 
   const handleBackspace = () => {
-    // console.log("partition before : " + composition);
-    if (composition.length > 0) {
-      compositionContext.setComposition(
-        composition.splice(0, composition.length - 1)
-      );
-
-      // composition.pop();
-      // composition.setPartition(composition);
-      // console.log("partition after: " + JSON.stringify(composition));
-    }
+    setComposition(composition.splice(0, composition.length - 1));
+    setIsLastItemRemoved(true);
   };
 
   const handleReset = () => {
-    compositionContext.setComposition([]);
+    setComposition([]);
+    localStorage.removeItem("composition");
   };
 
   const goToPreviousStep = () => {
     // updateNavIconStyle(1);
-    // stepContext.setCurrentStep(1);
   };
 
   const goToNextStep = () => {
     // updateNavIconStyle(2);
-    // stepContext.setCurrentStep(3);
-    if(partition.length !== composition.length){
-      //TO DO : don't allow step3 if there isn't both joined singing word and sound for each note. 
+    if (partition.length === composition.length) {
+      localStorage.setItem("composition", JSON.stringify(composition));
+
+      //TO DO : don't allow step3 if there isn't both joined singing word and sound for each note.
     }
   };
 

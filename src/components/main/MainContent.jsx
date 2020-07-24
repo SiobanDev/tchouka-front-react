@@ -9,8 +9,6 @@ import Header from "../../views/Header";
 import PartitionContext from "../../context/PartitionContext";
 import StepContext from "../../context/StepContext";
 import CompositionContext from "../../context/CompositionContext";
-import { useEffect } from "react";
-import { updateCurrentStepDependingOnUrl } from "./MainContent.service";
 
 const MainContent = () => {
   var freeTime = 42;
@@ -19,6 +17,7 @@ const MainContent = () => {
   const [partition, setPartition] = useState([]);
   const [composition, setComposition] = useState([]);
   const [currentStep, setCurrentStep] = useState(0);
+  const [isLastItemRemoved, setIsLastItemRemoved] = useState(false);
 
   // console.log("partition dans MainContent " + JSON.stringify(partition));
   // console.log("allNotesWidth dans MainContent" + allNotesWidth);
@@ -26,9 +25,7 @@ const MainContent = () => {
 
   return (
     <Router>
-      <StepContext.Provider
-        value={{ currentStep, setCurrentStep }}
-      >
+      <StepContext.Provider value={{ currentStep, setCurrentStep }}>
         <Header />
         <PartitionContext.Provider
           value={{
@@ -40,15 +37,18 @@ const MainContent = () => {
             addedNoteWidth,
           }}
         >
-          <CompositionContext.Provider value={{ composition, setComposition }}>
-            <main>
-              <Switch>
-                <Route exact path="/apprentissage" component={Step3} />
-                <Route exact path="/percussions" component={Step2} />
-                <Route exact path="/rythme" component={Step1} />
-                <Route exact path="/" component={Home} />
-              </Switch>
-            </main>
+          <CompositionContext.Provider value={{ composition, setComposition, isLastItemRemoved, setIsLastItemRemoved }}>
+
+              <main>
+                <Switch>
+                  <Route exact path="/apprentissage" component={Step3} />
+
+                  <Route exact path="/percussions" component={Step2} />
+
+                  <Route exact path="/rythme" component={Step1} />
+                  <Route exact path="/" component={Home} />
+                </Switch>
+              </main>
           </CompositionContext.Provider>
         </PartitionContext.Provider>
       </StepContext.Provider>

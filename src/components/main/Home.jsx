@@ -1,10 +1,7 @@
 import React, { useEffect, useContext } from "react";
 import "./Home.scss";
-import { updateNavIconStyle } from "./Nav.service";
-import NextStepButton from "./NextStepButton";
 import { step1Url } from "../../config/urlConstants";
 import StepContext from "../../context/StepContext";
-import { Link } from "react-router-dom";
 import StepButtons from "./StepButtons";
 
 const Home = () => {

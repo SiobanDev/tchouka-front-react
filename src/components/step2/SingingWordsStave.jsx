@@ -1,20 +1,14 @@
-import React, { useContext } from "react";
+import React from "react";
 //styles
 import "../stave/Staves.style.scss";
-import CompositionContext from "../../context/CompositionContext";
 
-const SingingWordsStave = () => {
-  // console.log("notes dans Stave " + JSON.stringify(partitionNotes));
-  const {composition} = useContext(CompositionContext);
-
-//   useEffect(()=>{},[composition.length])
-
+const SingingWordsStave = ({ singingWordList }) => {
   return (
     <div className="word-stave">
-      {composition.map((compositionItem, i) => {
+      {singingWordList.map((singingWord, i) => {
         return (
           <div className="word-container" key={i}>
-            {compositionItem.singingWord}
+            {singingWord}
           </div>
         );
       })}

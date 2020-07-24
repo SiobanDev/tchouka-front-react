@@ -4,29 +4,45 @@ import PartitionContext from "../../context/PartitionContext";
 //components
 import StaveStep2 from "./StaveStep2";
 import { blueStave } from "../../config/mediasConstants";
+import CompositionContext from "../../context/CompositionContext";
 
 /**
  * Partition contains two staves made to receive the user's choosen notes.
  */
 const Partition = () => {
   const chunkSize = 10;
-  const {partition} = useContext(PartitionContext);
+  const { partition } = useContext(PartitionContext);
+  const { composition } = useContext(CompositionContext);
   let staveNumber = Math.trunc(partition.length / chunkSize);
-  // console.log("staveNumber : " + staveNumber);
   let staveStep2List = [];
   let partitionToSplit = [];
-  
+  let tempComposition = [];
+  let singingWordListToSplit = [];
+
+  // console.log("staveNumber : " + staveNumber);
+
   if (localStorage.getItem("partition")) {
     partitionToSplit = JSON.parse(localStorage.getItem("partition"));
   } else {
     partitionToSplit = [...partition];
   }
 
+  if (localStorage.getItem("composition")) {
+    tempComposition = JSON.parse(localStorage.getItem("composition"));
+  } else {
+    tempComposition = [...composition];
+  }
+
+  singingWordListToSplit = tempComposition.map((compositionItem) => {
+    return compositionItem.singingWord;
+  });
+
   for (let i = 0; i <= staveNumber; i++) {
     staveStep2List.push(
       <StaveStep2
         id={i}
         notesList={partitionToSplit.splice(0, chunkSize)}
+        singingWordList={singingWordListToSplit.splice(0, chunkSize)}
         key={i}
       />
     );

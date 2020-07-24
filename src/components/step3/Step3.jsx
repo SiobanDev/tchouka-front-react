@@ -3,7 +3,7 @@ import React, { useContext, useState, useEffect } from "react";
 import "./Step3.style.scss";
 //components
 import StepContext from "../../context/StepContext";
-import { step3Url, step1Url, step2Url } from "../../config/urlConstants";
+import { step2Url } from "../../config/urlConstants";
 import CompositionContext from "../../context/CompositionContext";
 import StepButtons from "../main/StepButtons";
 import JPAnimation from "./JPAnimation";

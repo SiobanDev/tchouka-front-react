@@ -4,13 +4,13 @@ import "../stave/Staves.style.scss";
 import AddedNote from "../stave/AddedNote";
 import SingingWordsStave from "./SingingWordsStave";
 
-const StaveStep2 = ({ notesList, id }) => {
+const StaveStep2 = ({ id, notesList, singingWordList }) => {
   // console.log("composition in StaveStep2 :" + JSON.stringify(composition));
 
   if (notesList) {
     return (
       <>
-        <SingingWordsStave />
+        <SingingWordsStave singingWordList={singingWordList} />
         <div id={`stave-${id}`} className="stave note-stave">
           {notesList.map((note, i) => {
             return <AddedNote noteData={note} key={i} />;

@@ -37,7 +37,7 @@ const StepButtons = ({
   }
   else if (IsPreviousButton) {
     return (
-      <div id="step-buttons-container">
+      <div id="step-button-container">
         <PreviousStepButton
           handleClick={goToPreviousStep}
           previousPageUrl={previousStepUrl}
@@ -46,7 +46,7 @@ const StepButtons = ({
     );
   } else if (IsNextButton) {
     return (
-      <div id="step-buttons-container">
+      <div id="step-button-container">
         <NextStepButton handleClick={goToNextStep} nextPageUrl={nextStepUrl} />
       </div>
     );

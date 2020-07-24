@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext } from "react";
 //styles
 import "./Step2.style.scss";
 //components
@@ -14,7 +14,9 @@ import { useEffect } from "react";
 const Step2 = () => {
   const { partition, setPartition } = useContext(PartitionContext);
   const { setCurrentStep } = useContext(StepContext);
-  const { composition, setComposition, setIsLastItemRemoved } = useContext(CompositionContext);
+  const { composition, setComposition, setIsLastItemRemoved } = useContext(
+    CompositionContext
+  );
 
   // console.log("composition dans Step2 : " + JSON.stringify(composition));
 
@@ -28,21 +30,18 @@ const Step2 = () => {
       JSON.stringify(partition).length !==
         localStorage.getItem("partition").length
     ) {
-      // console.log("verif boucle Storage panti");
       setPartition(JSON.parse(localStorage.getItem("partition")));
     }
 
-    // if (localStorage.getItem("composition") && JSON.stringify(composition).length !== localStorage.getItem("composition").length) {
-    //   console.log("verif boucle Storage compo");
-    //   setComposition(JSON.parse(localStorage.getItem("composition")));
-    // }
   }, [setCurrentStep, setPartition, partition]);
 
   // console.log("endedStep in Step2: " + endedStep);
 
   const handleBackspace = () => {
-    setComposition(composition.splice(0, composition.length - 1));
-    setIsLastItemRemoved(true);
+    if (composition.length > 0) {
+      setComposition(composition.splice(0, composition.length - 1));
+      setIsLastItemRemoved(true);
+    }
   };
 
   const handleReset = () => {
@@ -51,11 +50,11 @@ const Step2 = () => {
   };
 
   const goToPreviousStep = () => {
-    // updateNavIconStyle(1);
+    setComposition([]);
+    localStorage.removeItem("composition");
   };
 
   const goToNextStep = () => {
-    // updateNavIconStyle(2);
     if (partition.length === composition.length) {
       localStorage.setItem("composition", JSON.stringify(composition));
 

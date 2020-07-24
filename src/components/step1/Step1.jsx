@@ -6,28 +6,19 @@ import AvailableNotesContainer from "./AvailableNotesContainer";
 import StaveContainerStep1 from "./StaveContainerStep1";
 import PartitionContext from "../../context/PartitionContext";
 import StepContext from "../../context/StepContext";
-import { step2Url, homeUrl } from "../../config/urlConstants";
+import { step2Url } from "../../config/urlConstants";
 import StepButtons from "../main/StepButtons";
 import { useEffect } from "react";
-import { updateNavIconStyle } from "../main/Nav.service";
 
 const Step1 = () => {
   const { partition, setPartition } = useContext(PartitionContext);
   const { setCurrentStep } = useContext(StepContext);
-  const localStgPartitionToObjt = JSON.parse(localStorage.getItem("partition"));
-
-  // console.log("endedStep in Step1: " + stepContext.endedStep);
 
   useEffect(() => {
     setCurrentStep(1);
+    console.log("partition dans Step1 : " + JSON.stringify(partition));
 
-    if (
-      localStorage.getItem("partition") &&
-      partition.length !== localStgPartitionToObjt.length
-    ) {
-      setPartition(JSON.parse(localStorage.getItem("partition")));
-    }
-  }, [setCurrentStep, setPartition, partition, localStgPartitionToObjt]);
+  }, [setCurrentStep, partition]);
 
   const handleBackspace = () => {
     console.log("partition before : " + partition);
@@ -41,15 +32,7 @@ const Step1 = () => {
     localStorage.removeItem("partition");
   };
 
-  const goToPreviousStep = () => {
-    // updateNavIconStyle(0);
-    // stepContext.setCurrentStep(0);
-    localStorage.removeItem("partition");
-  };
-
   const goToNextStep = () => {
-    // updateNavIconStyle(2);
-    // stepContext.setCurrentStep(1);
     localStorage.setItem("partition", JSON.stringify(partition));
   };
 
@@ -70,10 +53,10 @@ const Step1 = () => {
 
       <StepButtons
         IsNextButton={true}
-        IsPreviousButton={true}
-        goToPreviousStep={goToPreviousStep}
+        IsPreviousButton={false}
+        goToPreviousStep={()=>{}}
         goToNextStep={goToNextStep}
-        previousStepUrl={homeUrl}
+        previousStepUrl={""}
         nextStepUrl={step2Url}
       />
     </section>

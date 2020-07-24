@@ -23,7 +23,11 @@ import { useContext } from "react";
 import PartitionContext from "../../context/PartitionContext";
 import CompositionContext from "../../context/CompositionContext";
 import { useEffect } from "react";
-import { createComposition, playSoundOfBodyPart } from "./ModelJP.service";
+import {
+  createComposition,
+  playSoundOfBodyPart,
+  handleClickOnBodyPart,
+} from "./ModelJP.service";
 
 const ModelJP = () => {
   const { partition } = useContext(PartitionContext);
@@ -34,6 +38,7 @@ const ModelJP = () => {
     setIsLastItemRemoved,
   } = useContext(CompositionContext);
   const [clickNumber, setClickNumber] = useState(0);
+  const [movementImageToDisplay, setMovementImageToDisplay] = useState([]);
 
   useEffect(() => {
     if (isLastItemRemoved) {
@@ -52,29 +57,59 @@ const ModelJP = () => {
     setIsLastItemRemoved,
   ]);
 
+  console.log(
+    "movementImageToDisplay in general : " +
+      JSON.stringify(movementImageToDisplay)
+  );
 
-
-  const playOneMovement = () =>{};
-
-  if (bodyPartList) {
+  if (movementImageToDisplay.length > 0) {
     return (
       <div className="model-container">
-        {playOneMovement}
+        {movementImageToDisplay}
+        <img className="model neutral-model" src={jpNeutre} alt="neutral-model" />
+        {bodyPartList.map((bodyPart, i) => (
+          <BodyPart
+            name={bodyPart}
+            handleClick={() => {
+              handleClickOnBodyPart(
+                bodyPart,
+                clickNumber,
+                setClickNumber,
+                partition,
+                composition,
+                setComposition,
+                movementImageToDisplay,
+                setMovementImageToDisplay
+              );
+            }}
+            key={i}
+          />
+        ))}
+      </div>
+    );
+  } else if (bodyPartList) {
+    return (
+      <div className="model-container">
         <img
           className="model model-transp"
           src={jpNeutreTransp}
           alt="neutral-model"
         />
-        <img className="model" src={jpNeutre} alt="neutral-model" />
+        <img className="model neutral-model" src={jpNeutre} alt="neutral-model" />
         {bodyPartList.map((bodyPart, i) => (
           <BodyPart
             name={bodyPart}
-            handleClick={(bodyPart) => {
-              createComposition(bodyPart,clickNumber,
+            handleClick={() => {
+              handleClickOnBodyPart(
+                bodyPart,
+                clickNumber,
                 setClickNumber,
                 partition,
-                setComposition);
-              playSoundOfBodyPart(bodyPart, partition, composition);
+                composition,
+                setComposition,
+                movementImageToDisplay,
+                setMovementImageToDisplay
+              );
             }}
             key={i}
           />

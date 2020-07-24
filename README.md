@@ -21,7 +21,7 @@ https://github.com/SiobanDev/tchouka-back-symfony
   Cela signifie qu'à chaque appel d'une des variables du contexte dans le useEffect, le contexte global sera actualisé, ce qui déclenchera le useEffect, et ceci sans fin.
   
   __Exemple :__
-  Je crée un contexte qui contient deux variables qui vont être associées au hook useState, parce que je veux pouvoir modifier ces variables durant l'utilisation de l'application et je veux que les composants se mettent à jour pour prendre la dernière valeur paramétrée.
+  Je crée un contexte qui contient deux variables qui vont être associées au hook useState, parce que je veux pouvoir modifier ces variables durant l'utilisation de l'application et je veux que les composants se mettent à jour pour prendre la dernière valeur paramétrée :
   
   ```javascript
  const initialContextValues = {
@@ -39,7 +39,7 @@ return (
     </PartitionContext.Provider>
 ```
 Je crée une variable globale pour mon contexte et je l'utilise pour appeler les variables partition, setPartition.
-Je modifie la valeur de partition grâce à setPartition dans le useEffect.
+Je modifie la valeur de partition grâce à setPartition dans le useEffect :
 
 ```javascript
   const partitionContext = useContext(PartitionContext);
@@ -57,7 +57,7 @@ Dans le cas présent, la variable setPartition modifie la valeur de la variable 
 Or comme celle-ci est en dépendance du useEffect, le useEffect est relancé. Il exécute donc la variable setPartition, qui modifie la valeur de la variable partition, etc.
 
 ## Solution
-Il est donc conseillé de créer des variables spécifiques qui auront leur propre espace mémoire plutôt que de faire appel à des attributs de variables globales, qui partagent le même espace mémoire.
+Il est donc conseillé de créer des variables spécifiques qui auront leur propre espace mémoire plutôt que de faire appel à des attributs de variables globales, qui partagent le même espace mémoire :
 
 Exemple :
 ```diff javascript

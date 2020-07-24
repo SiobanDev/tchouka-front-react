@@ -8,7 +8,6 @@ const Nav = () => {
   const {currentStep, setCurrentStep} = useContext(StepContext);
 
   let iconElements = [];
-
   let linkElements = [];
   const itemNameMenuList = [
     "ACCUEIL",

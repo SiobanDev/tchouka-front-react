@@ -1,10 +1,9 @@
-import {
-  soundList,
-  movementList,
-} from "../../config/mediasConstants";
+import React from "react";
 
-export const createComposition = (
-  name,
+import { soundList, movementList } from "../../config/mediasConstants";
+
+const createComposition = (
+  bodyPartName,
   clickNumber,
   setClickNumber,
   partition,
@@ -18,9 +17,9 @@ export const createComposition = (
     const newCompositionItem = {
       id: partition[clickNumber].id,
       duration: partition[clickNumber].duration,
-      movementList: movementList[name],
-      singingWord: name,
-      sound: soundList[name],
+      movementList: movementList[bodyPartName],
+      singingWord: bodyPartName,
+      sound: soundList[bodyPartName],
     };
 
     setComposition((composition) => [...composition, newCompositionItem]);
@@ -28,10 +27,70 @@ export const createComposition = (
   }
 };
 
-export const playSoundOfBodyPart = (name, partition, composition) => {
+const playSoundOfBodyPart = (bodyPartName, partition, composition) => {
   if (partition.length !== composition.length) {
-    const soundOfBodyPart = new Audio(soundList[name]);
+    const soundOfBodyPart = new Audio(soundList[bodyPartName]);
     soundOfBodyPart.volume = 0.5;
     soundOfBodyPart.play();
   }
+};
+
+const playOneMovement = (
+  bodyPartName,
+  setMovementImageToDisplay,
+  partition,
+  composition
+) => {
+  if (partition.length !== composition.length) {
+    setMovementImageToDisplay([
+      <img
+        className="model animated-model"
+        src={movementList[bodyPartName][0]}
+        alt="movement"
+        key={bodyPartName}
+      />,
+    ]);
+
+    if (movementList[bodyPartName].length > 1) {
+      setTimeout(setMovementImageToDisplay, 200, [
+        <img
+          className="model animated-model"
+          src={movementList[bodyPartName][1]}
+          alt="movement"
+          key={bodyPartName}
+        />,
+      ]);
+    }
+    setTimeout(setMovementImageToDisplay, 400, []);
+
+    // console.log(
+    //   "movementImageToDisplay : " + JSON.stringify(movementImageToDisplay)
+    // );
+  }
+};
+
+export const handleClickOnBodyPart = (
+  bodyPartName,
+  clickNumber,
+  setClickNumber,
+  partition,
+  composition,
+  setComposition,
+  movementImageToDisplay,
+  setMovementImageToDisplay
+) => {
+  createComposition(
+    bodyPartName,
+    clickNumber,
+    setClickNumber,
+    partition,
+    setComposition
+  );
+  playSoundOfBodyPart(bodyPartName, partition, composition);
+  playOneMovement(
+    bodyPartName,
+    setMovementImageToDisplay,
+    partition,
+    composition
+  );
 };

@@ -9,14 +9,14 @@ $blue-color: #2ca4a0ff;
   width: 100%;
 }
 
-.joint-step {
+.joint-step, .not-allowed-joint-step {
   display: flex;
   flex-direction: column;
   align-items: center;
   margin: 5% 0 0 0;
 }
 
-.joint-step a {
+.joint-step a, .not-allowed-joint-step div {
   text-decoration: none;
   text-align: center;
   display: flex;
@@ -30,17 +30,30 @@ $blue-color: #2ca4a0ff;
   font-weight: bold;
 }
 
-.joint-step .round-icon {
+.joint-step .round-icon, .not-allowed-joint-step .round-icon {
   background: none;
   color: $primary-color;
   border: none;
   font-size: 30px;
 }
 
-#step-buttons-container #previous-step {
+.not-allowed-joint-step div{
+  cursor: not-allowed;
+}
+
+.not-allowed-joint-step div, .not-allowed-joint-step .round-icon{
+  color: gray;
+}
+
+#step2 #step-buttons-container #previous-step {
   margin-right: 5%;
 }
 
-#step-buttons-container #next-step {
+#step2 #step-buttons-container #next-step {
   margin-left: 5%;
+}
+
+.nav-icon-not-allowed .round-icon{
+  background-color: gray;
+  border: solid gray 2px;
 }

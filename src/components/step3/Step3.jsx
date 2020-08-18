@@ -5,10 +5,11 @@ import "./Step3.style.scss";
 import StepContext from "../../context/StepContext";
 import { step2Url } from "../../config/urlConstants";
 import CompositionContext from "../../context/CompositionContext";
-import StepButtons from "../main/StepButtons";
 import JPAnimation from "./JPAnimation";
-import { getCompositionDuration } from "./Step3.service";
 import { compositionData } from "../../mocks/compositionData";
+//styles
+import "../main/StepButtons.style.scss";
+import PreviousStepButton from "../main/PreviousStepButton";
 
 const Step3 = () => {
   const { setCurrentStep } = useContext(StepContext);
@@ -18,6 +19,24 @@ const Step3 = () => {
   const [playAnimation, setPlayAnimation] = useState(false);
   const [timeCode, setTimeCode] = useState(0);
   const interval = 2500;
+  const getCompositionDuration = (notes) => {
+    let durationList = [];
+
+    if (notes.length > 0) {
+      for (let i = 0; i < notes.length; i++) {
+        durationList.push(notes[i].duration);
+      }
+      const sumOfAllDurations = durationList.reduce(function (a, b) {
+        return a + b;
+      });
+
+    //   const convertedDurationSum = sumOfAllDurations
+      console.log("sumOfAllDurations : " + sumOfAllDurations);
+
+      return sumOfAllDurations;
+    }
+    return 0;
+  };
 
   console.log("composition in step3 : " + JSON.stringify(composition));
 
@@ -76,15 +95,13 @@ const Step3 = () => {
           )}
         </div>
 
-        <StepButtons
-          IsNextButton={false}
-          IsPreviousButton={true}
-          isHomeButton={false}
-          goToPreviousStep={() => {}}
-          goToNextStep={() => {}}
-          previousStepUrl={step2Url}
-          nextStepUrl={""}
-        />
+        <div id="step-buttons-container">
+          <PreviousStepButton
+            handleClick={() => {}}
+            previousPageUrl={step2Url}
+            text="Étape précédente"
+          />
+        </div>
       </section>
     );
   }

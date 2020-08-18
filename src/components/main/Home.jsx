@@ -2,14 +2,15 @@ import React, { useEffect, useContext } from "react";
 import "./Home.scss";
 import { step1Url } from "../../config/urlConstants";
 import StepContext from "../../context/StepContext";
-import StepButtons from "./StepButtons";
+import NextStepButton from "./NextStepButton";
+//styles
+import "./StepButtons.style.scss";
 
 const Home = () => {
   localStorage.clear();
-  const {setCurrentStep} = useContext(StepContext);
+  const { setCurrentStep } = useContext(StepContext);
 
   useEffect(() => {
-    console.log("useEffect dans Home");
     setCurrentStep(0);
   }, [setCurrentStep]);
 
@@ -22,15 +23,14 @@ const Home = () => {
       </p>
 
       <p>Amuse-toi bien ;) ! </p>
-      <StepButtons
-        IsNextButton={true}
-        IsPreviousButton={false}
-        isHomeButton={true}
-        goToPreviousStep={() => {}}
-        goToNextStep={() => {}}
-        previousStepUrl={""}
-        nextStepUrl={step1Url}
-      />
+
+      <div id="step-buttons-container">
+        <NextStepButton
+          handleClick={() => {}}
+          nextPageUrl={step1Url}
+          text="Je commence"
+        />
+      </div>
     </>
   );
 };

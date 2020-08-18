@@ -24,8 +24,6 @@ import PartitionContext from "../../context/PartitionContext";
 import CompositionContext from "../../context/CompositionContext";
 import { useEffect } from "react";
 import {
-  createComposition,
-  playSoundOfBodyPart,
   handleClickOnBodyPart,
 } from "./ModelJP.service";
 
@@ -57,10 +55,10 @@ const ModelJP = () => {
     setIsLastItemRemoved,
   ]);
 
-  console.log(
-    "movementImageToDisplay in general : " +
-      JSON.stringify(movementImageToDisplay)
-  );
+  // console.log(
+  //   "movementImageToDisplay in general : " +
+  //     JSON.stringify(movementImageToDisplay)
+  // );
 
   if (movementImageToDisplay.length > 0) {
     return (

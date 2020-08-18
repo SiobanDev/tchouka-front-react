@@ -19,14 +19,13 @@ const MainContent = () => {
   const [currentStep, setCurrentStep] = useState(0);
   const [isLastItemRemoved, setIsLastItemRemoved] = useState(false);
 
-  // console.log("partition dans MainContent " + JSON.stringify(partition));
+  console.log("partition dans MainContent " + JSON.stringify(partition));
   // console.log("allNotesWidth dans MainContent" + allNotesWidth);
-  // console.log("composition dans MainContent " + JSON.stringify(composition));
+  console.log("composition dans MainContent " + JSON.stringify(composition));
 
   return (
     <Router>
       <StepContext.Provider value={{ currentStep, setCurrentStep }}>
-        <Header />
         <PartitionContext.Provider
           value={{
             partition,
@@ -37,18 +36,25 @@ const MainContent = () => {
             addedNoteWidth,
           }}
         >
-          <CompositionContext.Provider value={{ composition, setComposition, isLastItemRemoved, setIsLastItemRemoved }}>
+          <CompositionContext.Provider
+            value={{
+              composition,
+              setComposition,
+              isLastItemRemoved,
+              setIsLastItemRemoved,
+            }}
+          >
+            <Header />
+            <main>
+              <Switch>
+                <Route exact path="/apprentissage" component={Step3} />
 
-              <main>
-                <Switch>
-                  <Route exact path="/apprentissage" component={Step3} />
+                <Route exact path="/percussions" component={Step2} />
 
-                  <Route exact path="/percussions" component={Step2} />
-
-                  <Route exact path="/rythme" component={Step1} />
-                  <Route exact path="/" component={Home} />
-                </Switch>
-              </main>
+                <Route exact path="/rythme" component={Step1} />
+                <Route exact path="/" component={Home} />
+              </Switch>
+            </main>
           </CompositionContext.Provider>
         </PartitionContext.Provider>
       </StepContext.Provider>

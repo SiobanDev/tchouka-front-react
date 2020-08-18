@@ -1,77 +1,72 @@
 import React, { useContext, useEffect } from "react";
-import { Link } from "react-router-dom";
 import "./NavStyle.scss";
-import { updateNavIconStyle } from "./Nav.service";
 import StepContext from "../../context/StepContext";
+import PartitionContext from "../../context/PartitionContext";
+import CompositionContext from "../../context/CompositionContext";
+import NavIcon from "./NavIcon";
+import NavItem from "./NavItem";
+import { percussionStep } from "../../config/mainConstants";
 
 const Nav = () => {
-  const {currentStep, setCurrentStep} = useContext(StepContext);
+  const { currentStep, setCurrentStep } = useContext(StepContext);
+  const { partition } = useContext(PartitionContext);
+  const { composition } = useContext(CompositionContext);
+  const iconElements = [];
+  const linkElements = [];
 
-  let iconElements = [];
-  let linkElements = [];
   const itemNameMenuList = [
     "ACCUEIL",
     "RYTHME",
     "PERCUSSIONS",
     "APPRENTISSAGE",
   ];
+
   const urlMenuList = ["/", "/rythme", "/percussions", "/apprentissage"];
 
-  useEffect(() => {
-    updateNavIconStyle(currentStep);
-  }, [currentStep]);
+  const lastAllowedStep =
+    partition.length === 0 || (composition.length !== partition.length && currentStep === percussionStep)
+      ? currentStep
+      : currentStep + 1;
 
-  for (let i = 1; i < itemNameMenuList.length; i++) {
-    iconElements.push(
-      <React.Fragment key={i}>
-        <li className="line">
-          <hr color="#2CA4A0" />
-        </li>
-        <li id={`navbar-element-${i}`} className="navbar-element">
-          <span className="round-icon menu-icon">{i}</span>
-        </li>
-      </React.Fragment>
-    );
-  }
+      console.log("current step in Nav : " + currentStep)
 
-  for (let i = 1; i < itemNameMenuList.length; i++) {
-    linkElements.push(
-      <li id={`navbar-step${i}`} className="navbar-element" key={i}>
-        <Link
-          className="navbar-link"
-          to={urlMenuList[i]}
-          onClick={() => {
-            setCurrentStep(i);
-          }}
-        >
-          {itemNameMenuList[i]}
-        </Link>
-      </li>
-    );
+  for (let i = 0; i < itemNameMenuList.length; i++) {
+    const isActive = i === currentStep;
+
+    if (i <= lastAllowedStep) {
+      iconElements.push(<NavIcon isAllowed={true} i={i} key={i} isActive={isActive}/>);
+      linkElements.push(
+        <NavItem
+          isAllowed={true}
+          urlMenuList={urlMenuList}
+          itemNameMenuList={itemNameMenuList}
+          setCurrentStep={setCurrentStep}
+          i={i}
+          key={i}
+        />
+      );
+    } else {
+      iconElements.push(<NavIcon isAllowed={false} i={i} key={i} isActive={isActive}/>);
+      linkElements.push(
+        <NavItem
+          isAllowed={false}
+          urlMenuList={urlMenuList}
+          itemNameMenuList={itemNameMenuList}
+          setCurrentStep={setCurrentStep}
+          i={i}
+          key={i}
+        />
+      );
+    }
   }
 
   return (
     <nav role="navigation">
       <ul id="icon-menu" className="navbar-menu">
-        <li id="navbar-element-0" className="navbar-element">
-          <span className="fas fa-home round-icon menu-icon"></span>
-        </li>
         {iconElements}
       </ul>
 
       <ul id="link-menu" className="navbar-menu">
-        <li id="navbar-home" className="navbar-element">
-          <Link
-            className="navbar-link"
-            to="/"
-            onClick={() => {
-              setCurrentStep(0);
-            }}
-          >
-            ACCUEIL
-          </Link>
-        </li>
-
         {linkElements}
       </ul>
     </nav>

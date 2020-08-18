@@ -9,7 +9,7 @@ const createComposition = (
   partition,
   setComposition
 ) => {
-  console.log("clickNumber in create: " + clickNumber);
+  // console.log("clickNumber in create: " + clickNumber);
 
   if (partition.length > 0 && clickNumber < partition.length) {
     setClickNumber(clickNumber + 1);

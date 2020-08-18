@@ -1,28 +1,39 @@
-import React, {  } from "react";
+import React, { useContext } from "react";
 import { Link } from "react-router-dom";
 //styles
 import "./StepButtons.style.scss";
+import PartitionContext from "../../context/PartitionContext";
+import StepContext from "../../context/StepContext";
+import CompositionContext from "../../context/CompositionContext";
 
-const NextStepButton = ({ handleClick, nextPageUrl, isHomeButton }) => {
-  if (isHomeButton) {
+//text, boolean,
+
+const NextStepButton = ({ handleClick, nextPageUrl, text }) => {
+  const { partition } = useContext(PartitionContext);
+  const { composition } = useContext(CompositionContext);
+  const { currentStep } = useContext(StepContext);
+
+  if (
+    (partition.length === 0 && currentStep === 1) ||
+    (composition.length !== partition.length && currentStep === 2)
+  ) {
     return (
-      <div className="joint-step">
-        <Link to={nextPageUrl} onClick={handleClick}>
+      <div id="next-step" className="not-allowed-joint-step">
+        <div>
           <i className="fas fa-arrow-circle-right round-icon"></i>
-        </Link>
-        <Link to={nextPageUrl} onClick={handleClick}>
-          Je commence
-        </Link>
+        </div>
+        <div>{text}</div>
       </div>
     );
   }
+
   return (
     <div id="next-step" className="joint-step">
       <Link to={nextPageUrl} onClick={handleClick}>
         <i className="fas fa-arrow-circle-right round-icon"></i>
       </Link>
       <Link to={nextPageUrl} onClick={handleClick}>
-        Étape suivante
+        {text}
       </Link>
     </div>
   );

@@ -7,8 +7,10 @@ import StaveContainerStep1 from "./StaveContainerStep1";
 import PartitionContext from "../../context/PartitionContext";
 import StepContext from "../../context/StepContext";
 import { step2Url } from "../../config/urlConstants";
-import StepButtons from "../main/StepButtons";
 import { useEffect } from "react";
+import NextStepButton from "../main/NextStepButton";
+//styles
+import "../main/StepButtons.style.scss";
 
 const Step1 = () => {
   const { partition, setPartition } = useContext(PartitionContext);
@@ -17,7 +19,6 @@ const Step1 = () => {
   useEffect(() => {
     setCurrentStep(1);
     console.log("partition dans Step1 : " + JSON.stringify(partition));
-
   }, [setCurrentStep, partition]);
 
   const handleBackspace = () => {
@@ -51,14 +52,13 @@ const Step1 = () => {
       <i className="fas fa-trash instruction-button" onClick={handleReset}></i>
       <StaveContainerStep1 />
 
-      <StepButtons
-        IsNextButton={true}
-        IsPreviousButton={false}
-        goToPreviousStep={()=>{}}
-        goToNextStep={goToNextStep}
-        previousStepUrl={""}
-        nextStepUrl={step2Url}
-      />
+      <div id="step-buttons-container">
+        <NextStepButton
+          handleClick={goToNextStep}
+          nextPageUrl={step2Url}
+          text="Étape suivante"
+        />
+      </div>
     </section>
   );
 };

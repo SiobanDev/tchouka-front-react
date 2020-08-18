@@ -8,8 +8,11 @@ import StepContext from "../../context/StepContext";
 import PartitionContext from "../../context/PartitionContext";
 import { step3Url, step1Url } from "../../config/urlConstants";
 import CompositionContext from "../../context/CompositionContext";
-import StepButtons from "../main/StepButtons";
 import { useEffect } from "react";
+import PreviousStepButton from "../main/PreviousStepButton";
+import NextStepButton from "../main/NextStepButton";
+//styles
+import "../main/StepButtons.style.scss";
 
 const Step2 = () => {
   const { partition, setPartition } = useContext(PartitionContext);
@@ -32,7 +35,6 @@ const Step2 = () => {
     ) {
       setPartition(JSON.parse(localStorage.getItem("partition")));
     }
-
   }, [setCurrentStep, setPartition, partition]);
 
   // console.log("endedStep in Step2: " + endedStep);
@@ -85,15 +87,18 @@ const Step2 = () => {
         </div>
       </div>
 
-      {/* TO DO :  send the compo to BDD*/}
-      <StepButtons
-        IsNextButton={true}
-        IsPreviousButton={true}
-        goToPreviousStep={goToPreviousStep}
-        goToNextStep={goToNextStep}
-        previousStepUrl={step1Url}
-        nextStepUrl={step3Url}
-      />
+      <div id="step-buttons-container">
+        <PreviousStepButton
+          handleClick={goToPreviousStep}
+          previousPageUrl={step1Url}
+          text="Étape précédente"
+        />
+        <NextStepButton
+          handleClick={goToNextStep}
+          nextPageUrl={step3Url}
+          text="Étape suivante"
+        />
+      </div>
     </section>
   );
 };

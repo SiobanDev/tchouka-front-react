@@ -1,11 +1,11 @@
-export const getCompositionDuration = (notes) => {
+const getCompositionDuration = (notes) => {
     let durationList = [];
 
     if (notes.length > 0) {
       for (let i = 0; i < notes.length; i++) {
         durationList.push(notes[i].duration);
       }
-      const sumOfAllDurations = durationList.reduce(function (a, b) {
+      const sumOfAllDurations = durationList.reduce((a, b) => {
         return a + b;
       });
 

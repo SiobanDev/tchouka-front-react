@@ -8,7 +8,17 @@ $blue-color: #2ca4a0ff;
   justify-content: center;
 }
 
+.play-button-container i{
+  cursor: pointer;
+}
+
+#JP-container{
+  width: auto;
+  height: 300px;
+}
+
 .movement-image{
   width: 300px;
   height: auto;
+  position: absolute;
 }

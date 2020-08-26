@@ -72,6 +72,10 @@ main > section {
   margin-bottom: 40px;
 }
 
+img{
+  display: block;
+}
+
 .round-icon {
   display: flex;
   justify-content: center;
@@ -105,4 +109,9 @@ main > section {
   margin: 10px;
   cursor: pointer;
   margin: 5% 10px;
+}
+
+.error-message{
+  font-size: 80%;
+  color: gray;
 }

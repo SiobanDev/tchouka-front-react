@@ -1,4 +1,3 @@
-export const apiUrl = "https://127.0.0.1:8000/";
 
 export const quarterBeatDuration = 250;
 export const halfBeatDuration = 500;

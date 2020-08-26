@@ -6,7 +6,8 @@ import PartitionContext from "../../context/PartitionContext";
 import AvailableNote from "./AvailableNote";
 //styles
 import "./AvailableNotesContainer.style.scss";
-//constants
+//libraries
+import Loader from "react-loader-spinner";
 
 export const AvailableNotesContainer = () => {
   let [availableNotes, setAvailableNotes] = useState([]);
@@ -17,6 +18,9 @@ export const AvailableNotesContainer = () => {
     setAllNotesWidth,
     addedNoteWidth,
   } = useContext(PartitionContext);
+  const [waitingForApiResponse, setWaitingForApiResponse] = React.useState(
+    true
+  );
 
   const defaultNotesCaptionList = [
     "4 temps",
@@ -32,8 +36,9 @@ export const AvailableNotesContainer = () => {
       if (formattedApiResponse) {
         setAvailableNotes(formattedApiResponse.data.reverse());
       }
-      console.log(formattedApiResponse.message);
+      setWaitingForApiResponse(false);
     } catch (e) {
+      setWaitingForApiResponse(false);
       console.log("Error in getNotes in AvailableNotesContainer : " + e);
     }
   }, []);
@@ -42,7 +47,19 @@ export const AvailableNotesContainer = () => {
     getNotes();
   }, [getNotes]);
 
-  if (availableNotes && availableNotes.length > 0 && defaultNotesCaptionList) {
+  if (availableNotes.length === 0 && !waitingForApiResponse) {
+    return (
+      <p className="error-message">
+        <i className="fas fa-exclamation-triangle"></i> Erreur pour le
+        téléchargement des notes
+      </p>
+    );
+  } else if (
+    availableNotes &&
+    availableNotes.length > 0 &&
+    defaultNotesCaptionList &&
+    !waitingForApiResponse
+  ) {
     return (
       <div id="notes-to-choose-container">
         {availableNotes.map((note, i) => {
@@ -63,7 +80,7 @@ export const AvailableNotesContainer = () => {
     );
   }
 
-  return null;
+  return <Loader type="TailSpin" color="#2ca4a0ff" height={45} width={45} />;
 };
 
 export default AvailableNotesContainer;

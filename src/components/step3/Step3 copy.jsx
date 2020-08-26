@@ -14,19 +14,46 @@ import { learningStep } from "../../config/mainConstants";
 
 const Step3 = () => {
   const { setCurrentStep } = useContext(StepContext);
-  // const { composition, setComposition } = useContext(CompositionContext);
-  const [playAnimation, setPlayAnimation] = useState(false);
+  const { composition, setComposition } = useContext(CompositionContext);
+  // const composition = compositionContext.composition;
 
-  useEffect(() => {
-    setCurrentStep(learningStep);
-    // setComposition(compositionData);
-  }, [setCurrentStep]);
+  const [playAnimation, setPlayAnimation] = useState(false);
+  const [timeCode, setTimeCode] = useState(0);
+  const interval = 2500;
+
+  const getCompositionDuration = (notes) => {
+    if (notes.length > 0) {
+      const sumOfAllDurations = notes
+        .map((noteElement) => noteElement.duration)
+        .reduce(function (a, b) {
+          return a + b;
+        });
+      //   const convertedDurationSum = sumOfAllDurations
+      console.log("sumOfAllDurations : " + sumOfAllDurations);
+      return sumOfAllDurations;
+    }
+    return 0;
+  };
+
+  console.log("composition in step3 : " + JSON.stringify(composition));
+
+  //   console.log("timeCode : " + timeCode);
+
+  setCurrentStep(learningStep);
+  setComposition(compositionData);
+
+  if (playAnimation) {
+    while (timeCode < getCompositionDuration(composition)) {
+      
+      setTimeout(() => setTimeCode(timeCode + interval), interval);
+    }
+  }
 
   //   console.log("playAnimation : " + playAnimation);
-  if (compositionData && compositionData.length > 0) {
+  if (composition && composition.length > 0) {
     return (
       <section id="step3">
-          <div className="play-button-container">
+        <div className="play-button-container">
           <i
             className="far fa-play-circle round-icon"
             onClick={() => {
@@ -41,8 +68,17 @@ const Step3 = () => {
             Lancer l'animation
           </p>
         </div>
+
         <div id="JP-container">
-          <JPAnimation startAnimation={playAnimation}/>
+          {playAnimation ? (
+            <JPAnimation timeCode={timeCode} startAnimation={playAnimation} />
+          ) : (
+            <img
+              className="movement-image"
+              src={composition[0].movementList[0]}
+              alt="first-movement-of-jp"
+            />
+          )}
         </div>
 
         <div id="step-buttons-container">

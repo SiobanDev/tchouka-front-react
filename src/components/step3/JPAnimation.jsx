@@ -1,115 +1,124 @@
-import React, { useContext } from "react";
+import React from "react";
 //components
 //data
 //styles
 import "./Step3.style.scss";
 //libraries
-import { motion } from "framer-motion";
-import { useState } from "react";
-import CompositionContext from "../../context/CompositionContext";
+import { motion, useAnimation } from "framer-motion";
+import { compositionData } from "../../mocks/compositionData";
+import { useEffect } from "react";
 
-const JPAnimation = ({ timeCode, startAnimation }) => {
-  const {composition} = useContext(CompositionContext);
-  const [noteIndex, setNoteIndex] = useState(0);
-  const [movementIndex, setMovementIndex] = useState(0);
-  let timer = null;
-
-  if (startAnimation) {
-    if (
-      composition[noteIndex].movementList.length > 1 &&
-      movementIndex < composition[noteIndex].movementList.length
-    ) {
-      timer = setTimeout(() => {
-        if (noteIndex < composition.length) {
-          setNoteIndex(noteIndex);
-        }
-      }, (composition[noteIndex].duration * 1000) / 2);
-
-      clearTimeout(timer);
-
-      setMovementIndex(movementIndex + 1);
-
-      timer = setTimeout(() => {
-        if (noteIndex < composition.length) {
-          setNoteIndex(noteIndex);
-        }
-      }, (composition[noteIndex].duration * 1000) / 2);
-
-      clearTimeout(timer);
-    } else {
-      timer = setTimeout(() => {
-        if (noteIndex < composition.length) {
-          setNoteIndex(noteIndex + 1);
-        }
-      }, composition[noteIndex].duration * 1000);
-      clearTimeout(timer);
-    }
-  }
-
-  const getDurationOfAllPreviousNotes = (notes, indexOfTheCurrentNote) => {
-    let durationList = [];
-    for (let i = 0; i < indexOfTheCurrentNote; i++) {
-      durationList.push(notes[i].duration);
-    }
-    let sumOfPreviousDurations = durationList.reduce(function (a, b) {
-      return a + b;
-    }, 0);
-
-    // console.log("sumOfPreviousDurations" + sumOfPreviousDurations);
-    return sumOfPreviousDurations * 1000;
+export const JPAnimation = ({ startAnimation }) => {
+  // const { composition } = useContext(CompositionContext);
+  const allMovementSrcList = [];
+  const allMovementDurationList = [];
+  const imageDelayList = [0];
+  const controls = useAnimation();
+  const variants = {
+    hidden: {
+      opacity: 0,
+    },
+    playing: (i) => {
+      return {
+        opacity: 1,
+        transition: {
+          delay: imageDelayList[i] / 1000,
+        },
+      };
+    },
   };
 
-  // console.log("notes : " + JSON.stringify(notes, null, " "));
-  // console.log("timeCode in JPAnimation: " + timeCode);
+  const fillDurationAndSrcArrays = () => {
+    compositionData.forEach((compositionItem) => {
+      compositionItem.durationList.forEach((movementDuration) =>
+        allMovementDurationList.push(movementDuration)
+      );
+      compositionItem.movementList.forEach((noteMovementSrc) =>
+        allMovementSrcList.push(noteMovementSrc)
+      );
+    });
+  };
 
-  //       <img
-  //         className="movement-image"
-  //         src={
-  //           notes[notes.length - 1].movement[
-  //             notes[notes.length - 1].movement.length - 1
-  //           ]
-  //         }
-  //         alt="last-image-of-jp"
-  //       />
+  fillDurationAndSrcArrays();
 
-  // for (let i = 0; i < notes.length; i++) {
-  //   for (let y = 0; y < notes[i].movement.length; y++) {
-  console.log("timeCode in JPAnimation: " + timeCode);
+  const addSumOfDelay = (previousSum, nextDuration) => {
+    imageDelayList.push(previousSum + nextDuration);
+    return previousSum + nextDuration;
+  };
 
-  if (timeCode === getDurationOfAllPreviousNotes(composition, noteIndex)) {
-    return (
-      <motion.img
-        id={`image-jp-${noteIndex}-${movementIndex}`}
-        className="movement-image"
-        key={`key-${noteIndex}-${movementIndex}`}
-        src={composition[noteIndex].movementList[movementIndex]}
-        initial={{ opacity: 1, position: "absolute" }}
-        exit={{ opacity: 0 }}
-        transition={{
-          ease: "linear",
-          duration: 1,
-          delay: 0,
-        }}
-      />
-    );
+  allMovementDurationList.reduce(addSumOfDelay, 0);
+
+
+  useEffect(()=>{
+    if (startAnimation) {
+      controls.start("playing");
+    }
+  },[controls, startAnimation])
+  
+
+  if (startAnimation && allMovementSrcList) {
+    return allMovementSrcList.map((movementSrc, i) => {
+      return (
+        <motion.img
+          className="movement-image"
+          src={movementSrc}
+          initial="hidden"
+          animate={controls}
+          exit="hidden"
+          variants={variants}
+          key={i}
+          custom={i}
+        />
+      );
+    });
   }
-  //   }
-  // }
 
   return (
     <img
       className="movement-image"
-      src={
-        composition[composition.length - 1].movementList[
-          composition[composition.length - 1].movementList.length - 1
-        ]
-      }
-      alt="last-movement-of-jp"
+      src={allMovementSrcList[0]}
+      alt="first-movement"
     />
   );
-
-  //TO DO : reset AFTER render ! I need to catch the moment of the animation's end (setTimeOut on the whole notes duration ?)
-  // resetAnimation(false);
 };
+
+// const JPAnimation = () => {
+//   const { composition } = useContext(CompositionContext);
+//   const controls = useAnimation();
+//   const variants = {
+//     visible: (i) => ({
+//       opacity: 1,
+//       transition: {
+//         delay: i * 0.3,
+//       },
+//     }),
+//     hidden: { opacity: 0 },
+//   };
+
+//   useEffect(() => {
+//     controls.start(i => ({
+//       opacity: 0,
+//       x: 100,
+//       transition: { delay: i * 0.3 },
+//     }))
+//   }, [controls])
+
+//   return composition.map((compositionElement, i) => {
+//     compositionElement.movementList.map((movement, j) => {
+//       return (
+//         <motion.img
+//           id={`image-jp-${i}-${j}`}
+//           className="movement-image"
+//           key={`key-${i}-${j}`}
+//           src={composition[i].movementList[j]}
+//           initial={{ opacity: 1 }}
+//           controls={controls}
+//           variants={variants}
+//           custom={compositionElement.duration}
+//         />
+//       );
+//     });
+//   });
+// };
 
 export default JPAnimation;

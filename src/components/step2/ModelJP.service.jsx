@@ -14,9 +14,9 @@ const createComposition = (
   if (partition.length > 0 && clickNumber < partition.length) {
     setClickNumber(clickNumber + 1);
 
-    const newCompositionItem = {
+      const newCompositionItem = {
       id: partition[clickNumber].id,
-      duration: partition[clickNumber].duration,
+      durationList: movementList[bodyPartName].length === 1 ? [partition[clickNumber].duration] : [partition[clickNumber].duration / 2, partition[clickNumber].duration / 2],
       movementList: movementList[bodyPartName],
       singingWord: bodyPartName,
       sound: soundList[bodyPartName],

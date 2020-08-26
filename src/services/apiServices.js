@@ -1,4 +1,4 @@
-import { apiUrl } from "../config/mediasConstants";
+import { apiUrl } from "../config/urlConstants";
 
 export const apiFetchDefaultNotes = async () => {
   try {

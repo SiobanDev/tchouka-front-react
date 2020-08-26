@@ -1,6 +1,4 @@
 import React, { useContext } from "react";
-//styles
-import "./Step1.style.scss";
 //components
 import AvailableNotesContainer from "./AvailableNotesContainer";
 import StaveContainerStep1 from "./StaveContainerStep1";
@@ -15,11 +13,11 @@ import "../main/StepButtons.style.scss";
 const Step1 = () => {
   const { partition, setPartition } = useContext(PartitionContext);
   const { setCurrentStep } = useContext(StepContext);
+  setCurrentStep(1);
 
   useEffect(() => {
-    setCurrentStep(1);
     console.log("partition dans Step1 : " + JSON.stringify(partition));
-  }, [setCurrentStep, partition]);
+  }, [partition]);
 
   const handleBackspace = () => {
     console.log("partition before : " + partition);
@@ -41,7 +39,7 @@ const Step1 = () => {
     <section id="step1">
       <p className="instruction">
         <span className="round-icon">1</span>J'écris ma partition rythmique en
-        cliquant sur les notes.
+        cliquant sur les notes ci-dessous.
       </p>
 
       <AvailableNotesContainer />

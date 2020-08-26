@@ -22,12 +22,10 @@ const Step2 = () => {
   );
 
   // console.log("composition dans Step2 : " + JSON.stringify(composition));
+  setCurrentStep(2);
 
   useEffect(() => {
-    setCurrentStep(2);
-
     // console.log("partition dans Step2 : " + JSON.stringify(partition));
-
     if (
       localStorage.getItem("partition") &&
       JSON.stringify(partition).length !==
@@ -35,7 +33,7 @@ const Step2 = () => {
     ) {
       setPartition(JSON.parse(localStorage.getItem("partition")));
     }
-  }, [setCurrentStep, setPartition, partition]);
+  }, [setPartition, partition]);
 
   // console.log("endedStep in Step2: " + endedStep);
 

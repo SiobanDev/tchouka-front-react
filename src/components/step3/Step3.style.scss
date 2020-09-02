@@ -3,22 +3,56 @@ $red-color: #ff4436ff;
 $orange-color: #ff9036ff;
 $blue-color: #2ca4a0ff;
 
-.play-button-container{
+#step3{
   display: flex;
-  justify-content: center;
+  flex-wrap: wrap;
 }
 
-.play-button-container i{
+.step3-command-container{
+  width: 50%;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.step3-command-container i{
   cursor: pointer;
 }
 
 #JP-container{
-  width: auto;
-  height: 300px;
+  width: 50%;
+  height: auto;
+  position: relative;
 }
 
 .movement-image{
-  width: 300px;
+  width: 70%;
   height: auto;
   position: absolute;
+  top: 0;
+  left: 15%;
+}
+
+#step3 .visible{
+  opacity: 1;
+}
+
+#step3 .hidden{
+  opacity: 0;
+  transition: opacity 0.5s linear;
+}
+
+#first-movement-image{
+  position: relative;
+}
+
+.play-item, .repeat-item{
+  width: 100%;
+  display: flex;
+  align-items: center;
+  margin-bottom: 5%;
+}
+
+.play-item i, .repeat-item input{
+  margin-right: 2%;
 }

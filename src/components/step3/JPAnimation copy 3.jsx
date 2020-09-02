@@ -10,9 +10,7 @@ import AnimationContext from "../../context/AnimationContext";
 
 export const JPAnimation = ({ repeat }) => {
   // const { composition } = useContext(CompositionContext);
-  const { playingAnimation, setPlayingAnimation } = useContext(
-    AnimationContext
-  );
+  const { playingAnimation, setPlayingAnimation } = useContext(AnimationContext);
 
   const allMovementSrcList = [];
   const allMovementDurationList = [];
@@ -22,27 +20,12 @@ export const JPAnimation = ({ repeat }) => {
     hidden: {
       opacity: 0,
     },
-    visible: (i) => {
-      if (i < compositionData.length) {
-        console.log("sound src : " + compositionData[i].sound);
-
-        const soundOfBodyPart = new Audio(compositionData[i].sound);
-        if (soundOfBodyPart) {
-          soundOfBodyPart.volume = 0.5;
-          soundOfBodyPart.addEventListener("canplaythrough", (event) => {
-            /* the audio is now playable; play it if permissions allow */
-            soundOfBodyPart.play();
-          });
-        }
-      }
-
+    playing: (i) => {
       return {
-        opacity: 1,
+        opacity: [1, 0],
         transition: {
           loop: repeat ? Infinity : 0,
-          // duration: allMovementDurationList[i],
-          delay: allMovementDelayList[i],
-          ease: "easeOut",
+          delay: [allMovementDelayList[i], allMovementDurationList[i]],
         },
       };
     },
@@ -69,15 +52,12 @@ export const JPAnimation = ({ repeat }) => {
   allMovementDurationList.reduce(addSumOfDelay, 0);
 
   console.log(
-    "allMovementDurationList : " +
-      allMovementDurationList +
-      " allMovementDelayList :" +
-      allMovementDelayList
+    "allMovementDurationList : " + allMovementDurationList + " allMovementDelayList :" + allMovementDelayList
   );
 
   const sequence = useCallback(async () => {
     try {
-      await controls.start("visible");
+      await controls.start("playing");
 
       setTimeout(() => {
         setPlayingAnimation(false);
@@ -89,16 +69,23 @@ export const JPAnimation = ({ repeat }) => {
   }, [allMovementDelayList, controls, setPlayingAnimation]);
 
   useEffect(() => {
-    console.log(
-      "in JP. repeat : " + repeat + " and playAnimation :" + playingAnimation
-    );
+    // console.log(
+    //   "in JP. repeat : " + repeat + " and playAnimation :" + playingAnimation
+    // );
 
     if (playingAnimation) {
       sequence();
     } else {
       controls.start("hidden");
     }
-  }, [allMovementDelayList, controls, playingAnimation, repeat, sequence]);
+  }, [
+    allMovementDelayList,
+    controls,
+    repeat,
+    sequence,
+    setPlayingAnimation,
+    playingAnimation,
+  ]);
 
   if (allMovementSrcList) {
     //TO DO : constraint to toggle a class on first image to change opacity
@@ -106,22 +93,15 @@ export const JPAnimation = ({ repeat }) => {
       <>
         <img
           id="first-movement-image"
-          className={
-            playingAnimation ? "movement-image hidden" : "movement-image"
-          }
-          src={
-            allMovementSrcList[0].substring(
-              0,
-              allMovementSrcList[0].length - 4
-            ) + "-fd.svg"
-          }
+          className="movement-image"
+          src={allMovementSrcList[0]}
           alt="first-movement"
         />
         {allMovementSrcList.map((movementSrc, i) => {
           return (
             <motion.img
               className="movement-image"
-              src={movementSrc.substring(0, movementSrc.length - 4) + "-fd.svg"}
+              src={movementSrc}
               initial="hidden"
               animate={controls}
               variants={variants}

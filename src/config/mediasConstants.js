@@ -1,9 +1,9 @@
 
-export const quarterBeatDuration = 250;
-export const halfBeatDuration = 500;
-export const oneBeatDuration = 1000;
-export const TwoBeatsDuration = 2000;
-export const FourBeatsDuration = 4000;
+// export const quarterBeatDuration = 0.25;
+export const halfBeatDuration = 0.5;
+export const oneBeatDuration = 1;
+export const TwoBeatsDuration = 2;
+export const FourBeatsDuration = 4;
 
 const audioPath = "/media/audio/";
 const imagePath = "/media/images/";
@@ -32,26 +32,26 @@ export const bodyPartList = [
 
 export const jpNeutre = movementPath + "position-neutre.svg";
 export const jpNeutreTransp = movementPath + "position-neutre-transp.svg";
-const biImages = [movementPath + "bi-rd.svg"];
-const bouImages = [movementPath + "bou-rd.svg"];
-const claImages = [movementPath + "cla-rd.svg"];
-const diImages = [movementPath + "di-rd.svg"];
-const douImages = [movementPath + "dou-rd.svg"];
+const biImages = [movementPath + "bi.svg"];
+const bouImages = [movementPath + "bou.svg"];
+const claImages = [movementPath + "cla.svg"];
+const diImages = [movementPath + "di.svg"];
+const douImages = [movementPath + "dou.svg"];
 const piImages = [
-  movementPath + "pi-debut-rd.svg",
-  movementPath + "pi-fin-rd.svg",
+  movementPath + "pi-debut.svg",
+  movementPath + "pi-fin.svg",
 ];
 const pouImages = [
-  movementPath + "pou-debut-rd.svg",
-  movementPath + "pou-fin-rd.svg",
+  movementPath + "pou-debut.svg",
+  movementPath + "pou-fin.svg",
 ];
 const tchiImages = [
-  movementPath + "tchi-debut-rd.svg",
-  movementPath + "tchi-fin-rd.svg",
+  movementPath + "tchi-debut.svg",
+  movementPath + "tchi-fin.svg",
 ];
 const tchouImages = [
-  movementPath + "tchou-debut-rd.svg",
-  movementPath + "tchou-fin-rd.svg",
+  movementPath + "tchou-debut.svg",
+  movementPath + "tchou-fin.svg",
 ];
 export const movementList = {
   bi: biImages,

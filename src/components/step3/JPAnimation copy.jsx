@@ -1,115 +1,100 @@
-import React, { useContext } from "react";
+import React, { useCallback, useEffect, useContext } from "react";
 //components
 //data
 //styles
 import "./Step3.style.scss";
 //libraries
-import { motion } from "framer-motion";
+import { motion, useAnimation } from "framer-motion";
+import { compositionData } from "../../mocks/compositionData";
+import AnimationContext from "../../context/AnimationContext";
 import { useState } from "react";
-import CompositionContext from "../../context/CompositionContext";
+import MovementImages from "./MovementImages";
 
-const JPAnimation = ({ timeCode, startAnimation }) => {
-  const {composition} = useContext(CompositionContext);
-  const [noteIndex, setNoteIndex] = useState(0);
-  const [movementIndex, setMovementIndex] = useState(0);
-  let timer = null;
+export const JPAnimation = ({ repeat }) => {
+  // const { composition } = useContext(CompositionContext);
+  const { playingAnimation, setPlayingAnimation } = useContext(
+    AnimationContext
+  );
+  const allMovementDurationList = [];
+  const allMovementDelayList = [];
+  const controls = useAnimation();
+  const [timeCode, setTimeCode] = useState(0);
+  const [count, setCount] = useState(0);
 
-  if (startAnimation) {
-    if (
-      composition[noteIndex].movementList.length > 1 &&
-      movementIndex < composition[noteIndex].movementList.length
-    ) {
-      timer = setTimeout(() => {
-        if (noteIndex < composition.length) {
-          setNoteIndex(noteIndex);
-        }
-      }, (composition[noteIndex].duration * 1000) / 2);
+  compositionData.forEach((compositionItem) => {
+    compositionItem.durationList.forEach((movementDuration) =>
+      allMovementDurationList.push(movementDuration)
+    );
+  });
 
-      clearTimeout(timer);
-
-      setMovementIndex(movementIndex + 1);
-
-      timer = setTimeout(() => {
-        if (noteIndex < composition.length) {
-          setNoteIndex(noteIndex);
-        }
-      }, (composition[noteIndex].duration * 1000) / 2);
-
-      clearTimeout(timer);
-    } else {
-      timer = setTimeout(() => {
-        if (noteIndex < composition.length) {
-          setNoteIndex(noteIndex + 1);
-        }
-      }, composition[noteIndex].duration * 1000);
-      clearTimeout(timer);
-    }
-  }
-
-  const getDurationOfAllPreviousNotes = (notes, indexOfTheCurrentNote) => {
-    let durationList = [];
-    for (let i = 0; i < indexOfTheCurrentNote; i++) {
-      durationList.push(notes[i].duration);
-    }
-    let sumOfPreviousDurations = durationList.reduce(function (a, b) {
-      return a + b;
-    }, 0);
-
-    // console.log("sumOfPreviousDurations" + sumOfPreviousDurations);
-    return sumOfPreviousDurations * 1000;
+  const addSumOfDelay = (previousSum, nextDuration) => {
+    allMovementDelayList.push(previousSum + nextDuration);
+    return previousSum + nextDuration;
   };
 
-  // console.log("notes : " + JSON.stringify(notes, null, " "));
-  // console.log("timeCode in JPAnimation: " + timeCode);
+  allMovementDurationList.reduce(addSumOfDelay, 0);
 
-  //       <img
-  //         className="movement-image"
-  //         src={
-  //           notes[notes.length - 1].movement[
-  //             notes[notes.length - 1].movement.length - 1
-  //           ]
-  //         }
-  //         alt="last-image-of-jp"
-  //       />
+  const playSequence = useCallback(async () => {
+    try {
+      await controls.start("visible");
+    } catch (e) {
+      console.log("Error with Framer controls promise : " + e);
+    }
+  }, [controls]);
 
-  // for (let i = 0; i < notes.length; i++) {
-  //   for (let y = 0; y < notes[i].movement.length; y++) {
-  console.log("timeCode in JPAnimation: " + timeCode);
+  const resetAnimation = useCallback(() => {
+    setTimeout(() => {
+      setPlayingAnimation(false);
+    }, allMovementDelayList[allMovementDelayList.length - 1] * 1000);
+  }, [allMovementDelayList, setPlayingAnimation]);
 
-  if (timeCode === getDurationOfAllPreviousNotes(composition, noteIndex)) {
+  useEffect(() => {
+    if (playingAnimation) {
+      playSequence();
+
+      const timer =
+        timeCode < allMovementDelayList[allMovementDelayList.length - 1] &&
+        setInterval(() => setTimeCode(timeCode + 0.25), 250);
+
+      console.log("timeCode  : " + timeCode);
+      console.log("playAnimation in JP  : " + playingAnimation);
+
+      setTimeout(() => {
+        setPlayingAnimation(false);
+      }, allMovementDelayList[allMovementDelayList.length - 1]);
+      
+      return () => {
+        clearInterval(timer);
+      };
+      
+    } else {
+      controls.start("hidden");
+    }
+  }, [allMovementDelayList, controls, playSequence, playingAnimation, setPlayingAnimation, timeCode]);
+
+  if (timeCode === allMovementDelayList[allMovementDelayList.length - 1]) {
+    setPlayingAnimation(false);
+  }
+
+  if (timeCode < allMovementDelayList[count]) {
+    //TO DO : constraint to toggle a class on first image to change opacity
     return (
-      <motion.img
-        id={`image-jp-${noteIndex}-${movementIndex}`}
-        className="movement-image"
-        key={`key-${noteIndex}-${movementIndex}`}
-        src={composition[noteIndex].movementList[movementIndex]}
-        initial={{ opacity: 1, position: "absolute" }}
-        exit={{ opacity: 0 }}
-        transition={{
-          ease: "linear",
-          duration: 1,
-          delay: 0,
-        }}
+      <MovementImages
+        count={count}
+        controls={controls}
+        playingAnimation={playingAnimation}
+      />
+    );
+  } else {
+    setCount(count + 1);
+    return (
+      <MovementImages
+        count={count}
+        controls={controls}
+        playingAnimation={playingAnimation}
       />
     );
   }
-  //   }
-  // }
-
-  return (
-    <img
-      className="movement-image"
-      src={
-        composition[composition.length - 1].movementList[
-          composition[composition.length - 1].movementList.length - 1
-        ]
-      }
-      alt="last-movement-of-jp"
-    />
-  );
-
-  //TO DO : reset AFTER render ! I need to catch the moment of the animation's end (setTimeOut on the whole notes duration ?)
-  // resetAnimation(false);
 };
 
 export default JPAnimation;

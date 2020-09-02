@@ -9,6 +9,7 @@ import Header from "../../views/Header";
 import PartitionContext from "../../context/PartitionContext";
 import StepContext from "../../context/StepContext";
 import CompositionContext from "../../context/CompositionContext";
+import AnimationContext from "../../context/AnimationContext";
 
 const MainContent = () => {
   var freeTime = 42;
@@ -17,6 +18,7 @@ const MainContent = () => {
   const [partition, setPartition] = useState([]);
   const [composition, setComposition] = useState([]);
   const [currentStep, setCurrentStep] = useState(0);
+  const [playingAnimation, setPlayingAnimation] = useState(false);
   const [isLastItemRemoved, setIsLastItemRemoved] = useState(false);
 
   console.log("partition dans MainContent " + JSON.stringify(partition));
@@ -45,16 +47,23 @@ const MainContent = () => {
             }}
           >
             <Header />
-            <main>
-              <Switch>
-                <Route exact path="/apprentissage" component={Step3} />
+            <AnimationContext.Provider
+              value={{
+                playingAnimation,
+                setPlayingAnimation,
+              }}
+            >
+              <main>
+                <Switch>
+                  <Route exact path="/apprentissage" component={Step3} />
 
-                <Route exact path="/percussions" component={Step2} />
+                  <Route exact path="/percussions" component={Step2} />
 
-                <Route exact path="/rythme" component={Step1} />
-                <Route exact path="/" component={Home} />
-              </Switch>
-            </main>
+                  <Route exact path="/rythme" component={Step1} />
+                  <Route exact path="/" component={Home} />
+                </Switch>
+              </main>
+            </AnimationContext.Provider>
           </CompositionContext.Provider>
         </PartitionContext.Provider>
       </StepContext.Provider>

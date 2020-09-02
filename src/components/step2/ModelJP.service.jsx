@@ -11,12 +11,18 @@ const createComposition = (
 ) => {
   // console.log("clickNumber in create: " + clickNumber);
 
-  if (partition.length > 0 && clickNumber < partition.length) {
+  if (movementList && partition.length > 0 && clickNumber < partition.length) {
     setClickNumber(clickNumber + 1);
 
-      const newCompositionItem = {
+    const newCompositionItem = {
       id: partition[clickNumber].id,
-      durationList: movementList[bodyPartName].length === 1 ? [partition[clickNumber].duration] : [partition[clickNumber].duration / 2, partition[clickNumber].duration / 2],
+      durationList:
+        movementList[bodyPartName].length === 1
+          ? [partition[clickNumber].duration]
+          : [
+              partition[clickNumber].duration / 2,
+              partition[clickNumber].duration / 2,
+            ],
       movementList: movementList[bodyPartName],
       singingWord: bodyPartName,
       sound: soundList[bodyPartName],
@@ -30,8 +36,13 @@ const createComposition = (
 const playSoundOfBodyPart = (bodyPartName, partition, composition) => {
   if (partition.length !== composition.length) {
     const soundOfBodyPart = new Audio(soundList[bodyPartName]);
-    soundOfBodyPart.volume = 0.5;
-    soundOfBodyPart.play();
+    if (soundOfBodyPart) {
+      soundOfBodyPart.volume = 0.5;
+      soundOfBodyPart.addEventListener("canplaythrough", (event) => {
+        /* the audio is now playable; play it if permissions allow */
+        soundOfBodyPart.play();
+      });
+    }
   }
 };
 

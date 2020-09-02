@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useEffect, useState, useCallback } from "react";
 //services
 import { apiFetchDefaultNotes } from "../../services/apiServices";
 //context
@@ -27,10 +27,9 @@ export const AvailableNotesContainer = () => {
     "2 temps",
     "1 temps",
     "1/2 temps",
-    "1/4 temps",
   ];
 
-  const getNotes = React.useCallback(async () => {
+  const getNotes = useCallback(async () => {
     try {
       const formattedApiResponse = await apiFetchDefaultNotes();
       if (formattedApiResponse) {

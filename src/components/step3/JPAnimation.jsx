@@ -1,138 +1,134 @@
-import React, { useCallback, useEffect, useContext } from "react";
+import React, { useEffect, useContext } from "react";
 //components
 //data
 //styles
 import "./Step3.style.scss";
 //libraries
-import { motion, useAnimation } from "framer-motion";
+import { useAnimation } from "framer-motion";
 import { compositionData } from "../../mocks/compositionData";
 import AnimationContext from "../../context/AnimationContext";
+import { useState } from "react";
 
-export const JPAnimation = ({ repeat }) => {
+export const JPAnimation = () => {
   // const { composition } = useContext(CompositionContext);
   const { playingAnimation, setPlayingAnimation } = useContext(
     AnimationContext
   );
+  const allImageSrcList = [];
+  const allImageDurationList = [];
+  const allImageDelayList = [0];
+  const allSoundDurationList = [];
+  const allSoundDelayList = [0];
+  const [timeCode, setTimeCode] = useState(0);
 
-  const allMovementSrcList = [];
-  const allMovementDurationList = [];
-  const allMovementDelayList = [0];
-  const controls = useAnimation();
-  const variants = {
-    hidden: {
-      opacity: 0,
-    },
-    visible: (i) => {
-      if (i < compositionData.length) {
-        console.log("sound src : " + compositionData[i].sound);
+  //TODO: move arrays filling in a useCallback
 
-        const soundOfBodyPart = new Audio(compositionData[i].sound);
-        if (soundOfBodyPart) {
-          soundOfBodyPart.volume = 0.5;
-          soundOfBodyPart.addEventListener("canplaythrough", (event) => {
-            /* the audio is now playable; play it if permissions allow */
-            soundOfBodyPart.play();
-          });
-        }
-      }
-
-      return {
-        opacity: 1,
-        transition: {
-          loop: repeat ? Infinity : 0,
-          // duration: allMovementDurationList[i],
-          delay: allMovementDelayList[i],
-          ease: "easeOut",
-        },
-      };
-    },
-  };
-
-  const fillDurationAndSrcArrays = () => {
-    compositionData.forEach((compositionItem) => {
-      compositionItem.durationList.forEach((movementDuration) =>
-        allMovementDurationList.push(movementDuration)
-      );
-      compositionItem.movementList.forEach((noteMovementSrc) =>
-        allMovementSrcList.push(noteMovementSrc)
-      );
+  compositionData.forEach((compositionItem) => {
+    compositionItem.durationList.forEach((movementDuration) =>
+      allImageDurationList.push(movementDuration)
+    );
+    compositionItem.movementList.forEach((noteMovementSrc) => {
+      allImageSrcList.push(noteMovementSrc);
     });
-  };
 
-  fillDurationAndSrcArrays();
+    var durationSum = compositionItem.durationList.reduce(function (a, b) {
+      return a + b;
+    }, 0);
 
-  const addSumOfDelay = (previousSum, nextDuration) => {
-    allMovementDelayList.push(previousSum + nextDuration);
+    allSoundDurationList.push(durationSum);
+  });
+
+  // console.log("allSoundDurationList : " + JSON.stringify(allSoundDurationList));
+
+  const addSumOfImageDelay = (previousSum, nextDuration) => {
+    allImageDelayList.push(previousSum + nextDuration);
     return previousSum + nextDuration;
   };
 
-  allMovementDurationList.reduce(addSumOfDelay, 0);
+  const addSumOfSoundDelay = (previousSum, nextDuration) => {
+    allSoundDelayList.push(previousSum + nextDuration);
+    return previousSum + nextDuration;
+  };
+
+  allImageDurationList.reduce(addSumOfImageDelay, 0);
+  allSoundDurationList.reduce(addSumOfSoundDelay, 0);
+
+  const imageCount = (() => {
+    const imageCountTmp =
+      allImageDelayList.findIndex((movementDelay) => movementDelay > timeCode) -
+      1;
+
+    return imageCountTmp >= 0 ? imageCountTmp : allImageDelayList.length - 1;
+  })();
+
+  const movementImageSrc = allImageSrcList[imageCount]
+    ? allImageSrcList[imageCount].substring(
+        0,
+        allImageSrcList[imageCount].length - 4
+      ) + "-fd.svg"
+    : allImageSrcList[0];
+
+  const soundCount = (() => {
+    const soundCountTmp =
+      allSoundDelayList.findIndex((movementDelay) => movementDelay > timeCode) -
+      1;
+
+    return soundCountTmp >= 0 ? soundCountTmp : compositionData.length - 1;
+  })();
 
   console.log(
-    "allMovementDurationList : " +
-      allMovementDurationList +
-      " allMovementDelayList :" +
-      allMovementDelayList
+    "soundCount :" +
+      soundCount +
+      " //// allSoundDelayList :" +
+      allSoundDelayList
   );
-
-  const sequence = useCallback(async () => {
-    try {
-      await controls.start("visible");
-
-      setTimeout(() => {
-        setPlayingAnimation(false);
-      }, allMovementDelayList[allMovementDelayList.length - 1]);
-      // clearTimeout(returnToInitialAnimationState);
-    } catch (e) {
-      console.log("Error with Framer controls promise : " + e);
-    }
-  }, [allMovementDelayList, controls, setPlayingAnimation]);
+  // console.log("imageCount :" + imageCount);
+  // console.log("allImageSrcList :" + allImageSrcList);
+  // console.log("allImageDelayList :" + allImageDelayList);
 
   useEffect(() => {
-    console.log(
-      "in JP. repeat : " + repeat + " and playAnimation :" + playingAnimation
-    );
-
     if (playingAnimation) {
-      sequence();
-    } else {
-      controls.start("hidden");
-    }
-  }, [allMovementDelayList, controls, playingAnimation, repeat, sequence]);
-
-  if (allMovementSrcList) {
-    //TO DO : constraint to toggle a class on first image to change opacity
-    return (
-      <>
-        <img
-          id="first-movement-image"
-          className={
-            playingAnimation ? "movement-image hidden" : "movement-image"
-          }
-          src={
-            allMovementSrcList[0].substring(
-              0,
-              allMovementSrcList[0].length - 4
-            ) + "-fd.svg"
-          }
-          alt="first-movement"
-        />
-        {allMovementSrcList.map((movementSrc, i) => {
-          return (
-            <motion.img
-              className="movement-image"
-              src={movementSrc.substring(0, movementSrc.length - 4) + "-fd.svg"}
-              initial="hidden"
-              animate={controls}
-              variants={variants}
-              key={i}
-              custom={i}
-            />
+      //TODO : replace "+ 0.25" with date.now() - date.depart (-> state updated when animation starts)
+      if (timeCode === allImageDelayList[allImageDelayList.length - 1]) {
+        setPlayingAnimation(false);
+        setTimeCode(0);
+      } else {
+        const start = Date.now() / 1000;
+        const timer =
+          timeCode < allImageDelayList[allImageDelayList.length - 1] &&
+          setInterval(
+            () => setTimeCode(timeCode + Date.now() / 1000 - start),
+            250
           );
-        })}
-      </>
-    );
-  }
+
+        console.log("timeCode  : " + timeCode);
+        console.log("playAnimation in JP  : " + playingAnimation);
+
+        return () => {
+          clearInterval(timer);
+        };
+      }
+    }
+  }, [allImageDelayList, playingAnimation, setPlayingAnimation, timeCode]);
+
+  useEffect(() => {
+    if (playingAnimation) {
+      const movementSound = new Audio();
+      movementSound.src = compositionData[soundCount].sound;
+      movementSound.play();
+    }
+  }, [playingAnimation, soundCount]);
+
+  //TO DO : constraint to toggle a class on first image to change opacity
+  return (
+    <>
+      <img
+        className="movement-image"
+        src={movementImageSrc}
+        alt="movement-img"
+      />
+    </>
+  );
 };
 
 export default JPAnimation;

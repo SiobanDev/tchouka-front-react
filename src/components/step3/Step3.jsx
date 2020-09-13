@@ -26,16 +26,7 @@ const Step3 = () => {
 
   useEffect(() => {
     setCurrentStep(learningStep);
-
-    if (
-      localStorage.getItem("composition") &&
-      JSON.stringify(composition).length !==
-        localStorage.getItem("composition").length
-    ) {
-      setComposition(JSON.parse(localStorage.getItem("composition")));
-    }
-
-  }, [composition, repeat, setComposition, setCurrentStep, setPlayingAnimation]);
+  }, [setCurrentStep]);
 
   // console.log(
   //   "in step 3. repeat : " + repeat + " and playAnimation :" + playingAnimation

@@ -36,29 +36,18 @@ const Step2 = () => {
   };
 
   const goToPreviousStep = () => {
-    setComposition([]);
     localStorage.removeItem("composition");
+    setComposition([]);
   };
 
   const goToNextStep = () => {
     adaptComposition(composition, setComposition);
-
-    if (partition.length === composition.length) {
-      localStorage.setItem("composition", JSON.stringify(composition));
-    }
+    localStorage.setItem("composition", JSON.stringify(composition));
   };
 
   useEffect(() => {
     setCurrentStep(percussionStep);
-
-    if (
-      localStorage.getItem("partition") &&
-      JSON.stringify(partition).length !==
-        localStorage.getItem("partition").length
-    ) {
-      setPartition(JSON.parse(localStorage.getItem("partition")));
-    }
-  }, [setPartition, partition, setCurrentStep]);
+  }, [setCurrentStep]);
 
   return (
     <section id="step2">

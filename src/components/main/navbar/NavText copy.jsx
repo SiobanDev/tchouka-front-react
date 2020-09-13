@@ -3,7 +3,6 @@ import React, { useContext } from "react";
 import { Link } from "react-router-dom";
 import PartitionContext from "../../../context/PartitionContext";
 import CompositionContext from "../../../context/CompositionContext";
-import { adaptComposition } from "../../step3/Step3.utils";
 
 const NavText = ({
   isAllowed,
@@ -30,17 +29,26 @@ const NavText = ({
         className="navbar-link"
         to={urlMenuList[i]}
         onClick={() => {
-          
-          if (currentStep === 1 && i === 2) {
-            localStorage.setItem("partition", JSON.stringify(partition));
-          } else if ((currentStep === 2 || currentStep === 3) && i === 1) {
-            localStorage.removeItem("composition");
-            setComposition([]);
-          } else if (currentStep === 2 && i === 3) {
-            adaptComposition(composition, setComposition);
-            localStorage.setItem("composition", JSON.stringify(composition));
+          if (currentStep < i) {
+            if (currentStep === 1) {
+              localStorage.setItem("partition", JSON.stringify(partition));
+            } else if (currentStep === 2) {
+              if (partition.length === composition.length) {
+                localStorage.setItem(
+                  "composition",
+                  JSON.stringify(composition)
+                );
+              }
+            }
+          } else if (currentStep > i) {
+            if (currentStep === 1) {
+              setPartition([]);
+              setComposition([]);
+            } else if (currentStep === 2) {
+              setComposition([]);
+              localStorage.removeItem("composition");
+            }
           }
-
           setCurrentStep(i);
         }}
       >

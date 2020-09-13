@@ -5,14 +5,36 @@ import StepContext from "../../context/StepContext";
 import NextStepButton from "./NextStepButton";
 //styles
 import "./StepButtons.style.scss";
+import PartitionContext from "../../context/PartitionContext";
+import CompositionContext from "../../context/CompositionContext";
 
 const Home = () => {
-  localStorage.clear();
   const { setCurrentStep } = useContext(StepContext);
+  const { partition, setPartition } = useContext(PartitionContext);
+  const { composition, setComposition } = useContext(
+    CompositionContext
+  );
 
   useEffect(() => {
     setCurrentStep(0);
-  }, [setCurrentStep]);
+
+    if(localStorage.getItem("partition") || localStorage.getItem("composition")){
+      localStorage.clear();
+    }
+
+    if (partition.length > 0) {
+      setPartition([]);
+    }
+    if (composition.length > 0) {
+      setComposition([]);
+    }
+  }, [
+    composition.length,
+    partition.length,
+    setComposition,
+    setCurrentStep,
+    setPartition,
+  ]);
 
   return (
     <>

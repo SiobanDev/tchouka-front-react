@@ -21,9 +21,9 @@ const MainContent = () => {
   const [playingAnimation, setPlayingAnimation] = useState(false);
   const [isLastItemRemoved, setIsLastItemRemoved] = useState(false);
 
-  console.log("partition dans MainContent " + JSON.stringify(partition));
+  // console.log("partition dans MainContent " + JSON.stringify(partition));
   // console.log("allNotesWidth dans MainContent" + allNotesWidth);
-  console.log("composition dans MainContent " + JSON.stringify(composition));
+  //console.log("composition dans MainContent " + JSON.stringify(composition));
 
   return (
     <Router>

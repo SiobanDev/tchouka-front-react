@@ -23,9 +23,7 @@ import { useContext } from "react";
 import PartitionContext from "../../context/PartitionContext";
 import CompositionContext from "../../context/CompositionContext";
 import { useEffect } from "react";
-import {
-  handleClickOnBodyPart,
-} from "./ModelJP.service";
+import { handleClickOnBodyPart } from "./ModelJP.service";
 
 const ModelJP = () => {
   const { partition } = useContext(PartitionContext);
@@ -60,63 +58,37 @@ const ModelJP = () => {
   //     JSON.stringify(movementImageToDisplay)
   // );
 
-  if (movementImageToDisplay.length > 0) {
-    return (
-      <div className="model-container">
-        {movementImageToDisplay}
-        <img className="model neutral-model" src={jpNeutre} alt="neutral-model" />
-        {bodyPartList.map((bodyPart, i) => (
-          <BodyPart
-            name={bodyPart}
-            handleClick={() => {
-              handleClickOnBodyPart(
-                bodyPart,
-                clickNumber,
-                setClickNumber,
-                partition,
-                composition,
-                setComposition,
-                movementImageToDisplay,
-                setMovementImageToDisplay
-              );
-            }}
-            key={i}
-          />
-        ))}
-      </div>
-    );
-  } else if (bodyPartList) {
-    return (
-      <div className="model-container">
+  return (
+    <div className="model-container">
+      {movementImageToDisplay.length > 0 ? (
+        movementImageToDisplay
+      ) : (
         <img
           className="model model-transp"
           src={jpNeutreTransp}
           alt="neutral-model"
         />
-        <img className="model neutral-model" src={jpNeutre} alt="neutral-model" />
-        {bodyPartList.map((bodyPart, i) => (
-          <BodyPart
-            name={bodyPart}
-            handleClick={() => {
-              handleClickOnBodyPart(
-                bodyPart,
-                clickNumber,
-                setClickNumber,
-                partition,
-                composition,
-                setComposition,
-                movementImageToDisplay,
-                setMovementImageToDisplay
-              );
-            }}
-            key={i}
-          />
-        ))}
-      </div>
-    );
-  }
-  console.log("error in ModelJP");
-  return null;
+      )}
+      <img className="model neutral-model" src={jpNeutre} alt="neutral-model" />
+      {bodyPartList.map((bodyPart, i) => (
+        <BodyPart
+          name={bodyPart}
+          handleClick={() => {
+            handleClickOnBodyPart(
+              bodyPart,
+              clickNumber,
+              setClickNumber,
+              partition,
+              composition,
+              setComposition,
+              setMovementImageToDisplay
+            );
+          }}
+          key={i}
+        />
+      ))}
+    </div>
+  );
 };
 
 export default ModelJP;

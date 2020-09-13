@@ -1,5 +1,5 @@
 import React from "react";
-import Nav from "../components/main/Nav";
+import Nav from "../components/main/navbar/Nav";
 //styles
 import "./Header.style.scss";
 

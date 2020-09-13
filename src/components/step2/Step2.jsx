@@ -13,6 +13,8 @@ import PreviousStepButton from "../main/PreviousStepButton";
 import NextStepButton from "../main/NextStepButton";
 //styles
 import "../main/StepButtons.style.scss";
+import { rythmStep, percussionStep } from "../../config/mainConstants";
+import { adaptComposition } from "../step3/Step3.utils";
 
 const Step2 = () => {
   const { partition, setPartition } = useContext(PartitionContext);
@@ -20,26 +22,10 @@ const Step2 = () => {
   const { composition, setComposition, setIsLastItemRemoved } = useContext(
     CompositionContext
   );
-
-  // console.log("composition dans Step2 : " + JSON.stringify(composition));
-  setCurrentStep(2);
-
-  useEffect(() => {
-    // console.log("partition dans Step2 : " + JSON.stringify(partition));
-    if (
-      localStorage.getItem("partition") &&
-      JSON.stringify(partition).length !==
-        localStorage.getItem("partition").length
-    ) {
-      setPartition(JSON.parse(localStorage.getItem("partition")));
-    }
-  }, [setPartition, partition]);
-
-  // console.log("endedStep in Step2: " + endedStep);
-
   const handleBackspace = () => {
     if (composition.length > 0) {
       setComposition(composition.splice(0, composition.length - 1));
+      console.log("composition dans Step2 " + JSON.stringify(composition));
       setIsLastItemRemoved(true);
     }
   };
@@ -55,12 +41,24 @@ const Step2 = () => {
   };
 
   const goToNextStep = () => {
+    adaptComposition(composition, setComposition);
+
     if (partition.length === composition.length) {
       localStorage.setItem("composition", JSON.stringify(composition));
-
-      //TO DO : don't allow step3 if there isn't both joined singing word and sound for each note.
     }
   };
+
+  useEffect(() => {
+    setCurrentStep(percussionStep);
+
+    if (
+      localStorage.getItem("partition") &&
+      JSON.stringify(partition).length !==
+        localStorage.getItem("partition").length
+    ) {
+      setPartition(JSON.parse(localStorage.getItem("partition")));
+    }
+  }, [setPartition, partition, setCurrentStep]);
 
   return (
     <section id="step2">

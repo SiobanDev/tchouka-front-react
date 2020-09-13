@@ -1,9 +1,9 @@
 
-// export const quarterBeatDuration = 0.25;
-export const halfBeatDuration = 0.5;
-export const oneBeatDuration = 1;
-export const TwoBeatsDuration = 2;
-export const FourBeatsDuration = 4;
+// export const quarterBeatDuration = 250;
+export const halfBeatDuration = 500;
+export const oneBeatDuration = 1000;
+export const TwoBeatsDuration = 2000;
+export const FourBeatsDuration = 4000;
 
 const audioPath = "/media/audio/";
 const imagePath = "/media/images/";

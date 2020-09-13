@@ -1,6 +1,9 @@
 import React from "react";
 
-import { soundList, movementList } from "../../config/mediasConstants";
+import {
+  soundList,
+  movementList,
+} from "../../config/mediasConstants";
 
 const createComposition = (
   bodyPartName,
@@ -11,7 +14,7 @@ const createComposition = (
 ) => {
   // console.log("clickNumber in create: " + clickNumber);
 
-  if (movementList && partition.length > 0 && clickNumber < partition.length) {
+  if (partition.length > 0 && clickNumber < partition.length) {
     setClickNumber(clickNumber + 1);
 
     const newCompositionItem = {
@@ -29,7 +32,6 @@ const createComposition = (
     };
 
     setComposition((composition) => [...composition, newCompositionItem]);
-    // console.log("composition in ModelJP :" + JSON.stringify(composition));
   }
 };
 
@@ -38,7 +40,7 @@ const playSoundOfBodyPart = (bodyPartName, partition, composition) => {
     const soundOfBodyPart = new Audio(soundList[bodyPartName]);
     if (soundOfBodyPart) {
       soundOfBodyPart.volume = 0.5;
-      soundOfBodyPart.addEventListener("canplaythrough", (event) => {
+      soundOfBodyPart.addEventListener("canplaythrough", () => {
         /* the audio is now playable; play it if permissions allow */
         soundOfBodyPart.play();
       });
@@ -53,6 +55,9 @@ const playOneMovement = (
   composition
 ) => {
   if (partition.length !== composition.length) {
+    let imageDelay = 0;
+    clearTimeout(imageDelay);
+
     setMovementImageToDisplay([
       <img
         className="model animated-model"
@@ -63,7 +68,7 @@ const playOneMovement = (
     ]);
 
     if (movementList[bodyPartName].length > 1) {
-      setTimeout(setMovementImageToDisplay, 200, [
+      imageDelay = setTimeout(setMovementImageToDisplay, 200, [
         <img
           className="model animated-model"
           src={movementList[bodyPartName][1]}
@@ -71,12 +76,9 @@ const playOneMovement = (
           key={bodyPartName}
         />,
       ]);
+    } else {
+      imageDelay = setTimeout(setMovementImageToDisplay, 400, []);
     }
-    setTimeout(setMovementImageToDisplay, 400, []);
-
-    // console.log(
-    //   "movementImageToDisplay : " + JSON.stringify(movementImageToDisplay)
-    // );
   }
 };
 
@@ -87,7 +89,6 @@ export const handleClickOnBodyPart = (
   partition,
   composition,
   setComposition,
-  movementImageToDisplay,
   setMovementImageToDisplay
 ) => {
   createComposition(

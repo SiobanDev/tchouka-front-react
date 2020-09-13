@@ -9,18 +9,18 @@ import { useEffect } from "react";
 import NextStepButton from "../main/NextStepButton";
 //styles
 import "../main/StepButtons.style.scss";
+import { rythmStep } from "../../config/mainConstants";
 
 const Step1 = () => {
   const { partition, setPartition } = useContext(PartitionContext);
   const { setCurrentStep } = useContext(StepContext);
-  setCurrentStep(1);
 
   useEffect(() => {
-    console.log("partition dans Step1 : " + JSON.stringify(partition));
-  }, [partition]);
+    setCurrentStep(rythmStep);
+  }, [setCurrentStep]);
 
   const handleBackspace = () => {
-    console.log("partition before : " + partition);
+    //console.log("partition before : " + partition);
     if (partition.length > 0) {
       setPartition(partition.splice(0, partition.length - 1));
     }

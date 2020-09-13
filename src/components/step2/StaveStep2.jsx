@@ -1,3 +1,4 @@
+ 
 import React from "react";
 //styles
 import "../stave/Staves.style.scss";
@@ -22,5 +23,4 @@ const StaveStep2 = ({ id, notesList, singingWordList }) => {
   console.log("error in StaveStep2");
   return null;
 };
-
 export default StaveStep2;

@@ -16,13 +16,20 @@ const Step1 = () => {
   const { setCurrentStep } = useContext(StepContext);
 
   useEffect(() => {
+    if (partition.length === 0 && localStorage.getItem("partition")) {
+      setPartition(JSON.parse(localStorage.getItem("partition")));
+    }
+
     setCurrentStep(rythmStep);
-  }, [setCurrentStep]);
+  }, [partition.length, setCurrentStep, setPartition]);
 
   const handleBackspace = () => {
     //console.log("partition before : " + partition);
+
     if (partition.length > 0) {
-      setPartition(partition.splice(0, partition.length - 1));
+      const partitionTmp = partition;
+      partitionTmp.splice(partition.length - 1, 1);
+      setPartition(partitionTmp);
     }
   };
 
@@ -32,8 +39,12 @@ const Step1 = () => {
   };
 
   const goToNextStep = () => {
+    console.log("partition in Step1 :" + JSON.stringify(partition));
+
     localStorage.setItem("partition", JSON.stringify(partition));
   };
+
+  console.log("partition in Step1 : " + JSON.stringify(partition));
 
   return (
     <section id="step1">

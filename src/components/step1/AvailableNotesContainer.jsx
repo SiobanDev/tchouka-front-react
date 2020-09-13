@@ -68,6 +68,7 @@ export const AvailableNotesContainer = () => {
                 imageSource={note.noteImage}
                 onClick={() => {
                   setPartition([...partition, note]);
+                  
                   setAllNotesWidth(allNotesWidth + addedNoteWidth);
                 }}
               />

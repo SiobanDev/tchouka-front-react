@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import PartitionContext from "../../../context/PartitionContext";
 import CompositionContext from "../../../context/CompositionContext";
 
-const NavText = ({
+const NavTextCopy = ({
   isAllowed,
   urlMenuList,
   itemNameMenuList,
@@ -58,4 +58,4 @@ const NavText = ({
   );
 };
 
-export default NavText;
+export default NavTextCopy;

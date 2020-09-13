@@ -13,19 +13,26 @@ import PreviousStepButton from "../main/PreviousStepButton";
 import NextStepButton from "../main/NextStepButton";
 //styles
 import "../main/StepButtons.style.scss";
-import { rythmStep, percussionStep } from "../../config/mainConstants";
-import { adaptComposition } from "../step3/Step3.utils";
+import {  percussionStep } from "../../config/mainConstants";
+import { adaptComposition } from "./Step2.utils";
 
 const Step2 = () => {
-  const { partition, setPartition } = useContext(PartitionContext);
+  const { partition } = useContext(PartitionContext);
   const { setCurrentStep } = useContext(StepContext);
   const { composition, setComposition, setIsLastItemRemoved } = useContext(
     CompositionContext
   );
+
   const handleBackspace = () => {
     if (composition.length > 0) {
-      setComposition(composition.splice(0, composition.length - 1));
-      console.log("composition dans Step2 " + JSON.stringify(composition));
+      const compositionTmp = composition;
+      compositionTmp.splice(composition.length - 1, 1);
+      setComposition(compositionTmp);
+
+      console.log(
+        "composition dans Step2 after backspace " + JSON.stringify(composition, null, " ")
+      );
+
       setIsLastItemRemoved(true);
     }
   };
@@ -46,8 +53,13 @@ const Step2 = () => {
   };
 
   useEffect(() => {
+    if (composition.length === 0 && localStorage.getItem("composition")) {
+      setComposition(JSON.parse(localStorage.getItem("composition")));
+    }
     setCurrentStep(percussionStep);
-  }, [setCurrentStep]);
+  }, [composition.length, setComposition, setCurrentStep]);
+
+  console.log("partition in Step2 :" + JSON.stringify(partition));
 
   return (
     <section id="step2">
@@ -56,8 +68,7 @@ const Step2 = () => {
       </div>
       <div className="column2">
         <p className="instruction">
-          <span className="round-icon">2</span>Je clique sur les parties du
-          corps de Jean-Patricia pour les associer à mes notes.
+          <span className="round-icon">2</span>Je clique sur les parties du corps de Jean-Patricia pour les associer à mes notes.
         </p>
         <i
           className="fas fa-backspace instruction-button"

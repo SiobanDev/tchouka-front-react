@@ -13,6 +13,14 @@ Il est bien plus facile de réaliser et mémoriser l'enchaînement des percussio
 https://github.com/SiobanDev/tchouka-back-symfony
 - non responsive en V1
 
+## Documentation
+### Utilisation du localStorage
+Le localStorage est utilisé au moment des changements de "pages" afin de sauvegarder les dernières données de l'utilisat.eur.rice. et ainsi pouvoir les récupérer au composant suivant appelé.
+
+Rappel : à chaque changement de composant qui n'est pas un enfant du composant précédent, les données du contexte sont réinitialisées.
+
+Il est donc nécessaire de récupérer les données de la partition et de la composition à chaque nouvelle "page" (selon les besoins).
+
 
  ## Problème de boucle infinie avec un contexte
  ---

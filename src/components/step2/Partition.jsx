@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 //context
 import PartitionContext from "../../context/PartitionContext";
 //components
@@ -11,27 +11,21 @@ import CompositionContext from "../../context/CompositionContext";
  */
 const Partition = () => {
   const chunkSize = 10;
-  const { partition } = useContext(PartitionContext);
+  const { partition, setPartition } = useContext(PartitionContext);
   const { composition } = useContext(CompositionContext);
-  let staveNumber = Math.trunc(partition.length / chunkSize);
-  let staveStep2List = [];
-  let partitionToSplit = [];
-  let tempComposition = [];
+  const staveNumber = Math.trunc(partition.length / chunkSize);
+  const staveStep2List = [];
+  let partitionToSplit = [...partition];
+  let tempComposition = [...composition];
   let singingWordListToSplit = [];
 
   // console.log("staveNumber : " + staveNumber);
 
-  if (localStorage.getItem("partition")) {
-    partitionToSplit = JSON.parse(localStorage.getItem("partition"));
-  } else {
-    partitionToSplit = [...partition];
-  }
-
-  if (localStorage.getItem("composition")) {
-    tempComposition = JSON.parse(localStorage.getItem("composition"));
-  } else {
-    tempComposition = [...composition];
-  }
+  useEffect(() => {
+    if (partition.length === 0 && localStorage.getItem("partition")) {
+      setPartition(JSON.parse(localStorage.getItem("partition")));
+    }
+  }, [partition.length, setPartition]);
 
   singingWordListToSplit = tempComposition.map((compositionItem) => {
     return compositionItem.singingWord;

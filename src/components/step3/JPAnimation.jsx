@@ -17,8 +17,8 @@ import {
 import CompositionContext from "../../context/CompositionContext";
 import { jpNeutre } from "../../config/mediasConstants";
 
-export const JPAnimation = () => {
-  const { composition } = useContext(CompositionContext);
+export const JPAnimation = ({repeat}) => {
+  const { composition, setComposition } = useContext(CompositionContext);
   const { playingAnimation, setPlayingAnimation } = useContext(
     AnimationContext
   );
@@ -28,6 +28,14 @@ export const JPAnimation = () => {
   const allSoundDurationList = getAllSoundDurationList(composition);
   const allSoundDelayList = getAllSoundDelayList(allSoundDurationList);
   const [timeCode, setTimeCode] = useState(0);
+
+  useEffect(() => {
+    if (composition.length === 0 && localStorage.getItem("composition")) {
+      setComposition(JSON.parse(localStorage.getItem("composition")));
+    }
+
+    // console.log("composition dans JPAnimation " + JSON.stringify(composition));
+  }, [composition, setComposition]);
 
   const soundCount = (() => {
     const soundCountTmp =
@@ -47,13 +55,23 @@ export const JPAnimation = () => {
     return imageCountTmp >= 0 ? imageCountTmp : allImageDelayList.length - 1;
   })();
 
-  const movementImageSrc = allImageSrcList.length > 0 ? addBackgroundToImages(allImageSrcList, imageCount) : [];
+  const movementImageSrc =
+    allImageSrcList.length > 0
+      ? addBackgroundToImages(allImageSrcList, imageCount)
+      : [];
 
   useEffect(() => {
     if (playingAnimation) {
-      if (timeCode === allImageDelayList[allImageDelayList.length - 1]) {
+      if (
+        timeCode === allImageDelayList[allImageDelayList.length - 1] ||
+        timeCode >= allImageDelayList[allImageDelayList.length - 1]
+      ) {
         setPlayingAnimation(false);
         setTimeCode(0);
+
+        if(repeat){
+          setPlayingAnimation(true);
+        }
       } else {
         const start = Date.now();
         const timer =
@@ -68,9 +86,6 @@ export const JPAnimation = () => {
   }, [allImageDelayList, playingAnimation, setPlayingAnimation, timeCode]);
 
   useEffect(() => {
-    //console.log("soundCount" + JSON.stringify(soundCount));
-    //console.log("composition dans JPAnimation " + JSON.stringify(composition));
-
     if (playingAnimation) {
       const movementSound = new Audio();
       movementSound.src = composition[soundCount].sound;
@@ -87,11 +102,7 @@ export const JPAnimation = () => {
       />
     );
   }
-  return  <img
-  className="movement-image"
-  src={jpNeutre}
-  alt="movement-img"
-/>;
+  return <img className="movement-image" src={jpNeutre} alt="movement-img" />;
 };
 
 export default JPAnimation;

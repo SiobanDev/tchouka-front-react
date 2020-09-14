@@ -14,7 +14,7 @@ import NextStepButton from "../main/NextStepButton";
 //styles
 import "../main/StepButtons.style.scss";
 import {  percussionStep } from "../../config/mainConstants";
-import { adaptComposition } from "./Step2.utils";
+import { adaptCompoIfTwoConsecutiveMovements } from "./Step2.utils";
 
 const Step2 = () => {
   const { partition } = useContext(PartitionContext);
@@ -25,7 +25,7 @@ const Step2 = () => {
 
   const handleBackspace = () => {
     if (composition.length > 0) {
-      const compositionTmp = composition;
+      const compositionTmp = [...composition];
       compositionTmp.splice(composition.length - 1, 1);
       setComposition(compositionTmp);
 
@@ -48,7 +48,7 @@ const Step2 = () => {
   };
 
   const goToNextStep = () => {
-    adaptComposition(composition, setComposition);
+    adaptCompoIfTwoConsecutiveMovements(composition, setComposition);
     localStorage.setItem("composition", JSON.stringify(composition));
   };
 
@@ -57,7 +57,7 @@ const Step2 = () => {
       setComposition(JSON.parse(localStorage.getItem("composition")));
     }
     setCurrentStep(percussionStep);
-  }, [composition.length, setComposition, setCurrentStep]);
+  }, [composition, setComposition, setCurrentStep]);
 
   console.log("partition in Step2 :" + JSON.stringify(partition));
 

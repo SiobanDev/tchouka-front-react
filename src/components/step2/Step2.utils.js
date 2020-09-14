@@ -1,77 +1,41 @@
 import { jpNeutre } from "../../config/mediasConstants";
 
-export const addNeutralPosition = (composition, setComposition) => {
-  const followingSameMovementList = composition.findIndex(
-    (movement, i, compositionArray) => {
-      if (i > 0 && i < composition.length) {
-        return (
-          JSON.stringify(compositionArray[i - 1].movementList) ===
-          JSON.stringify(compositionArray[i].movementList)
-        );
-      }
-    }
-  );
+export const adaptCompoIfTwoConsecutiveMovements = (composition, setComposition) => {
+  const compositionTmp = [...composition];
 
-  if (followingSameMovementList > 0) {
-    console.log("followingSameMovementList : " + followingSameMovementList);
-    const compositionTmp = composition;
-
-    console.log("compositionTmp[followingSameMovementList - 1] : " + JSON.stringify(compositionTmp[followingSameMovementList - 1]));
-
-    console.log("compositionTmp[followingSameMovementList - 1].movementList : " + JSON.stringify(compositionTmp[followingSameMovementList - 1].movementList));
-
-    compositionTmp[followingSameMovementList - 1].movementList.push(jpNeutre);
-
-    setComposition(compositionTmp);
-  }
-};
-
-export const adaptImageDuration = (composition, setComposition) => {
-  const followingSameMovementList = composition.findIndex(
-    (movement, i, compositionArray) => {
-      if (i > 0 && i < composition.length) {
-        return (
-          JSON.stringify(compositionArray[i - 1].movementList) ===
-          JSON.stringify(compositionArray[i].movementList)
-        );
-      }
-    }
-  );
-
-  //console.log("followingSameMovementList : " + followingSameMovementList);
-
-  if (followingSameMovementList > 0) {
-    const compositionTmp = composition;
-
-    const wholeMovementDuration = compositionTmp[
-      followingSameMovementList - 1
-    ].durationList.reduce((a, b) => a + b);
-
-    const imageDurationTmp = Math.floor(
-      wholeMovementDuration /
-        compositionTmp[followingSameMovementList - 1].movementList.length
-    );
-    const movementDurationTmp = [];
-
-    for (
-      let i = 0;
-      i < compositionTmp[followingSameMovementList - 1].movementList.length;
-      i++
+  for (let i = 0; i < compositionTmp.length; i++) {
+    if (
+      i > 0 &&
+      JSON.stringify(compositionTmp[i - 1].movementList) ===
+        JSON.stringify(compositionTmp[i].movementList)
     ) {
-      movementDurationTmp.push(imageDurationTmp);
+      console.log("followingSameMovementList : " + i);
+
+      //Add neutral position between two same consecutive movements
+      const movementListTmp = [...compositionTmp[i - 1].movementList, jpNeutre];
+
+      compositionTmp[i - 1].movementList = movementListTmp;
+
+      //Recount the duration for each image
+      const wholeMovementDuration = compositionTmp[i - 1].durationList.reduce(
+        (a, b) => a + b
+      );
+
+      const imageDurationTmp = Math.floor(
+        wholeMovementDuration / compositionTmp[i - 1].movementList.length
+      );
+      const movementDurationTmp = [];
+
+      for (let j = 0; j < compositionTmp[i - 1].movementList.length; j++) {
+        movementDurationTmp.push(imageDurationTmp);
+      }
+
+      compositionTmp[i - 1].durationList = movementDurationTmp;
     }
-
-    compositionTmp[
-      followingSameMovementList - 1
-    ].durationList = movementDurationTmp;
-
-    setComposition(compositionTmp);
   }
-};
 
-export const adaptComposition = (composition, setComposition) => {
-  addNeutralPosition(composition, setComposition);
-  adaptImageDuration(composition, setComposition);
-
-  console.log("COMPO AFTER MODIF : " + JSON.stringify(composition, null, " "));
+  // console.log(
+  //   "compositionTpm after MODIFY" + JSON.stringify(compositionTmp, null, " ")
+  // );
+  setComposition(compositionTmp);
 };

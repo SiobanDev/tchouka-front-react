@@ -21,13 +21,13 @@ const Step1 = () => {
     }
 
     setCurrentStep(rythmStep);
-  }, [partition.length, setCurrentStep, setPartition]);
+  }, [partition, setCurrentStep, setPartition]);
 
   const handleBackspace = () => {
     //console.log("partition before : " + partition);
 
     if (partition.length > 0) {
-      const partitionTmp = partition;
+      const partitionTmp = [...partition];
       partitionTmp.splice(partition.length - 1, 1);
       setPartition(partitionTmp);
     }

@@ -14,7 +14,6 @@ import { learningStep } from "../../config/mainConstants";
 
 const Step3 = () => {
   const { setCurrentStep } = useContext(StepContext);
-  const { composition, setComposition } = useContext(CompositionContext);
   const { setPlayingAnimation } = useContext(
     AnimationContext
   );
@@ -64,7 +63,7 @@ const Step3 = () => {
               setPlayingAnimation(false);
             }}
           ></i>
-          <p>Arrêter l'animation</p>
+          <p>Mettre en pause l'animation</p>
         </div>
       </div>
 

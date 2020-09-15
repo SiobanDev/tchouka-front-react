@@ -1,31 +1,54 @@
 $primary-color: #1b1b1dff;
 $red-color: #ff4436ff;
 $orange-color: #ff9036ff;
-$blue-color: #2ca4a0ff;$primary-color: #1b1b1dff;
+$blue-color: #2ca4a0ff;
+$primary-color: #1b1b1dff;
 $red-color: #ff4436ff;
 $orange-color: #ff9036ff;
 $blue-color: #2ca4a0ff;
 
-#chronology-container{
+#chronology-container {
   height: 30px;
   display: flex;
   align-items: center;
+  position: relative;
 }
 
 #timeline-chronology {
-    width: 100%;
-    background-color: grey;
-    height: 3px;
-    border-radius: 5px;
-    position: relative;
-  }
-  
-  #timeline-cursor {
-    height: 30px;
-    background-color: $blue-color;
-    border-radius: 50%;
-    position: absolute;
-    padding-left: 30px;
-    top: calc(50% - 15px);
-    cursor: pointer;
-  }
+  width: 100%;
+  background-color: grey;
+  height: 3px;
+  border-radius: 5px;
+  position: relative;
+
+}
+
+#timeline-cursor {
+  height: 30px;
+  background-color: rgba(44,164,160, 0.8);
+  border-radius: 50%;
+  position: absolute;
+  padding-left: 30px;
+  top: calc(50% - 15px);
+  cursor: pointer;
+}
+
+.droptarget {
+  width: 5%;
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+}
+
+.movement-landmark {
+  height: 10px;
+  width: 3px;
+  border-radius: 5px;
+  background-color: grey;
+}
+
+.droptarget:nth-child(3), .droptarget:last-child {
+  justify-content: flex-start;
+}

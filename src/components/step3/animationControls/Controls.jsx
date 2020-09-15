@@ -102,7 +102,7 @@ const Controls = ({ allImageDelayList }) => {
           <p>Arrêter l'animation</p>
         </div>
 
-        <TimeLine wholeAnimationDuration={allImageDelayList[allImageDelayList.length - 1]}/>
+        <TimeLine allImageDelayList={allImageDelayList}/>
       </div>
     </>
   );

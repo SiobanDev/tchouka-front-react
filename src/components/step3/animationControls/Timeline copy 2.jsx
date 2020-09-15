@@ -16,7 +16,7 @@ const TimeLine = ({ allImageDelayList }) => {
     left: "-15px",
   });
   const [movingCursor, setMovingCursor] = useState(false);
-  // const [mousePositionX, setMousePositionX] = useState(0);
+  const [mousePositionX, setMousePositionX] = useState(0);
   const [containerWidth, setContainerWidth] = useState(0);
   const landmarkPositionList = allImageDelayList.map(
     (imageDelay, i, allImageDelayList) => {
@@ -25,37 +25,34 @@ const TimeLine = ({ allImageDelayList }) => {
       );
     }
   );
-  console.log("landmarkPositionList : " + JSON.stringify(landmarkPositionList));
 
-  // const getInitialMousePositionX = (event) => {
-  //   setMousePositionX(event.clientX);
-  // };
+  const getInitialMousePositionX = (event) => {
+    setMousePositionX(event.clientX);
+  };
 
   const followMousePosition = (event) => {
     console.log("mouse.clientX : " + event.clientX);
-
-    const mousePositionX = JSON.parse(event.clientX);
     console.log("mousePositionX : " + mousePositionX);
 
-    event.target.addEventListener("mousenove", (e) => {
-      const newPosition = e.clientX - mousePositionX;
+    const newPosition = event.clientX - mousePositionX;
 
-      console.log("newPosition : " + newPosition);
-
-      if (newPosition < 0) {
-        setCursorStyle({
-          left: 0,
-        });
-      } else if (newPosition >= containerWidth) {
-        setCursorStyle({
-          left: containerWidth,
-        });
-      } else {
-        setCursorStyle({
-          left: newPosition,
-        });
-      }
-    });
+    console.log("newPosition : " + newPosition);
+    console.log(
+      "landmarkPositionList : " + JSON.stringify(landmarkPositionList)
+    );
+    if (newPosition < 0) {
+      setCursorStyle({
+        left: 0,
+      });
+    } else if (newPosition <= containerWidth) {
+      setCursorStyle({
+        left: event.target.width,
+      });
+    } else {
+      setCursorStyle({
+        left: newPosition,
+      });
+    }
   };
 
   const playTimeline = () => {
@@ -94,6 +91,7 @@ const TimeLine = ({ allImageDelayList }) => {
         id="timeline-cursor"
         style={cursorStyle}
         onMouseDown={(event) => {
+          getInitialMousePositionX(event);
           followMousePosition(event);
         }}
         onMouseUp={() => {}}
@@ -104,6 +102,19 @@ const TimeLine = ({ allImageDelayList }) => {
           className="droptarget"
           style={{ left: `${landmarkPosition}%` }}
           key={i}
+          onDragEnter={(event) => {
+            if (event.target.className === "droptarget") {
+              setCursorStyle({ ...cursorStyle, border: "3px dotted red" });
+            }
+          }}
+          onDragOver={(event) => {
+            event.preventDefault();
+          }}
+          onDragEnd={(event) => {
+            if (event.target.className === "droptarget") {
+              setCursorStyle({ ...cursorStyle, border: "" });
+            }
+          }}
         >
           <div className="movement-landmark"></div>
         </div>

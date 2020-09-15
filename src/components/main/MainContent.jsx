@@ -19,6 +19,9 @@ const MainContent = () => {
   const [composition, setComposition] = useState([]);
   const [currentStep, setCurrentStep] = useState(0);
   const [playingAnimation, setPlayingAnimation] = useState(false);
+  const [resetTimeCode, setResetTimeCode] = useState(false);
+  const [repeat, setRepeat] = useState(false);
+  const [timeCode, setTimeCode] = useState(0);
   const [isLastItemRemoved, setIsLastItemRemoved] = useState(false);
 
   // console.log("partition dans MainContent " + JSON.stringify(partition));
@@ -51,6 +54,12 @@ const MainContent = () => {
               value={{
                 playingAnimation,
                 setPlayingAnimation,
+                timeCode,
+                setTimeCode,
+                repeat,
+                setRepeat,
+                resetTimeCode,
+                setResetTimeCode,
               }}
             >
               <main>

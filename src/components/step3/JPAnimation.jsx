@@ -5,29 +5,24 @@ import React, { useEffect, useContext } from "react";
 import "./Step3.style.scss";
 //libraries
 import AnimationContext from "../../context/AnimationContext";
-import { useState } from "react";
 import {
   getAllImageSrcList,
-  getAllImageDurationList,
   getAllSoundDurationList,
-  getAllImageDelayList,
   getAllSoundDelayList,
   addBackgroundToImages,
 } from "./Step3.utils";
 import CompositionContext from "../../context/CompositionContext";
 import { jpNeutre } from "../../config/mediasConstants";
 
-export const JPAnimation = ({repeat}) => {
+export const JPAnimation = ({allImageDelayList}) => {
   const { composition, setComposition } = useContext(CompositionContext);
-  const { playingAnimation, setPlayingAnimation } = useContext(
+  const { playingAnimation, timeCode } = useContext(
     AnimationContext
   );
   const allImageSrcList = getAllImageSrcList(composition);
-  const allImageDurationList = getAllImageDurationList(composition);
-  const allImageDelayList = getAllImageDelayList(allImageDurationList);
+
   const allSoundDurationList = getAllSoundDurationList(composition);
   const allSoundDelayList = getAllSoundDelayList(allSoundDurationList);
-  const [timeCode, setTimeCode] = useState(0);
 
   useEffect(() => {
     if (composition.length === 0 && localStorage.getItem("composition")) {
@@ -35,7 +30,7 @@ export const JPAnimation = ({repeat}) => {
     }
 
     // console.log("composition dans JPAnimation " + JSON.stringify(composition));
-  }, [composition, setComposition]);
+  }, [composition.length, setComposition]);
 
   const soundCount = (() => {
     const soundCountTmp =
@@ -48,8 +43,7 @@ export const JPAnimation = ({repeat}) => {
   })();
 
   const imageCount = (() => {
-    const imageCountTmp =
-      allImageDelayList.findIndex((movementDelay) => movementDelay > timeCode) -
+    const imageCountTmp = allImageDelayList.findIndex((movementDelay) => movementDelay > timeCode) -
       1;
 
     return imageCountTmp >= 0 ? imageCountTmp : allImageDelayList.length - 1;
@@ -59,31 +53,6 @@ export const JPAnimation = ({repeat}) => {
     allImageSrcList.length > 0
       ? addBackgroundToImages(allImageSrcList, imageCount)
       : [];
-
-  useEffect(() => {
-    if (playingAnimation) {
-      if (
-        timeCode === allImageDelayList[allImageDelayList.length - 1] ||
-        timeCode >= allImageDelayList[allImageDelayList.length - 1]
-      ) {
-        setPlayingAnimation(false);
-        setTimeCode(0);
-
-        if(repeat){
-          setPlayingAnimation(true);
-        }
-      } else {
-        const start = Date.now();
-        const timer =
-          timeCode < allImageDelayList[allImageDelayList.length - 1] &&
-          setInterval(() => setTimeCode(timeCode + Date.now() - start), 250);
-
-        return () => {
-          clearInterval(timer);
-        };
-      }
-    }
-  }, [allImageDelayList, playingAnimation, setPlayingAnimation, timeCode]);
 
   useEffect(() => {
     if (playingAnimation) {

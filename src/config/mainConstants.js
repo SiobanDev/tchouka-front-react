@@ -4,3 +4,5 @@ export const percussionStep = 2;
 export const learningStep = 3;
 
 export const timeCodeInterval = 250;
+
+export const halfCursorWidth = 15

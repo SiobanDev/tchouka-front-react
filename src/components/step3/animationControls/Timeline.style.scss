@@ -6,6 +6,8 @@ $primary-color: #1b1b1dff;
 $red-color: #ff4436ff;
 $orange-color: #ff9036ff;
 $blue-color: #2ca4a0ff;
+$cursor-width: 30;
+$half-cursor-width: $cursor-width / 2;
 
 #chronology-container {
   height: 30px;
@@ -20,20 +22,21 @@ $blue-color: #2ca4a0ff;
   height: 3px;
   border-radius: 5px;
   position: relative;
-
+  z-index: 0;
 }
 
 #timeline-cursor {
-  height: 30px;
-  background-color: rgba(44,164,160, 0.8);
+  height: $cursor-width + px;
+  background-color: rgba(44, 164, 160, 0.8);
   border-radius: 50%;
   position: absolute;
-  padding-left: 30px;
-  top: calc(50% - 15px);
+  padding-left: $cursor-width + px;
+  top: calc(50% - $half-cursor-width + px);
   cursor: pointer;
+  z-index: 1;
 }
 
-.droptarget {
+.movement-landmark-container {
   width: 5%;
   position: absolute;
   display: flex;
@@ -42,13 +45,27 @@ $blue-color: #2ca4a0ff;
   height: 100%;
 }
 
-.movement-landmark {
-  height: 10px;
+.time-second-landmark {
+  position: absolute;
+  height: 20px;
   width: 3px;
   border-radius: 5px;
   background-color: grey;
 }
 
-.droptarget:nth-child(3), .droptarget:last-child {
+.movement-landmark {
+  height: 10px;
+  width: 3px;
+  border-radius: 5px;
+  background-color: $red-color;
+}
+
+#movement-landmark-container-0,
+.movement-landmark-container:last-child {
   justify-content: flex-start;
+}
+
+.movement-landmark-container:last-child .movement-landmark{
+  height: 20px;
+  background-color: grey;
 }

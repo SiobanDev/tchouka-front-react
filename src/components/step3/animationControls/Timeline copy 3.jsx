@@ -8,15 +8,8 @@ import {
 } from "../../../config/mainConstants";
 import { useState } from "react";
 import { useEffect } from "react";
-import CompositionContext from "../../../context/CompositionContext";
-import {
-  getWholeMovememntDurationList,
-  getAllMovementDelayList,
-} from "./Timeline.utils";
 
 const TimeLine = ({ allImageDelayList }) => {
-  const { composition } = useContext(CompositionContext);
-
   const { playingAnimation, setPlayingAnimation, timeCode } = useContext(
     AnimationContext
   );
@@ -32,38 +25,49 @@ const TimeLine = ({ allImageDelayList }) => {
   const [movingCursor, setMovingCursor] = useState(false);
   const [mousePositionX, setMousePositionX] = useState(0);
   const [containerWidth, setContainerWidth] = useState(0);
-  const wholeMovementDurationList = getWholeMovememntDurationList(composition);
-  const wholeMovementDelayList = getAllMovementDelayList(
-    wholeMovementDurationList
-  );
+  const [timeSecondElementList, setTimeSecondElementList] = useState([]);
+  const [timeSecondPositionList, setTimeSecondPositionList] = useState([]);
+
+  const [timeSecondsCount, setTimeSecondsCount] = useState(0);
   const numberOfSecondsInAnimation = Math.floor(
     allImageDelayList[allImageDelayList.length - 1] / 1000
   );
-  const timeSecondElementList = [];
 
-  for (let i = 0; i <= numberOfSecondsInAnimation; i++) {
-    const elementPosition = Math.floor(
-      (1000 * 100) / wholeMovementDelayList[wholeMovementDelayList.length - 1]
+  // const [timeSecondElementList, setTimeSecondElementList] = useState([]);
+
+  // useEffect(()=>{ for (let i = 0; i < numberOfSecondsInAnimation; i++) {
+  //   setTimeSecondElementList([...timeSecondElementList, <div
+  //       className="time-second-landmark"
+  //       key={`second-landmark-${i}`}
+  //       style={{ left: 0 }}
+  //     ></div>])
+  // }},[numberOfSecondsInAnimation, timeSecondElementList])
+
+
+
+  for (let i = 0; i < numberOfSecondsInAnimation; i++) {
+    const secondLandmarkPosition = Math.floor(
+      (i * 1000) / allImageDelayList[allImageDelayList.length - 1]
     );
 
-    timeSecondElementList.push(
+    setTimeSecondElementList([
+      ...timeSecondElementList,
       <div
         className="time-second-landmark"
-        key={`second-landmark-${i}`}
-        style={{ left: `${i * elementPosition}%` }}
-      ></div>
-    );
+        key={`second-landmark-${secondLandmarkPosition}`}
+        style={{ left: secondLandmarkPosition }}
+      ></div>,
+    ]);
   }
 
-  const landmarkPositionList = wholeMovementDelayList.map((imageDelay) => {
-    return Math.floor(
-      (imageDelay * 100) /
-        wholeMovementDelayList[wholeMovementDelayList.length - 1]
-    );
-  });
-  console.log("allImageDelayList : " + JSON.stringify(wholeMovementDelayList));
-  console.log("landmarkPositionList : " + JSON.stringify(landmarkPositionList));
-
+  const landmarkPositionList = allImageDelayList.map(
+    (imageDelay, i, allImageDelayList) => {
+      return Math.floor(
+        (imageDelay * 100) / allImageDelayList[allImageDelayList.length - 1]
+      );
+    }
+    // console.log("landmarkPositionList : " + JSON.stringify(landmarkPositionList));
+  );
   const getInitialMousePositionX = (event) => {
     console.log("event.clientX in getInitial :" + event.clientX);
     setMousePositionX(event.clientX);
@@ -139,7 +143,6 @@ const TimeLine = ({ allImageDelayList }) => {
       {timeSecondElementList}
       {landmarkPositionList.map((landmarkPosition, i) => (
         <div
-          id={`movement-landmark-container-${i}`}
           className="movement-landmark-container"
           style={{ left: `${landmarkPosition}%` }}
           key={landmarkPosition}

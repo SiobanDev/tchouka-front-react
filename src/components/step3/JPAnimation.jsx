@@ -14,11 +14,9 @@ import {
 import CompositionContext from "../../context/CompositionContext";
 import { jpNeutre } from "../../config/mediasConstants";
 
-export const JPAnimation = ({allImageDelayList}) => {
+export const JPAnimation = ({ allImageDelayList }) => {
   const { composition, setComposition } = useContext(CompositionContext);
-  const { playingAnimation, timeCode } = useContext(
-    AnimationContext
-  );
+  const { playingAnimation, timeCode } = useContext(AnimationContext);
   const allImageSrcList = getAllImageSrcList(composition);
 
   const allSoundDurationList = getAllSoundDurationList(composition);
@@ -43,7 +41,8 @@ export const JPAnimation = ({allImageDelayList}) => {
   })();
 
   const imageCount = (() => {
-    const imageCountTmp = allImageDelayList.findIndex((movementDelay) => movementDelay > timeCode) -
+    const imageCountTmp =
+      allImageDelayList.findIndex((movementDelay) => movementDelay > timeCode) -
       1;
 
     return imageCountTmp >= 0 ? imageCountTmp : allImageDelayList.length - 1;

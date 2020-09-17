@@ -14,6 +14,7 @@ $half-cursor-width: $cursor-width / 2;
   display: flex;
   align-items: center;
   position: relative;
+  margin-left: $half-cursor-width + px;
 }
 
 #timeline-chronology {
@@ -31,18 +32,8 @@ $half-cursor-width: $cursor-width / 2;
   border-radius: 50%;
   position: absolute;
   padding-left: $cursor-width + px;
-  top: calc(50% - $half-cursor-width + px);
   cursor: pointer;
   z-index: 1;
-}
-
-.movement-landmark-container {
-  width: 5%;
-  position: absolute;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100%;
 }
 
 .time-second-landmark {
@@ -58,14 +49,11 @@ $half-cursor-width: $cursor-width / 2;
   width: 3px;
   border-radius: 5px;
   background-color: $red-color;
+  position: absolute;
 }
 
-#movement-landmark-container-0,
-.movement-landmark-container:last-child {
-  justify-content: flex-start;
-}
 
-.movement-landmark-container:last-child .movement-landmark{
+.movement-landmark:last-child{
   height: 20px;
   background-color: grey;
 }

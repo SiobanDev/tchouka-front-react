@@ -5,10 +5,10 @@ const initialContextValues = {
   setPlayingAnimation: () => {},
   timeCode: 0,
   setTimeCode: () => {},
-  resetTimeCode: false,
-  setResetTimeCode: () => {},
   repeat: false,
   setRepeat: () => {},
+  lastSoundCount: -1,
+  setLastSoundCount: () => {},
 };
 
 const AnimationContext = React.createContext(initialContextValues);

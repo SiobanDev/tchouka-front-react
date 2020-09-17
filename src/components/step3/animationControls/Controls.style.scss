@@ -1,0 +1,25 @@
+$primary-color: #1b1b1dff;
+$red-color: #ff4436ff;
+$orange-color: #ff9036ff;
+$blue-color: #2ca4a0ff;
+$primary-color: #1b1b1dff;
+$red-color: #ff4436ff;
+$orange-color: #ff9036ff;
+$blue-color: #2ca4a0ff;
+$cursor-width: 30;
+$half-cursor-width: $cursor-width / 2;
+
+.play-item, #repeat-item{
+  width: 100%;
+  display: flex;
+  align-items: center;
+  margin: 2% 0;
+}
+
+#repeat-item{
+  margin: 5% 0;
+}
+
+.play-item i, #repeat-item input{
+  margin-right: 2%;
+}

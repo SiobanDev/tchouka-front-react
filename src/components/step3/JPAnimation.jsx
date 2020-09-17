@@ -13,12 +13,17 @@ import {
 } from "./Step3.utils";
 import CompositionContext from "../../context/CompositionContext";
 import { jpNeutre } from "../../config/mediasConstants";
+import { useState } from "react";
 
 export const JPAnimation = ({ allImageDelayList }) => {
   const { composition, setComposition } = useContext(CompositionContext);
-  const { playingAnimation, timeCode } = useContext(AnimationContext);
+  const {
+    playingAnimation,
+    timeCode,
+    lastSoundCount,
+    setLastSoundCount,
+  } = useContext(AnimationContext);
   const allImageSrcList = getAllImageSrcList(composition);
-
   const allSoundDurationList = getAllSoundDurationList(composition);
   const allSoundDelayList = getAllSoundDelayList(allSoundDurationList);
 
@@ -54,12 +59,21 @@ export const JPAnimation = ({ allImageDelayList }) => {
       : [];
 
   useEffect(() => {
-    if (playingAnimation) {
+    if (playingAnimation && soundCount !== lastSoundCount) {
       const movementSound = new Audio();
       movementSound.src = composition[soundCount].sound;
       movementSound.play();
+
+      setLastSoundCount(soundCount);
+      // console.log("timeCode in JPAnimation : " + timeCode);
     }
-  }, [composition, playingAnimation, soundCount]);
+  }, [
+    composition,
+    lastSoundCount,
+    playingAnimation,
+    setLastSoundCount,
+    soundCount,
+  ]);
 
   if (movementImageSrc.length > 0) {
     return (

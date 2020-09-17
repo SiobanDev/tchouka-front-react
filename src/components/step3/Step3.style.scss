@@ -9,7 +9,7 @@ $blue-color: #2ca4a0ff;
 }
 
 .step3-command-container{
-  width: 50%;
+  width: 70%;
   display: flex;
   justify-content: center;
   flex-direction: column;
@@ -20,13 +20,13 @@ $blue-color: #2ca4a0ff;
 }
 
 #JP-container{
-  width: 50%;
+  width: 30%;
   height: auto;
   position: relative;
 }
 
 .movement-image{
-  width: 70%;
+  width: 100%;
   height: auto;
 }
 
@@ -41,15 +41,4 @@ $blue-color: #2ca4a0ff;
 
 #first-movement-image{
   position: relative;
-}
-
-.play-item, .repeat-item{
-  width: 100%;
-  display: flex;
-  align-items: center;
-  margin-bottom: 5%;
-}
-
-.play-item i, .repeat-item input{
-  margin-right: 2%;
 }

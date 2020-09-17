@@ -68,12 +68,8 @@ export const addBackgroundToImages = (allImageSrcList, imageCount) => {
   //console.log("imageCount : " + imageCount);
 
   const movementImageSrc = allImageSrcList[imageCount]
-    ? allImageSrcList[imageCount].substring(
-        0,
-        allImageSrcList[imageCount].length - 4
-      ) + "-fd.svg"
-    : allImageSrcList[0].substring(0, allImageSrcList[0].length - 4) +
-      "-fd.svg";
+    ? allImageSrcList[imageCount].replace(".svg", "-fd.svg")
+    : allImageSrcList[0].replace(".svg", "-fd.svg") + "-fd.svg";
 
   return movementImageSrc;
 };

@@ -18,7 +18,7 @@ const createComposition = (
     setClickNumber(clickNumber + 1);
 
     const newCompositionItem = {
-      id: partition[clickNumber].id,
+      id: clickNumber,
       durationList:
         movementList[bodyPartName].length === 1
           ? [partition[clickNumber].duration]

@@ -19,11 +19,10 @@ const TimeLine = ({ allImageDelayList }) => {
   const [mousePositionX, setMousePositionX] = useState(0);
   const [containerWidth, setContainerWidth] = useState(0);
   const landmarkPositionList = allImageDelayList.map(
-    (imageDelay, i, allImageDelayList) => {
-      return Math.floor(
+    (imageDelay, i, allImageDelayList) =>
+      Math.floor(
         (imageDelay * 100) / allImageDelayList[allImageDelayList.length - 1]
-      );
-    }
+      )
   );
 
   const getInitialMousePositionX = (event) => {

@@ -6,20 +6,33 @@ $primary-color: #1b1b1dff;
 $red-color: #ff4436ff;
 $orange-color: #ff9036ff;
 $blue-color: #2ca4a0ff;
+$line-width: 3;
+$half-line-width: $line-width / 2;
+$landmark-width: 10;
+$half-landmark-width: $landmark-width / 2;
 $cursor-width: 30;
 $half-cursor-width: $cursor-width / 2;
+$thumbnail-width: 80;
+$half-thumbnail-width: $thumbnail-width / 2;
+
+:export{
+  halfLineWidth: $half-line-width;
+  halfLandmarkWidth: $half-landmark-width;
+  halfCursorWidth: $half-cursor-width;
+  halfThumbnailWidth: $half-thumbnail-width;
+}
+
 
 #chronology-container {
   height: 30px;
   display: flex;
   align-items: center;
   position: relative;
-  margin-left: $half-cursor-width + px;
 }
 
 #timeline-chronology {
   width: 100%;
-  background-color: grey;
+  background-color: $blue-color;
   height: 3px;
   border-radius: 5px;
   position: relative;
@@ -39,21 +52,39 @@ $half-cursor-width: $cursor-width / 2;
 .time-second-landmark {
   position: absolute;
   height: 20px;
-  width: 3px;
+  width: $line-width + px;
   border-radius: 5px;
-  background-color: grey;
+  background-color: $blue-color;
 }
 
 .movement-landmark {
   height: 10px;
-  width: 3px;
-  border-radius: 5px;
-  background-color: $red-color;
+  width: $landmark-width + px;
+  border-radius: 50%;
+  background-color: $orange-color;
   position: absolute;
 }
 
-
-.movement-landmark:last-child{
+.movement-landmark:last-child {
+  height: 10px;
+  width: $line-width + px;
+  border-radius: 5px;
   height: 20px;
-  background-color: grey;
+  background-color: $blue-color;
+  left: calc(100% - $half-thumbnail-width)
+}
+
+.singingWord{
+  position: absolute;
+  top: 30px;
+  color: $orange-color;
+  font-weight: bold;
+  font-size: 110%;
+}
+
+.movement-image-thumbnail{
+  position: absolute;
+  bottom: 30px;
+  height: auto;
+  width: $thumbnail-width + px;
 }

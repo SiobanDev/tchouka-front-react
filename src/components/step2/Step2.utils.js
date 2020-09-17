@@ -1,37 +1,33 @@
 import { jpNeutre } from "../../config/mediasConstants";
 
-export const adaptCompoIfTwoConsecutiveMovements = (composition, setComposition) => {
+export const adaptComposition = (composition, setComposition) => {
   const compositionTmp = [...composition];
 
   for (let i = 0; i < compositionTmp.length; i++) {
-    if (
-      i > 0 &&
-      JSON.stringify(compositionTmp[i - 1].movementList) ===
-        JSON.stringify(compositionTmp[i].movementList)
-    ) {
-      console.log("followingSameMovementList : " + i);
+    //Add neutral position between two same consecutive movements
+    const movementListTmp = [...compositionTmp[i].movementList, jpNeutre];
 
-      //Add neutral position between two same consecutive movements
-      const movementListTmp = [...compositionTmp[i - 1].movementList, jpNeutre];
+    compositionTmp[i].movementList = movementListTmp;
 
-      compositionTmp[i - 1].movementList = movementListTmp;
+    //Recount the duration for each image
+    const wholeMovementDuration = compositionTmp[i].durationList.reduce(
+      (a, b) => a + b
+    );
 
-      //Recount the duration for each image
-      const wholeMovementDuration = compositionTmp[i - 1].durationList.reduce(
-        (a, b) => a + b
-      );
+    //We have just added the neutral position at the end of each movement and now we want the duration of this image is pretty short (see neutralPositionDuration) but the whole duration of the movement may not change et mostly the other images must share the same duration
+    const imageDurationTmp = 250
+    const numberOfImagesExceptNeutral = compositionTmp[i].movementList.length - 1
+    const neutralPositionDuration = wholeMovementDuration - (imageDurationTmp * numberOfImagesExceptNeutral)
 
-      const imageDurationTmp = Math.floor(
-        wholeMovementDuration / compositionTmp[i - 1].movementList.length
-      );
-      const movementDurationTmp = [];
+    const movementDurationTmp = [];
 
-      for (let j = 0; j < compositionTmp[i - 1].movementList.length; j++) {
-        movementDurationTmp.push(imageDurationTmp);
-      }
-
-      compositionTmp[i - 1].durationList = movementDurationTmp;
+    for (let j = 0; j < numberOfImagesExceptNeutral; j++) {
+      movementDurationTmp.push(imageDurationTmp);
     }
+    movementDurationTmp.push(neutralPositionDuration);
+
+
+    compositionTmp[i].durationList = movementDurationTmp;
   }
 
   // console.log(

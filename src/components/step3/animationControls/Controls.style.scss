@@ -8,16 +8,38 @@ $orange-color: #ff9036ff;
 $blue-color: #2ca4a0ff;
 $cursor-width: 30;
 $half-cursor-width: $cursor-width / 2;
+$thumbnail-width: 80;
+$half-thumbnail-width: $thumbnail-width / 2;
 
-.play-item, #repeat-item{
-  width: 100%;
+#step3-controls{
+  width: 70%;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  padding: 0 $half-thumbnail-width + px;
+
+}
+
+.step3-commands-container{
   display: flex;
   align-items: center;
-  margin: 2% 0;
+  margin-top: 10%;
+  position: relative;
+  left: -$half-cursor-width + px;
+}
+
+.step3-commands-container i{
+  cursor: pointer;
+}
+
+.play-item, #repeat-item{
+  display: flex;
+  align-items: center;
+  margin-right: 1%;
 }
 
 #repeat-item{
-  margin: 5% 0;
+  margin-right: 10%;
 }
 
 .play-item i, #repeat-item input{

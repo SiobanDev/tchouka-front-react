@@ -14,7 +14,7 @@ import NextStepButton from "../main/NextStepButton";
 //styles
 import "../main/StepButtons.style.scss";
 import {  percussionStep } from "../../config/mainConstants";
-import { adaptCompoIfTwoConsecutiveMovements } from "./Step2.utils";
+import { adaptComposition } from "./Step2.utils";
 
 const Step2 = () => {
   const { partition } = useContext(PartitionContext);
@@ -48,7 +48,7 @@ const Step2 = () => {
   };
 
   const goToNextStep = () => {
-    adaptCompoIfTwoConsecutiveMovements(composition, setComposition);
+    adaptComposition(composition, setComposition);
     localStorage.setItem("composition", JSON.stringify(composition));
   };
 

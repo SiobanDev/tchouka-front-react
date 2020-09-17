@@ -75,7 +75,7 @@ export const JPAnimation = ({ allImageDelayList }) => {
     soundCount,
   ]);
 
-  if (movementImageSrc.length > 0) {
+  if (playingAnimation) {
     return (
       <img
         className="movement-image"

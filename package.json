@@ -3,17 +3,17 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "@fortawesome/fontawesome-free": "^5.13.0",
+    "@fortawesome/fontawesome-free": "^5.14.0",
     "@testing-library/jest-dom": "^4.2.4",
     "@testing-library/react": "^9.5.0",
     "@testing-library/user-event": "^7.2.1",
     "node-sass": "^4.14.1",
-    "path-to-regexp": "^1.7.0",
+    "path-to-regexp": "^1.8.0",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "react-loader-spinner": "^3.1.14",
     "react-router-dom": "^5.2.0",
-    "react-scripts": "3.4.1"
+    "react-scripts": "^3.4.3"
   },
   "scripts": {
     "start": "react-scripts start",
@@ -36,5 +36,9 @@
       "last 1 safari version"
     ]
   },
-  "homepage": "http://tchouka.sioban.fr/"
+  "homepage": "http://tchouka.sioban.fr/",
+  "devDependencies": {
+    "sass": "^1.26.10",
+    "sass-loader": "^10.0.2"
+  }
 }

@@ -1,7 +1,7 @@
 import React, { useContext } from "react";
 //components
 import { Link } from "react-router-dom";
-import PartitionContext from "../../../context/PartitionContext";
+import ScoreContext from "../../../context/ScoreContext";
 import CompositionContext from "../../../context/CompositionContext";
 
 const NavTextCopy = ({
@@ -12,7 +12,7 @@ const NavTextCopy = ({
   setCurrentStep,
   i,
 }) => {
-  const { partition, setPartition } = useContext(PartitionContext);
+  const { score, setScore } = useContext(ScoreContext);
   const { composition, setComposition } = useContext(CompositionContext);
 
   if (!isAllowed) {
@@ -31,9 +31,9 @@ const NavTextCopy = ({
         onClick={() => {
           if (currentStep < i) {
             if (currentStep === 1) {
-              localStorage.setItem("partition", JSON.stringify(partition));
+              localStorage.setItem("score", JSON.stringify(score));
             } else if (currentStep === 2) {
-              if (partition.length === composition.length) {
+              if (score.length === composition.length) {
                 localStorage.setItem(
                   "composition",
                   JSON.stringify(composition)
@@ -42,7 +42,7 @@ const NavTextCopy = ({
             }
           } else if (currentStep > i) {
             if (currentStep === 1) {
-              setPartition([]);
+              setScore([]);
               setComposition([]);
             } else if (currentStep === 2) {
               setComposition([]);

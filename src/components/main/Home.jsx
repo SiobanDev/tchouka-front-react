@@ -5,12 +5,12 @@ import StepContext from "../../context/StepContext";
 import NextStepButton from "./NextStepButton";
 //styles
 import "./StepButtons.style.scss";
-import PartitionContext from "../../context/PartitionContext";
+import ScoreContext from "../../context/ScoreContext";
 import CompositionContext from "../../context/CompositionContext";
 
 const Home = () => {
   const { setCurrentStep } = useContext(StepContext);
-  const { partition, setPartition } = useContext(PartitionContext);
+  const { score, setScore } = useContext(ScoreContext);
   const { composition, setComposition } = useContext(
     CompositionContext
   );
@@ -18,26 +18,26 @@ const Home = () => {
   useEffect(() => {
     setCurrentStep(0);
 
-    if(localStorage.getItem("partition") || localStorage.getItem("composition")){
+    if(localStorage.getItem("score") || localStorage.getItem("composition")){
       localStorage.clear();
     }
 
-    if (partition.length > 0) {
-      setPartition([]);
+    if (score.length > 0) {
+      setScore([]);
     }
     if (composition.length > 0) {
       setComposition([]);
     }
   }, [
     composition.length,
-    partition.length,
+    score.length,
     setComposition,
     setCurrentStep,
-    setPartition,
+    setScore,
   ]);
 
   return (
-    <>
+    <section id="home" className="main-content">
       <h3>BONJOUR !</h3>
       <p>
         Bienvenue sur Tchouka où tu vas pouvoir créer ton propre tutoriel de
@@ -53,7 +53,7 @@ const Home = () => {
           text="Je commence"
         />
       </div>
-    </>
+    </section>
   );
 };
 

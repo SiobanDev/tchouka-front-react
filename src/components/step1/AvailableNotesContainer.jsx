@@ -1,86 +1,48 @@
-import React, { useContext, useEffect, useState, useCallback } from "react";
-//services
-import { apiFetchDefaultNotes } from "../../services/apiServices";
+import React, { useContext} from "react";
 //context
-import PartitionContext from "../../context/PartitionContext";
+import ScoreContext from "../../context/ScoreContext";
 import AvailableNote from "./AvailableNote";
 //styles
 import "./AvailableNotesContainer.style.scss";
 //libraries
-import Loader from "react-loader-spinner";
+import { defaultAvailableNotes } from "../../data/defaultNotes";
 
 export const AvailableNotesContainer = () => {
-  let [availableNotes, setAvailableNotes] = useState([]);
   const {
-    partition,
-    setPartition,
+    score,
+    setScore,
     allNotesWidth,
     setAllNotesWidth,
     addedNoteWidth,
-  } = useContext(PartitionContext);
-  const [waitingForApiResponse, setWaitingForApiResponse] = React.useState(
-    true
-  );
+  } = useContext(ScoreContext);
+  
+  console.log("score in AvailabreContainer :" + JSON.stringify(score))
 
-  const defaultNotesCaptionList = [
-    "4 temps",
-    "2 temps",
-    "1 temps",
-    "1/2 temps",
-  ];
-
-  const getNotes = useCallback(async () => {
-    try {
-      const formattedApiResponse = await apiFetchDefaultNotes();
-      if (formattedApiResponse) {
-        setAvailableNotes(formattedApiResponse.data.reverse());
-      }
-      setWaitingForApiResponse(false);
-    } catch (e) {
-      setWaitingForApiResponse(false);
-      console.log("Error in getNotes in AvailableNotesContainer : " + e);
-    }
-  }, []);
-
-  useEffect(() => {
-    getNotes();
-  }, [getNotes]);
-
-  if (availableNotes.length === 0 && !waitingForApiResponse) {
-    return (
-      <p className="error-message">
-        <i className="fas fa-exclamation-triangle"></i> Erreur pour le
-        téléchargement des notes
-      </p>
-    );
-  } else if (
-    availableNotes &&
-    availableNotes.length > 0 &&
-    defaultNotesCaptionList &&
-    !waitingForApiResponse
-  ) {
-    return (
-      <div id="notes-to-choose-container">
-        {availableNotes.map((note, i) => {
-          return (
+      return (
+        <div id="notes-to-choose-container">
+          {defaultAvailableNotes.map((note, i) => (
             <div className="available-note-container" key={note.id}>
               <AvailableNote
-                imageSource={note.noteImage}
+                imageSource={note.imageSrc}
                 onClick={() => {
-                  setPartition([...partition, note]);
-                  
+                  const newScoreNote = {
+                    id: score.length,
+                    duration: note.duration,
+                    imageSrc: note.imageSrc,
+                  };
+
+                  setScore([...score, newScoreNote]);
                   setAllNotesWidth(allNotesWidth + addedNoteWidth);
+
                 }}
               />
-              <p className="note-caption">{defaultNotesCaptionList[i]}</p>
+              <p className="note-caption">{note.caption}</p>
             </div>
-          );
-        })}
-      </div>
-    );
-  }
+          ))}
+        </div>
+      );
+    
 
-  return <Loader type="TailSpin" color="#2ca4a0ff" height={45} width={45} />;
 };
 
 export default AvailableNotesContainer;

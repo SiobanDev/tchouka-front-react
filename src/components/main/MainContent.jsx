@@ -6,7 +6,7 @@ import Step2 from "../step2/Step2";
 import Step3 from "../step3/Step3";
 import Home from "./Home";
 import Header from "../../views/Header";
-import PartitionContext from "../../context/PartitionContext";
+import ScoreContext from "../../context/ScoreContext";
 import StepContext from "../../context/StepContext";
 import CompositionContext from "../../context/CompositionContext";
 import AnimationContext from "../../context/AnimationContext";
@@ -15,7 +15,7 @@ const MainContent = () => {
   var freeTime = 42;
   const addedNoteWidth = 5;
   const [allNotesWidth, setAllNotesWidth] = useState(0);
-  const [partition, setPartition] = useState([]);
+  const [score, setScore] = useState([]);
   const [composition, setComposition] = useState([]);
   const [currentStep, setCurrentStep] = useState(0);
   const [playingAnimation, setPlayingAnimation] = useState(false);
@@ -24,17 +24,17 @@ const MainContent = () => {
   const [lastSoundCount, setLastSoundCount] = useState(-1);
   const [isLastItemRemoved, setIsLastItemRemoved] = useState(false);
 
-  // console.log("partition dans MainContent " + JSON.stringify(partition));
+  // console.log("score dans MainContent " + JSON.stringify(score));
   // console.log("allNotesWidth dans MainContent" + allNotesWidth);
   //console.log("composition dans MainContent " + JSON.stringify(composition));
 
   return (
     <Router>
       <StepContext.Provider value={{ currentStep, setCurrentStep }}>
-        <PartitionContext.Provider
+        <ScoreContext.Provider
           value={{
-            partition,
-            setPartition,
+            score,
+            setScore,
             freeTime,
             allNotesWidth,
             setAllNotesWidth,
@@ -74,7 +74,7 @@ const MainContent = () => {
               </main>
             </AnimationContext.Provider>
           </CompositionContext.Provider>
-        </PartitionContext.Provider>
+        </ScoreContext.Provider>
       </StepContext.Provider>
     </Router>
   );

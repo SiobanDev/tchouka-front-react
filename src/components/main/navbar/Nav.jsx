@@ -1,7 +1,7 @@
 import React, { useContext, useEffect } from "react";
 import "./NavStyle.scss";
 import StepContext from "../../../context/StepContext";
-import PartitionContext from "../../../context/PartitionContext";
+import ScoreContext from "../../../context/ScoreContext";
 import CompositionContext from "../../../context/CompositionContext";
 import NavIcon from "./NavIcon";
 import NavText from "./NavText";
@@ -9,7 +9,7 @@ import { percussionStep } from "../../../config/mainConstants";
 
 const Nav = () => {
   const { currentStep, setCurrentStep } = useContext(StepContext);
-  const { partition } = useContext(PartitionContext);
+  const { score } = useContext(ScoreContext);
   const { composition } = useContext(CompositionContext);
   const iconElements = [];
   const linkElements = [];
@@ -24,8 +24,8 @@ const Nav = () => {
   const urlMenuList = ["/", "/rythme", "/percussions", "/apprentissage"];
 
   const lastAllowedStep =
-    partition.length === 0 ||
-    (composition.length !== partition.length && currentStep === percussionStep)
+    score.length === 0 ||
+    (composition.length !== score.length && currentStep === percussionStep)
       ? currentStep
       : currentStep + 1;
 

@@ -2,7 +2,7 @@ import React from "react";
 
 
 /**
- * Partition contains two staves made to receive the user's choosen notes.
+ * Score contains two staves made to receive the user's choosen notes.
  */
 const BodyPart = ({name, handleClick}) => {
   if (name) {

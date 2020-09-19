@@ -1,31 +1,31 @@
 import React, { useContext, useEffect } from "react";
 //context
-import PartitionContext from "../../context/PartitionContext";
+import ScoreContext from "../../context/ScoreContext";
 //components
 import StaveStep2 from "./StaveStep2";
 import { blueStave } from "../../config/mediasConstants";
 import CompositionContext from "../../context/CompositionContext";
 
 /**
- * Partition contains two staves made to receive the user's choosen notes.
+ * Score contains two staves made to receive the user's choosen notes.
  */
-const Partition = () => {
+const Score = () => {
   const chunkSize = 10;
-  const { partition, setPartition } = useContext(PartitionContext);
+  const { score, setScore } = useContext(ScoreContext);
   const { composition } = useContext(CompositionContext);
-  const staveNumber = Math.trunc(partition.length / chunkSize);
+  const staveNumber = Math.trunc(score.length / chunkSize);
   const staveStep2List = [];
-  let partitionToSplit = [...partition];
+  let scoreToSplit = [...score];
   let tempComposition = [...composition];
   let singingWordListToSplit = [];
 
   // console.log("staveNumber : " + staveNumber);
 
   useEffect(() => {
-    if (partition.length === 0 && localStorage.getItem("partition")) {
-      setPartition(JSON.parse(localStorage.getItem("partition")));
+    if (score.length === 0 && localStorage.getItem("score")) {
+      setScore(JSON.parse(localStorage.getItem("score")));
     }
-  }, [partition.length, setPartition]);
+  }, [score.length, setScore]);
 
   singingWordListToSplit = tempComposition.map((compositionItem) => {
     return compositionItem.singingWord;
@@ -35,7 +35,7 @@ const Partition = () => {
     staveStep2List.push(
       <StaveStep2
         id={i}
-        notesList={partitionToSplit.splice(0, chunkSize)}
+        notesList={scoreToSplit.splice(0, chunkSize)}
         singingWordList={singingWordListToSplit.splice(0, chunkSize)}
         key={i}
       />
@@ -47,8 +47,6 @@ const Partition = () => {
   }
 
   return <img className="stave" src={blueStave} alt="coloured-stave" />;
-
-  //TO DO : consider the case where two exact movements follow : insert neutral position between them;
 };
 
-export default Partition;
+export default Score;

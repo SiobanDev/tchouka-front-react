@@ -11,16 +11,15 @@ $half-cursor-width: $cursor-width / 2;
 $thumbnail-width: 80;
 $half-thumbnail-width: $thumbnail-width / 2;
 
-#step3-controls{
-  width: 70%;
-  display: flex;
-  justify-content: center;
-  flex-direction: column;
-  padding: 0 $half-thumbnail-width + px;
-
+#step3-chronology {
+  width: 90%;
 }
 
-.step3-commands-container{
+#timeline-container{
+  
+}
+
+.step3-commands-container {
   display: flex;
   align-items: center;
   margin-top: 10%;
@@ -28,20 +27,22 @@ $half-thumbnail-width: $thumbnail-width / 2;
   left: -$half-cursor-width + px;
 }
 
-.step3-commands-container i{
+.step3-commands-container i {
   cursor: pointer;
 }
 
-.play-item, #repeat-item{
+.play-item,
+#repeat-item {
   display: flex;
   align-items: center;
   margin-right: 1%;
 }
 
-#repeat-item{
+#repeat-item {
   margin-right: 10%;
 }
 
-.play-item i, #repeat-item input{
+.play-item i,
+#repeat-item input {
   margin-right: 2%;
 }

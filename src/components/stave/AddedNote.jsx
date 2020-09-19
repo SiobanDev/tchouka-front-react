@@ -10,7 +10,7 @@ const AddedNote = ({ noteData }) => {
     return (
       <img
         className="added-note"
-        src={noteData.noteImage}
+        src={noteData.imageSrc}
         alt="added-note"
         // style={{ width: `${addedNoteWidth}%`}}
       />

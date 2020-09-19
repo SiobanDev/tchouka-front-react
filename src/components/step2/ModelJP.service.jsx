@@ -7,24 +7,20 @@ import {
 
 const createComposition = (
   bodyPartName,
-  clickNumber,
-  setClickNumber,
-  partition,
+  score,
+  composition,
   setComposition
 ) => {
-  // console.log("clickNumber in create: " + clickNumber);
 
-  if (partition.length > 0 && clickNumber < partition.length) {
-    setClickNumber(clickNumber + 1);
-
+  if (composition.length < score.length) {
     const newCompositionItem = {
-      id: clickNumber,
+      id: composition.length,
       durationList:
         movementList[bodyPartName].length === 1
-          ? [partition[clickNumber].duration]
+          ? [score[composition.length].duration]
           : [
-              partition[clickNumber].duration / 2,
-              partition[clickNumber].duration / 2,
+              score[composition.length].duration / 2,
+              score[composition.length].duration / 2,
             ],
       movementList: movementList[bodyPartName],
       singingWord: bodyPartName,
@@ -35,8 +31,8 @@ const createComposition = (
   }
 };
 
-const playSoundOfBodyPart = (bodyPartName, partition, composition) => {
-  if (partition.length !== composition.length) {
+const playSoundOfBodyPart = (bodyPartName, score, composition) => {
+  if (score.length !== composition.length) {
     const soundOfBodyPart = new Audio(soundList[bodyPartName]);
     if (soundOfBodyPart) {
       soundOfBodyPart.volume = 0.5;
@@ -51,10 +47,10 @@ const playSoundOfBodyPart = (bodyPartName, partition, composition) => {
 const playOneMovement = (
   bodyPartName,
   setMovementImageToDisplay,
-  partition,
+  score,
   composition
 ) => {
-  if (partition.length !== composition.length) {
+  if (score.length !== composition.length) {
     let imageDelay = 0;
     clearTimeout(imageDelay);
 
@@ -84,25 +80,22 @@ const playOneMovement = (
 
 export const handleClickOnBodyPart = (
   bodyPartName,
-  clickNumber,
-  setClickNumber,
-  partition,
+  score,
   composition,
   setComposition,
   setMovementImageToDisplay
 ) => {
   createComposition(
     bodyPartName,
-    clickNumber,
-    setClickNumber,
-    partition,
+    score,
+    composition,
     setComposition
   );
-  playSoundOfBodyPart(bodyPartName, partition, composition);
+  playSoundOfBodyPart(bodyPartName, score, composition);
   playOneMovement(
     bodyPartName,
     setMovementImageToDisplay,
-    partition,
+    score,
     composition
   );
 };

@@ -19,7 +19,7 @@ Le localStorage est utilisé au moment des changements de "pages" afin de sauveg
 
 Rappel : à chaque changement de composant qui n'est pas un enfant du composant précédent, les données du contexte sont réinitialisées.
 
-Il est donc nécessaire de récupérer les données de la partition et de la composition à chaque nouvelle "page" (selon les besoins).
+Il est donc nécessaire de récupérer les données de la score et de la composition à chaque nouvelle "page" (selon les besoins).
 
 
  ## Problème de boucle infinie avec un contexte
@@ -33,54 +33,54 @@ Il est donc nécessaire de récupérer les données de la partition et de la com
   
   ```javascript
  const initialContextValues = {
-      partition: [],
-      setPartition: () => {},
+      score: [],
+      setScore: () => {},
 };
-const PartitionContext = React.createContext(initialContextValues);
+const ScoreContext = React.createContext(initialContextValues);
 ```
   
 ```javascript
-const [partition, setPartition] = useState([]);
+const [score, setScore] = useState([]);
 return (
-    <PartitionContext.Provider value={{ partition, setPartition }} >
+    <ScoreContext.Provider value={{ score, setScore }} >
         <div></div>
-    </PartitionContext.Provider>
+    </ScoreContext.Provider>
 ```
-Je crée une variable globale pour mon contexte et je l'utilise pour appeler les variables partition, setPartition.
-Je modifie la valeur de partition grâce à setPartition dans le useEffect :
+Je crée une variable globale pour mon contexte et je l'utilise pour appeler les variables score, setScore.
+Je modifie la valeur de score grâce à setScore dans le useEffect :
 
 ```javascript
-  const partitionContext = useContext(PartitionContext);
+  const scoreContext = useContext(ScoreContext);
 
   useEffect(() => {
-    partitionContext.setPartition(JSON.parse(localStorage.getItem("partition")));
-  }, [partitionContext]);
+    scoreContext.setScore(JSON.parse(localStorage.getItem("score")));
+  }, [scoreContext]);
 ```
 >__Rappel__ :
 Si le hook React useEffect a comme deuxième argument un tableau vide [], il est appelé à chaque montage du composant .
 S'il a des variables indiquées dans un tableau comme deuxième argument, alors il est appelé à chaque fois qu'une de ces variables est modifiée (ce sont les "dépendances" du useEffect).
 Enfin, si le useEffect n'a pas de deuxième argument, il s'exécute tout le temps.
 
-Dans le cas présent, la variable setPartition modifie la valeur de la variable partition (car c'est le fonctionnement du useState). Donc cela modifie la variable globale partitionContexte.
-Or comme celle-ci est en dépendance du useEffect, le useEffect est relancé. Il exécute donc la variable setPartition, qui modifie la valeur de la variable partition, etc.
+Dans le cas présent, la variable setScore modifie la valeur de la variable score (car c'est le fonctionnement du useState). Donc cela modifie la variable globale scoreContexte.
+Or comme celle-ci est en dépendance du useEffect, le useEffect est relancé. Il exécute donc la variable setScore, qui modifie la valeur de la variable score, etc.
 
 ## Solution
 Il est donc conseillé de créer des variables spécifiques qui auront leur propre espace mémoire plutôt que de faire appel à des attributs de variables globales, qui partagent le même espace mémoire :
 
 Exemple :
 ```diff javascript
--   const partitionContext = useContext(PartitionContext);
-+    const { partition, setPartition } = useContext(PartitionContext);
+-   const scoreContext = useContext(ScoreContext);
++    const { score, setScore } = useContext(ScoreContext);
     
     useEffect(() => {
--    partitionContext.setPartition(JSON.parse(localStorage.getItem("partition")));
-+    setPartition(JSON.parse(localStorage.getItem("partition")));
+-    scoreContext.setScore(JSON.parse(localStorage.getItem("score")));
++    setScore(JSON.parse(localStorage.getItem("score")));
 
--      }, [partitionContext]);
-+    }, [setPartition]);
+-      }, [scoreContext]);
++    }, [setScore]);
 ```
-Ici, deux variables spécifiques sont créées : partition et setPartition, avec chacune leur espace mémoire.
-Cela permet d'attribuer uniquement le setPartition comme dépendance au useEffect. Ainsi il ne relance pas le useEffect, car partition ne fait pas partie de ses dépendances.
+Ici, deux variables spécifiques sont créées : score et setScore, avec chacune leur espace mémoire.
+Cela permet d'attribuer uniquement le setScore comme dépendance au useEffect. Ainsi il ne relance pas le useEffect, car score ne fait pas partie de ses dépendances.
 
 ## Précisions javascript
 Lorsque l'on crée une variable, javascript enregistre en mémoire une référence, qui a une valeur.

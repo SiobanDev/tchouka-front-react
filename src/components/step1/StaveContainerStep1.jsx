@@ -4,26 +4,26 @@ import "../stave/Staves.style.scss";
 //components
 import StaveStep1 from "./StaveStep1";
 //context
-import PartitionContext from "../../context/PartitionContext";
+import ScoreContext from "../../context/ScoreContext";
 import { redStave } from "../../config/mediasConstants";
 
 const StaveContainerStep1 = () => {
-  const {partition} = useContext(PartitionContext);
+  const { score } = useContext(ScoreContext);
   let firstStaveNotes = [];
   let secondStaveNotes = [];
 
-  if (partition.length > 0) {
-    firstStaveNotes = partition.slice(0, 20);
-    secondStaveNotes = partition.slice(20, 39);
+  if (score.length > 0) {
+    firstStaveNotes = score.slice(0, 20);
+    secondStaveNotes = score.slice(20, 39);
   }
 
-  useEffect(() => {}, [partition]);
+  useEffect(() => {}, [score]);
 
-  if (partition.length > 0) {
+  if (score.length > 0) {
     return (
       <div className="staves-container">
-        <StaveStep1 id="1" partitionNotes={firstStaveNotes} />
-        <StaveStep1 id="2" partitionNotes={secondStaveNotes} />
+        <StaveStep1 id="1" scoreNotes={firstStaveNotes} />
+        <StaveStep1 id="2" scoreNotes={secondStaveNotes} />
       </div>
     );
   }

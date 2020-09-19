@@ -1,14 +1,14 @@
 import React from "react";
 
 const initialContextValues = {
-  partition: [],
-  setPartition: () => {},
+  score: [],
+  setScore: () => {},
   freeTime: 42,
   allNotesWidth: 0,
   setAllNotesWidth: ()=>{},
   addedNoteWidth: 5
 };
 
-const PartitionContext = React.createContext(initialContextValues);
+const ScoreContext = React.createContext(initialContextValues);
 
-export default PartitionContext;
+export default ScoreContext;

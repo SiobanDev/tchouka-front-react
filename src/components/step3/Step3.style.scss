@@ -2,32 +2,50 @@ $primary-color: #1b1b1dff;
 $red-color: #ff4436ff;
 $orange-color: #ff9036ff;
 $blue-color: #2ca4a0ff;
+$thumbnail-width: 80;
+$half-thumbnail-width: $thumbnail-width / 2;
 
-#step3{
-  display: flex;
+#step3 {
+  flex-direction: row;
   flex-wrap: wrap;
+  width: 90%;
 }
 
-#JP-container{
+#step3 #column1 {
   width: 30%;
   height: auto;
   position: relative;
+  display: flex;
+  justify-content: flex-end;
 }
 
-.movement-image{
+#step3 #column2 {
+  width: 70%;
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  flex-direction: column;
+}
+
+#step3 .instruction{
   width: 100%;
+  margin-bottom: 20%;
+}
+
+.movement-image {
+  width: 90%;
   height: auto;
 }
 
-#step3 .visible{
+#step3 .visible {
   opacity: 1;
 }
 
-#step3 .hidden{
+#step3 .hidden {
   opacity: 0;
   transition: opacity 0.5s linear;
 }
 
-#first-movement-image{
+#first-movement-image {
   position: relative;
 }

@@ -57,8 +57,11 @@ const Controls = ({ allImageDelayList }) => {
   ]);
 
   return (
-    <div id="step3-controls">
-      <TimeLine allImageDelayList={allImageDelayList} />
+    <div id="step3-chronology">
+      <div id="timeline-container">
+        <TimeLine allImageDelayList={allImageDelayList} />
+      </div>
+      
       <div className="step3-commands-container">
         <div className="play-item">
           <i

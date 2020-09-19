@@ -2,20 +2,20 @@ import React, { useContext } from "react";
 import { Link } from "react-router-dom";
 //styles
 import "./StepButtons.style.scss";
-import PartitionContext from "../../context/PartitionContext";
+import ScoreContext from "../../context/ScoreContext";
 import StepContext from "../../context/StepContext";
 import CompositionContext from "../../context/CompositionContext";
 
 //text, boolean,
 
 const NextStepButton = ({ handleClick, nextPageUrl, text }) => {
-  const { partition } = useContext(PartitionContext);
+  const { score } = useContext(ScoreContext);
   const { composition } = useContext(CompositionContext);
   const { currentStep } = useContext(StepContext);
 
   if (
-    (partition.length === 0 && currentStep === 1) ||
-    (composition.length !== partition.length && currentStep === 2)
+    (score.length === 0 && currentStep === 1) ||
+    (composition.length !== score.length && currentStep === 2)
   ) {
     return (
       <div id="next-step" className="not-allowed-joint-step">

@@ -5,58 +5,22 @@ import {
   jpNeutreTransp,
   bodyPartList,
 } from "../../config/mediasConstants";
-// import {
-//   jpNeutre,
-//   jpNeutreTransp,
-//   claImages,
-//   bouImages,
-//   douImages,
-//   pouImages,
-//   soundList,
-//   movementList,
-//   bodyPartList,
-// } from "../../config/mediasConstants";
 //styles
 import "./ModelJP.style.scss";
 import BodyPart from "./BodyPart";
 import { useContext } from "react";
-import PartitionContext from "../../context/PartitionContext";
+import ScoreContext from "../../context/ScoreContext";
 import CompositionContext from "../../context/CompositionContext";
 import { useEffect } from "react";
 import { handleClickOnBodyPart } from "./ModelJP.service";
 
 const ModelJP = () => {
-  const { partition } = useContext(PartitionContext);
+  const { score } = useContext(ScoreContext);
   const {
     composition,
-    setComposition,
-    isLastItemRemoved,
-    setIsLastItemRemoved,
+    setComposition
   } = useContext(CompositionContext);
-  const [clickNumber, setClickNumber] = useState(0);
   const [movementImageToDisplay, setMovementImageToDisplay] = useState([]);
-
-  useEffect(() => {
-    if (isLastItemRemoved) {
-      setClickNumber(clickNumber - 1);
-      setIsLastItemRemoved(false);
-    }
-
-    if (composition.length === 0) {
-      setClickNumber(0);
-    }
-  }, [
-    composition,
-    clickNumber,
-    isLastItemRemoved,
-    setClickNumber,
-    setIsLastItemRemoved,
-  ]);
-
-  // console.log(
-  //   "movementImageToDisplay in general : " +
-  //     JSON.stringify(movementImageToDisplay)
-  // );
 
   return (
     <div className="model-container">
@@ -76,9 +40,7 @@ const ModelJP = () => {
           handleClick={() => {
             handleClickOnBodyPart(
               bodyPart,
-              clickNumber,
-              setClickNumber,
-              partition,
+              score,
               composition,
               setComposition,
               setMovementImageToDisplay

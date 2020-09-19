@@ -1,8 +1,10 @@
 import React, { useContext } from "react";
+//styles
+import "./Step1.style.scss";
 //components
 import AvailableNotesContainer from "./AvailableNotesContainer";
 import StaveContainerStep1 from "./StaveContainerStep1";
-import PartitionContext from "../../context/PartitionContext";
+import ScoreContext from "../../context/ScoreContext";
 import StepContext from "../../context/StepContext";
 import { step2Url } from "../../config/urlConstants";
 import { useEffect } from "react";
@@ -12,53 +14,55 @@ import "../main/StepButtons.style.scss";
 import { rythmStep } from "../../config/mainConstants";
 
 const Step1 = () => {
-  const { partition, setPartition } = useContext(PartitionContext);
+  const { score, setScore } = useContext(ScoreContext);
   const { setCurrentStep } = useContext(StepContext);
 
   useEffect(() => {
-    if (partition.length === 0 && localStorage.getItem("partition")) {
-      setPartition(JSON.parse(localStorage.getItem("partition")));
+    if (score.length === 0 && localStorage.getItem("score")) {
+      setScore(JSON.parse(localStorage.getItem("score")));
     }
 
     setCurrentStep(rythmStep);
-  }, [partition, setCurrentStep, setPartition]);
+  }, [score, setCurrentStep, setScore]);
 
   const handleBackspace = () => {
-    //console.log("partition before : " + partition);
+    //console.log("score before : " + score);
 
-    if (partition.length > 0) {
-      const partitionTmp = [...partition];
-      partitionTmp.splice(partition.length - 1, 1);
-      setPartition(partitionTmp);
+    if (score.length > 0) {
+      const scoreTmp = [...score];
+      scoreTmp.splice(score.length - 1, 1);
+      setScore(scoreTmp);
     }
   };
 
   const handleReset = () => {
-    setPartition([]);
-    localStorage.removeItem("partition");
+    setScore([]);
+    localStorage.removeItem("score");
   };
 
   const goToNextStep = () => {
-    console.log("partition in Step1 :" + JSON.stringify(partition));
-
-    localStorage.setItem("partition", JSON.stringify(partition));
+    console.log("score in Step1 :" + JSON.stringify(score));
+    localStorage.setItem("score", JSON.stringify(score));
   };
 
-  console.log("partition in Step1 : " + JSON.stringify(partition));
-
   return (
-    <section id="step1">
+    <section id="step1" className="main-content">
       <p className="instruction">
-        <span className="round-icon">1</span>J'écris ma partition rythmique en
+        <span className="round-icon">1</span>J'écris ma score rythmique en
         cliquant sur les notes ci-dessous.
       </p>
 
       <AvailableNotesContainer />
       <i
-        className="fas fa-backspace instruction-button"
+        id="backspace-button"
+        className="fas fa-backspace modification-button"
         onClick={handleBackspace}
       ></i>
-      <i className="fas fa-trash instruction-button" onClick={handleReset}></i>
+      <i
+        id="reset-button"
+        className="fas fa-trash modification-button"
+        onClick={handleReset}
+      ></i>
       <StaveContainerStep1 />
 
       <div id="step-buttons-container">

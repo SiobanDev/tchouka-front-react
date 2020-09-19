@@ -30,15 +30,23 @@ const Step3 = () => {
   // );
 
   return (
-    <section id="step3">
-      <div id="JP-container">
+    <section id="step3" className="main-content">
+      <div id="column1">
         <JPAnimation
           allImageDelayList={allImageDelayList}
           playingAnimation={playingAnimation}
         />
       </div>
 
-      <Controls allImageDelayList={allImageDelayList} />
+      <div id="column2">
+      <p className="instruction">
+          <span className="round-icon">3</span>Je chante les mots associés à chaque partie du corps pour mieux mémoriser mon enchaînement Tchouka !
+        </p>
+
+        <Controls allImageDelayList={allImageDelayList} />
+      </div>
+
+      
 
       <div id="step-buttons-container">
         <PreviousStepButton

@@ -68,7 +68,7 @@ const TimeLine = ({ allImageDelayList }) => {
   }
 
   return (
-    <div id="chronology-container">
+    <div id="chronology-container-content">
       {composition.map((movement, i) => {
         const imageSrcWithFocus = movement.movementList[0].replace(
           ".svg",

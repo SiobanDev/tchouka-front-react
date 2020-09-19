@@ -11,12 +11,16 @@ $blue-color: #2ca4a0ff;
   display: flex;
 }
 
-#step2 .column1 {
+#step2 #column1 {
   width: 35%;
 }
 
-#step2 .column2 {
+#step2 #column2 {
   width: 55%;
+  padding-top: 4%;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
 }
 
 #step2 .staves-container {

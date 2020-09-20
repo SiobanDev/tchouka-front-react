@@ -10,7 +10,7 @@ import { apiSignInUrl } from "../../config/urlConstants";
 import LoginContext from "../../context/LoginContext";
 
 const SignInForm = () => {
-  const {loginContext, setLoggedIn} = useContext(LoginContext)
+  const {loggedIn, setLoggedIn} = useContext(LoginContext)
   const notificationContext = useContext(NotificationContext);
   const { register, handleSubmit, watch, errors } = useForm();
   const [waitingForApiResponse, setWaitingForApiResponse] = React.useState(

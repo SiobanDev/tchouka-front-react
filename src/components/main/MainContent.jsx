@@ -1,5 +1,10 @@
 import React, { useState } from "react";
-import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  Redirect,
+} from "react-router-dom";
 //components
 import Step1 from "../step1/Step1";
 import Step2 from "../step2/Step2";
@@ -17,6 +22,7 @@ import NotificationContext from "../../context/NotificationContext";
 import SignUp from "../../views/SignUp";
 import SignIn from "../../views/SignIn";
 import LoginContext from "../../context/LoginContext";
+import MyProfile from "./MyProfile";
 
 const MainContent = () => {
   var freeTime = 42;
@@ -89,14 +95,20 @@ const MainContent = () => {
                   >
                     <main>
                       <Switch>
+                        <Route
+                          exact
+                          path="/profil"
+                          render={() =>
+                            loggedIn ? (
+                              <MyProfile />
+                            ) : (
+                              <Redirect to="/connexion" />
+                            )
+                          }
+                        />
                         <Route exact path="/inscription" component={SignIn} />
-
                         <Route exact path="/connexion" component={SignUp}>
-                          {loggedIn ? (
-                            <Redirect to="/dashboard" />
-                          ) : (
-                            <PublicHomePage />
-                          )}
+                          {loggedIn ? <Redirect to="/dashboard" /> : <Home />}
                         </Route>
                         <Route exact path="/credits" component={Credits} />
                         <Route

@@ -1,12 +1,15 @@
-import React from "react";
+import React, {useContext} from "react";
 import Nav from "../components/main/navbar/Nav";
 //styles
 import "./Header.style.scss";
+import LoginContext from "../context/LoginContext";
 
 const Header = () => {
+  const {loggedIn} = useContext(LoginContext)
+
   return (
     <header>
-     { <p id="sign-up-in-container">
+     { loggedIn ? <div><div className="profile-icon">T</div><a href="/profil">Mon profil</a></div> : <p id="sign-up-in-container">
         <a className="inline-link" href="/inscription">
           M'inscrire
         </a>

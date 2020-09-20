@@ -21,17 +21,9 @@ const SignUpForm = () => {
       password: data.password,
     };
 
-    const req = new Request(apiSignUpUrl, {
-      method: "POST",
-      body: JSON.stringify(userData),
-      headers: new Headers({
-        "Content-Type": "application/json",
-      }),
-    });
-
     try {
       setWaitingForApiResponse(true);
-      const apiResponse = await apiSignUp();
+      const apiResponse = await apiSignUp(userData);
 
       if (apiResponse.success) {
         setWaitingForApiResponse(false);

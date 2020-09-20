@@ -36,7 +36,7 @@ const Step1 = () => {
   const handleBackUp = async () => {
     try {
       setWaitingForApiResponse(true);
-      const apiResponse = await saveNewScore(apiScoreUrl);
+      const apiResponse = await saveNewScore(score);
 
       if (apiResponse.success) {
         setWaitingForApiResponse(false);
@@ -95,7 +95,7 @@ const Step1 = () => {
         id="reset-button"
         className="fas fa-trash edition-button"
         onClick={handleReset}
-      ></i>{" "}
+      ></i>
       <i
         id="backspace-button"
         className="fas fa-backspace edition-button"

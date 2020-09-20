@@ -2,7 +2,7 @@ import React, { useContext, useState } from "react";
 import NotificationContext from "../../context/NotificationContext";
 //libraries
 import Loader from "react-loader-spinner";
-import { apiSignUp } from "../../services/apiServices";
+import { apiSignUp, apiSignIn } from "../../services/apiServices";
 //styles
 import "./Form.style.scss";
 import { useForm } from "react-hook-form";
@@ -25,17 +25,9 @@ const SignInForm = () => {
       password: data.password,
     };
 
-    const req = new Request(apiSignInUrl, {
-      method: "POST",
-      body: JSON.stringify(userData),
-      headers: new Headers({
-        "Content-Type": "application/json",
-      }),
-    });
-
     try {
       setWaitingForApiResponse(true);
-      const apiResponse = await apiSignUp(req);
+      const apiResponse = await apiSignIn(userData);
 
       if (apiResponse.success) {
         setWaitingForApiResponse(false);

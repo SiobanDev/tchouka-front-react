@@ -32,7 +32,7 @@ const Step2 = () => {
   const handleBackUp = async () => {
     try {
       setWaitingForApiResponse(true);
-      const apiResponse = await saveNewComposition(apiScoreUrl);
+      const apiResponse = await saveNewComposition(composition);
 
       if (apiResponse.success) {
         setWaitingForApiResponse(false);

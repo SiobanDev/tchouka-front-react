@@ -1,22 +1,33 @@
-import React, { useContext, useEffect, useCallback, useState } from "react";
-import Nav from "./navbar/Nav";
+import React, { useEffect, useCallback, useContext } from "react";
 //styles
 import "./Header.style.scss";
-import LoginContext from "../../context/LoginContext";
 import {
   apiGetAllScoresData,
   apiGetAllCompositionsData,
+  deleteScore,
+  deleteComposition,
 } from "../../services/apiServices";
 //libraries
 import Loader from "react-loader-spinner";
+import CompositionContext from "../../context/CompositionContext";
+import ScoreContext from "../../context/ScoreContext";
+import { handleScoreUploading, handleCompositionUploading } from "./MyProfile.services";
+import NotificationContext from "../../context/NotificationContext";
 
 const MyProfile = () => {
   const [waitingForApiResponse, setWaitingForApiResponse] = React.useState(
     true
   );
+  const notificationContext = useContext(NotificationContext);
+
   const scoreList = [];
   const compositionList = [];
   const apiErrorMessage = "Erreur avec la récupération des données.";
+  const { setComposition } = useContext(
+    CompositionContext
+  );
+  const { setScore } = useContext(ScoreContext);
+
 
   const getScoresData = useCallback(async () => {
     try {
@@ -24,11 +35,17 @@ const MyProfile = () => {
       if (formattedApiResponse) {
         formattedApiResponse.data.map((score) => {
           scoreList.push(
-            <li>
+            <li key={score.id}>
               <div className="notes-number">{score.length - 1}</div>
-              <p className="score-title">{score.title}</p>{" "}
-              <i className="fas fa-trash edition-button"></i>
-              <i className="fas fa-share edition-button"></i>
+              <p className="score-title">{score.title}</p>
+              <i
+                className="fas fa-trash edition-button"
+                onClick={() => deleteScore(score.id)}
+              ></i>
+              <i
+                className="fas fa-share edition-button"
+                onClick={() => handleScoreUploading(score, setScore, notificationContext)}
+              ></i>
             </li>
           );
         });
@@ -38,7 +55,7 @@ const MyProfile = () => {
       setWaitingForApiResponse(false);
       console.log("Error in getNotes in AvailableNotesContainer : " + e);
     }
-  }, [scoreList]);
+  }, []);
 
   const getCompositionsData = useCallback(async () => {
     try {
@@ -48,9 +65,15 @@ const MyProfile = () => {
           compositionList.push(
             <li>
               <div className="notes-number">{composition.length - 1}</div>
-              <p className="composition-title">{composition.title}</p>{" "}
-              <i className="fas fa-trash edition-button"></i>
-              <i className="fas fa-share edition-button"></i>
+              <p className="composition-title">{composition.title}</p>
+              <i
+                className="fas fa-trash edition-button"
+                onClick={() => deleteComposition(composition.id)}
+              ></i>
+              <i
+                className="fas fa-share edition-button"
+                onClick={() => handleCompositionUploading(composition, setComposition, notificationContext)}
+              ></i>
             </li>
           );
         });

@@ -1,11 +1,36 @@
-header{
-    display: flex;
-    flex-direction: column;
-    width: 100%;
-    margin-bottom: 6%;
+$primary-color: #1b1b1dff;
+
+header {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  margin-bottom: 6%;
+  position: relative;
 }
 
-h1{
-    font-weight: normal;
-    text-align: center;
+h1 {
+  font-weight: normal;
+  text-align: center;
+}
+
+header #sign-up-in-container {
+  position: absolute;
+  right: 0;
+  display: flex;
+  top: -10px;
+  background-color: white;
+  padding: 0 2%;
+}
+
+header .inline-link {
+  color: $primary-color;
+  text-decoration: none;
+  background-color: white;
+  padding: 0 2%;
+  white-space: nowrap;
+}
+
+header .inline-link:hover,
+header .inline-link:focus {
+  text-decoration: underline;
 }

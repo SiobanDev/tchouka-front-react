@@ -1,4 +1,5 @@
 import { jpNeutre } from "../../config/mediasConstants";
+import { defaultAvailableNotes } from "../../data/defaultNotes";
 
 export const adaptComposition = (composition, setComposition) => {
   const compositionTmp = [...composition];
@@ -15,9 +16,14 @@ export const adaptComposition = (composition, setComposition) => {
     );
 
     //We have just added the neutral position at the end of each movement and now we want the duration of this image is pretty short (see neutralPositionDuration) but the whole duration of the movement may not change et mostly the other images must share the same duration
-    const imageDurationTmp = 250
-    const numberOfImagesExceptNeutral = compositionTmp[i].movementList.length - 1
-    const neutralPositionDuration = wholeMovementDuration - (imageDurationTmp * numberOfImagesExceptNeutral)
+    const shorterNoteDuration =
+      defaultAvailableNotes[defaultAvailableNotes.length - 1].duration;
+    const imageDurationTmp = shorterNoteDuration / 2 - 50;
+    
+    const numberOfImagesExceptNeutral =
+      compositionTmp[i].movementList.length - 1;
+    const neutralPositionDuration =
+      wholeMovementDuration - imageDurationTmp * numberOfImagesExceptNeutral;
 
     const movementDurationTmp = [];
 
@@ -25,7 +31,6 @@ export const adaptComposition = (composition, setComposition) => {
       movementDurationTmp.push(imageDurationTmp);
     }
     movementDurationTmp.push(neutralPositionDuration);
-
 
     compositionTmp[i].durationList = movementDurationTmp;
   }

@@ -14,12 +14,14 @@ $cursor-width: 30;
 $half-cursor-width: $cursor-width / 2;
 $thumbnail-width: 80;
 $half-thumbnail-width: $thumbnail-width / 2;
+$chronology-content-width: 5000;
 
 :export{
   halfLineWidth: $half-line-width;
   halfLandmarkWidth: $half-landmark-width;
   halfCursorWidth: $half-cursor-width;
   halfThumbnailWidth: $half-thumbnail-width;
+  chronologyContentWidth: $chronology-content-width;
 }
 
 #chronology-container-content {
@@ -27,6 +29,7 @@ $half-thumbnail-width: $thumbnail-width / 2;
   display: flex;
   align-items: center;
   position: relative;
+  width: $chronology-content-width + px;
 }
 
 #timeline-chronology {
@@ -70,7 +73,6 @@ $half-thumbnail-width: $thumbnail-width / 2;
   border-radius: 5px;
   height: 20px;
   background-color: $blue-color;
-  left: calc(100% - $half-thumbnail-width)
 }
 
 .singingWord{

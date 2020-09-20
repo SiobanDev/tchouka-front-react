@@ -1,6 +1,6 @@
 import { apiUrl } from "../config/urlConstants";
 
-export const apiFetchDefaultNotes = async () => {
+export const apiSignUp = async () => {
   try {
     const req = new Request(`${apiUrl}notes`, {
       method: "GET",

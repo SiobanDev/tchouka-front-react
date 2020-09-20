@@ -13,7 +13,7 @@ const Score = () => {
   const chunkSize = 10;
   const { score, setScore } = useContext(ScoreContext);
   const { composition } = useContext(CompositionContext);
-  const staveNumber = Math.trunc(score.length / chunkSize);
+  const staveNumber = Math.floor(score.length / chunkSize);
   const staveStep2List = [];
   let scoreToSplit = [...score];
   let tempComposition = [...composition];
@@ -31,7 +31,7 @@ const Score = () => {
     return compositionItem.singingWord;
   });
 
-  for (let i = 0; i <= staveNumber; i++) {
+  for (let i = 0; i < staveNumber; i++) {
     staveStep2List.push(
       <StaveStep2
         id={i}

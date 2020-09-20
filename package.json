@@ -11,6 +11,7 @@
     "path-to-regexp": "^1.8.0",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
+    "react-hook-form": "^6.8.3",
     "react-loader-spinner": "^3.1.14",
     "react-router-dom": "^5.2.0",
     "react-scripts": "^3.4.3"
@@ -38,7 +39,7 @@
   },
   "homepage": "http://tchouka.sioban.fr/",
   "devDependencies": {
-    "sass": "^1.26.10",
+    "sass": "^1.26.11",
     "sass-loader": "^10.0.2"
   }
 }

@@ -1,0 +1,21 @@
+$primary-color: #1b1b1dff;
+
+footer {
+  display: flex;
+  width: 100%;
+  position: absolute;
+  bottom: -10px;
+  justify-content: center;
+}
+
+footer a {
+  color: $primary-color;
+  text-decoration: none;
+  background-color: white;
+  padding: 0 2%;
+}
+
+footer a:hover,
+footer a:focus {
+  text-decoration: underline;
+}

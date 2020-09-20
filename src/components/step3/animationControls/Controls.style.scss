@@ -10,13 +10,52 @@ $cursor-width: 30;
 $half-cursor-width: $cursor-width / 2;
 $thumbnail-width: 80;
 $half-thumbnail-width: $thumbnail-width / 2;
+$round-arrow-size: $cursor-width * 2;
 
 #step3-chronology {
   width: 90%;
 }
 
-#timeline-container{
-  
+#timeline-container {
+  overflow: hidden;
+  border: solid 2px;
+  padding: 20% 0 5% $thumbnail-width + px;
+  position: relative;
+}
+
+#go-forward-container,
+#go-backward-container {
+  background-color: rgba(44, 164, 160, 0.8);
+  height: 100%;
+  width: 8%;
+  position: absolute;
+  top: 0;
+  min-width: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 2;
+}
+
+#go-forward-container {
+  right: 0;
+}
+
+#go-backward-container {
+  left: 0;
+}
+
+#go-forward-container:hover {
+  background-color: rgba(44, 164, 160, 0.6);
+}
+
+#timeline-container .round-icon {
+  background: none;
+  border: none;
+  width: 70%;
+  font-size: 200%;
+  height: auto;
+  cursor: pointer;
 }
 
 .step3-commands-container {

@@ -1,0 +1,28 @@
+$fonts-path: "/fonts/";
+$primary-color: #1b1b1dff;
+$red-color: #ff4436ff;
+$orange-color: #ff9036ff;
+$blue-color: #2ca4a0ff;
+form{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+form label{
+    margin-right: 10px;
+}
+
+#form-container{
+    max-width: 40%;
+}
+
+.form-field{
+    margin: 2% 0;
+}
+
+.submit-button{
+    background-color: $blue-color;
+    border: none;
+    cursor: pointer;
+    margin: 5% 0;
+}

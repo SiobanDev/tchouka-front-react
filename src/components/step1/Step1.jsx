@@ -6,7 +6,11 @@ import AvailableNotesContainer from "./AvailableNotesContainer";
 import StaveContainerStep1 from "./StaveContainerStep1";
 import ScoreContext from "../../context/ScoreContext";
 import StepContext from "../../context/StepContext";
-import { step2Url, apiCompositionUrl, apiScoreUrl } from "../../config/urlConstants";
+import {
+  step2Url,
+  apiCompositionUrl,
+  apiScoreUrl,
+} from "../../config/urlConstants";
 import { useEffect } from "react";
 import NextStepButton from "../main/NextStepButton";
 //styles
@@ -21,7 +25,7 @@ import Loader from "react-loader-spinner";
 const Step1 = () => {
   const { score, setScore } = useContext(ScoreContext);
   const { setCurrentStep } = useContext(StepContext);
-  const { loggedIn } = useContext(LoginContext);
+  const { loggedIn, userId } = useContext(LoginContext);
   const [waitingForApiResponse, setWaitingForApiResponse] = useState(true);
   const notificationContext = useContext(NotificationContext);
   useEffect(() => {
@@ -32,11 +36,16 @@ const Step1 = () => {
     setCurrentStep(rythmStep);
   }, [score, setCurrentStep, setScore]);
 
-
   const handleBackUp = async () => {
+    const apiScore = {
+      scoreUser: userId,
+      scoreTitle: `Ma super partition n°${Math.random() * 10}`,
+      scoreNoteList: JSON.stringify(score)
+    };
+
     try {
       setWaitingForApiResponse(true);
-      const apiResponse = await saveNewScore(score);
+      const apiResponse = await saveNewScore(apiScore);
 
       if (apiResponse.success) {
         setWaitingForApiResponse(false);
@@ -80,17 +89,22 @@ const Step1 = () => {
         <span className="round-icon">1</span>J'écris ma score rythmique en
         cliquant sur les notes ci-dessous.
       </p>
+      {!loggedIn && (
+        <p className="incription-hook">
+          Je peux sauvegarder ma partition en me connectant à mon compte.
+        </p>
+      )}
       <AvailableNotesContainer />
       {loggedIn &&
-          (waitingForApiResponse ? (
-            <Loader type="TailSpin" color="#2ca4a0ff" height={30} width={30} />
-          ) : (
-            <i
-              id="reset-button"
-              className="fas fa-save edition-button"
-              onClick={handleBackUp}
-            ></i>
-          ))}
+        (waitingForApiResponse ? (
+          <Loader type="TailSpin" color="#2ca4a0ff" height={30} width={30} />
+        ) : (
+          <i
+            id="reset-button"
+            className="fas fa-save edition-button"
+            onClick={handleBackUp}
+          ></i>
+        ))}
       <i
         id="reset-button"
         className="fas fa-trash edition-button"

@@ -7,13 +7,15 @@ import { apiSignUp } from "../../services/apiServices";
 import "./Form.style.scss";
 import { useForm } from "react-hook-form";
 import { apiSignUpUrl } from "../../config/urlConstants";
+import LoginContext from "../../context/LoginContext";
 
 const SignUpForm = () => {
   const notificationContext = useContext(NotificationContext);
   const { register, handleSubmit, watch, errors } = useForm();
-  const [waitingForApiResponse, setWaitingForApiResponse] = React.useState(
+  const [waitingForformattedApiResponse, setWaitingForformattedApiResponse] = React.useState(
     false
   );
+  const { setLoggedIn, setUserId } = useContext(LoginContext);
 
   const onSubmit = async (data) => {
     const userData = {
@@ -22,17 +24,24 @@ const SignUpForm = () => {
     };
 
     try {
-      setWaitingForApiResponse(true);
-      const apiResponse = await apiSignUp(userData);
+      setWaitingForformattedApiResponse(true);
+      const formattedApiResponse = await apiSignUp(userData);
 
-      if (apiResponse.success) {
-        setWaitingForApiResponse(false);
+      if (formattedApiResponse.success) {        
+        setWaitingForformattedApiResponse(false);
+
         notificationContext.setSeverityKind("success");
-        notificationContext.setNotificationMessage(apiResponse.message);
+        notificationContext.setNotificationMessage(formattedApiResponse.message);
         notificationContext.setOpen(true);
-      } else if (!apiResponse.success) {
-        setWaitingForApiResponse(false);
-        notificationContext.setNotificationMessage(apiResponse.message);
+
+        setLoggedIn(true);
+        setUserId(formattedApiResponse.data.id);
+
+        localStorage.setItem("token", formattedApiResponse.data.token);
+
+      } else if (!formattedApiResponse.success) {
+        setWaitingForformattedApiResponse(false);
+        notificationContext.setNotificationMessage(formattedApiResponse.message);
         notificationContext.setOpen(true);
       }
     } catch (e) {
@@ -40,7 +49,7 @@ const SignUpForm = () => {
     }
   };
 
-  if (waitingForApiResponse) {
+  if (waitingForformattedApiResponse) {
     return <Loader type="TailSpin" color="#2ca4a0ff" height={45} width={45} />;
   } else {
     return (

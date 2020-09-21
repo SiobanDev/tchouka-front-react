@@ -5,13 +5,25 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 ---
 ## Objectif de l'application web TCHOUKA:
 Permettre à l'utilisateur de se créer un support audio et visuel pour apprendre des enchaînements de  percussions corporelles.
-Il est bien plus facile de réaliser et mémoriser l'enchaînement des percussions corporelles si l'on chante un mot à chaque percussion. Pour cette raison, ainsi que pour des contraintes techniques, le support d'apprentissage final ne sera pas une vidéo des gestes à effectuer, mais une bande-son des mots chantés, avec un prompt (texte karaoké) des-dits mots.
+Il est bien plus facile de réaliser et mémoriser l'enchaînement des percussions corporelles si l'on chante un mot à chaque percussion.
 
 ## Informations techniques:
 - site web sous la forme d’une SPA
 - utilisation de l'API Tchouka-back pour générer le rendu final
 https://github.com/SiobanDev/tchouka-back-symfony
 - non responsive en V1
+
+## Installation
+
+#### Clone this repo 
+``` git clone https://github.com/SiobanDev/tchouka-front-react.git```
+
+#### Lancer l'installeur npm
+```npm install```
+
+#### Créer un fichier .env.local avec les constantes suivantes :
+
+- **API_URL**=https://127.0.0.1:8000/api
 
 ## Documentation
 ### Utilisation du localStorage

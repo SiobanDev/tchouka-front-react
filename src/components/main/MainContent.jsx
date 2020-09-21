@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   BrowserRouter as Router,
   Switch,
@@ -42,15 +42,24 @@ const MainContent = () => {
   const [notificationMessage, setNotificationMessage] = React.useState(
     "Une erreur est survenue."
   );
+  const [userId, setUserId] = useState(null);
 
   // console.log("score dans MainContent " + JSON.stringify(score));
   // console.log("allNotesWidth dans MainContent" + allNotesWidth);
   //console.log("composition dans MainContent " + JSON.stringify(composition));
 
+  useEffect(() => {
+    if (!loggedIn) {
+      setUserId(null);
+    }
+  }, [loggedIn]);
+
   return (
     <>
       <Router>
-        <LoginContext.Provider value={{ loggedIn, setLoggedIn }}>
+        <LoginContext.Provider
+          value={{ loggedIn, setLoggedIn, userId, setUserId }}
+        >
           <NotificationContext.Provider
             value={{
               severityKind,

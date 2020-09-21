@@ -10,7 +10,7 @@ import {
 } from "./Timeline.utils";
 import scssVariables from "./Timeline.style.scss";
 
-const TimeLine = ({ allImageDelayList, cursorProgress, chronologyStyle }) => {
+const TimeLine = ({ allImageDelayList, cursorProgress }) => {
   const { composition } = useContext(CompositionContext);
   const { playingAnimation, setPlayingAnimation, timeCode } = useContext(
     AnimationContext
@@ -23,11 +23,12 @@ const TimeLine = ({ allImageDelayList, cursorProgress, chronologyStyle }) => {
     allImageDelayList[allImageDelayList.length - 1] / 1000
   );
   const timeSecondElementList = [];
+  const cursorPosition = cursorProgress > 100 ? 100 : cursorProgress;
   const cursorStyle = {
     transition: playingAnimation
       ? `left ${timeCodeInterval}ms linear`
       : undefined,
-    left: `calc(${cursorProgress}% - ${scssVariables.halfCursorWidth}px + ${scssVariables.halfLineWidth}px)`,
+    left: `calc(${cursorPosition}% - ${scssVariables.halfCursorWidth}px + ${scssVariables.halfLineWidth}px)`,
   };
   // console.log("cursorProgress in Timeline : " + cursorProgress);
 
@@ -56,9 +57,9 @@ const TimeLine = ({ allImageDelayList, cursorProgress, chronologyStyle }) => {
 
   // console.log("wholeMovementDelayList :" + JSON.stringify(wholeMovementDelayList))
 
-
   return (
-    <div id="chronology-container-content" style={chronologyStyle}>
+    <>
+      {" "}
       <div id="timeline-cursor" style={cursorStyle}></div>
       {composition.map((movement, i) => {
         const imageSrcWithFocus = movement.movementList[0].replace(
@@ -91,7 +92,6 @@ const TimeLine = ({ allImageDelayList, cursorProgress, chronologyStyle }) => {
           {movement.singingWord}
         </p>
       ))}
-
       {landmarkPositionList.map((landmarkPosition, i) => (
         <div
           id={`movement-landmark-${i}`}
@@ -102,7 +102,7 @@ const TimeLine = ({ allImageDelayList, cursorProgress, chronologyStyle }) => {
           key={landmarkPosition}
         ></div>
       ))}
-    </div>
+    </>
   );
 };
 

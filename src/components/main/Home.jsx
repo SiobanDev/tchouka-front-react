@@ -1,5 +1,5 @@
 import React, { useEffect, useContext } from "react";
-import "./Home.scss";
+import "./Home.style.scss";
 import { step1Url } from "../../config/urlConstants";
 import StepContext from "../../context/StepContext";
 import NextStepButton from "./NextStepButton";
@@ -44,7 +44,11 @@ const Home = () => {
         percussions corporelles.
       </p>
 
-      <p>Amuse-toi bien ;) ! </p>
+      <p>
+        Si tu veux sauvegarder tes partitions ou tes compositions TCHoUKA, inscris-toi !
+      </p>
+
+      <p>Amuse-toi bien ;) </p>
 
       <div id="step-buttons-container">
         <NextStepButton

@@ -73,12 +73,15 @@ export const apiSignUp = async (userData) => {
 };
 
 export const saveNewScore = async (userScore) => {
+  let getToken = localStorage.getItem("token");
+
   try {
     const req = new Request(apiScoreUrl, {
       method: "POST",
       headers: new Headers({
         "Access-Control-Allow-Origin": "*",
         "Content-Type": "application/json",
+        'Authorization': `Bearer ${getToken}`
       }),
       body: JSON.stringify(userScore),
     });
@@ -106,14 +109,17 @@ export const saveNewScore = async (userScore) => {
 };
 
 export const deleteScore = async (userScoreId) => {
+  let getToken = localStorage.getItem("token");
+
   try {
     const req = new Request(apiScoreUrl, {
       method: "DELETE",
       headers: new Headers({
         "Access-Control-Allow-Origin": "*",
         "Content-Type": "application/json",
+        'Authorization': `Bearer ${getToken}`
       }),
-      body: JSON.stringify(userScoreId),
+      body: JSON.stringify({scoreId: userScoreId}),
     });
 
     const apiResponse = await fetch(req);
@@ -139,12 +145,16 @@ export const deleteScore = async (userScoreId) => {
 };
 
 export const saveNewComposition = async (userComposition) => {
+  let getToken = localStorage.getItem("token");
+
   try {
     const req = new Request(apiCompositionUrl, {
       method: "POST",
       headers: new Headers({
         "Access-Control-Allow-Origin": "*",
         "Content-Type": "application/json",
+        'Authorization': `Bearer ${getToken}`
+
       }),
       body: JSON.stringify(userComposition),
     });
@@ -173,12 +183,16 @@ export const saveNewComposition = async (userComposition) => {
 
 
 export const deleteComposition = async (userCompositionId) => {
+  let getToken = localStorage.getItem("token");
+
   try {
     const req = new Request(apiCompositionUrl, {
       method: "DELETE",
       headers: new Headers({
         "Access-Control-Allow-Origin": "*",
         "Content-Type": "application/json",
+        'Authorization': `Bearer ${getToken}`
+
       }),
       body: JSON.stringify(userCompositionId),
     });
@@ -206,12 +220,16 @@ export const deleteComposition = async (userCompositionId) => {
 };
 
 export const apiGetAllScoresData = async () => {
+  let getToken = localStorage.getItem("token");
+
   try {
     const req = new Request(apiFetchAllScoresDataUrl, {
       method: "GET",
       headers: new Headers({
         "Access-Control-Allow-Origin": "*",
         "Content-Type": "application/json",
+        'Authorization': `Bearer ${getToken}`
+
       }),
     });
 
@@ -238,12 +256,16 @@ export const apiGetAllScoresData = async () => {
 };
 
 export const apiGetAllCompositionsData = async () => {
+  let getToken = localStorage.getItem("token");
+
   try {
     const req = new Request(apiFetchAllCompositionsDataUrl, {
       method: "GET",
       headers: new Headers({
         "Access-Control-Allow-Origin": "*",
         "Content-Type": "application/json",
+        'Authorization': `Bearer ${getToken}`
+
       }),
     });
 

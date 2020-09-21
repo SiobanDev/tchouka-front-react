@@ -21,7 +21,7 @@ import NotificationContext from "../../context/NotificationContext";
 import Loader from "react-loader-spinner";
 
 const Step2 = () => {
-  const { loggedIn } = useContext(LoginContext);
+  const { loggedIn, userId } = useContext(LoginContext);
   const { setCurrentStep } = useContext(StepContext);
   const { composition, setComposition, setIsLastItemRemoved } = useContext(
     CompositionContext
@@ -30,9 +30,14 @@ const Step2 = () => {
   const notificationContext = useContext(NotificationContext);
 
   const handleBackUp = async () => {
+    const apiComposition = {
+      scoreTitle: `Ma super composition n°${Math.random() * 10}`,
+      scoreNoteList: JSON.stringify(composition)
+    };
+
     try {
       setWaitingForApiResponse(true);
-      const apiResponse = await saveNewComposition(composition);
+      const apiResponse = await saveNewComposition(apiComposition);
 
       if (apiResponse.success) {
         setWaitingForApiResponse(false);
@@ -97,8 +102,13 @@ const Step2 = () => {
       <div id="column2">
         <p className="instruction">
           <span className="round-icon">2</span>Je clique sur les parties du
-          corps de Jean-Patricia pour les associer à mes notes.
+          corps de Jean-Patricia pour les associer à mes notes. 
         </p>
+        {!loggedIn && (
+          <p className="instruction incription-hook">
+            Je peux sauvegarder ma composition en me connectant à mon compte.
+          </p>
+        )}
         {loggedIn &&
           (waitingForApiResponse ? (
             <Loader type="TailSpin" color="#2ca4a0ff" height={30} width={30} />
@@ -113,7 +123,7 @@ const Step2 = () => {
           id="reset-button"
           className="fas fa-trash edition-button"
           onClick={handleReset}
-        ></i>{" "}
+        ></i>
         <i
           id="backspace-button"
           className="fas fa-backspace edition-button"

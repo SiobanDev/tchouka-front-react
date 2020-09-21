@@ -16,10 +16,17 @@ $round-arrow-size: $cursor-width * 2;
   width: 90%;
 }
 
-#timeline-container {
+#chronology-container {
   overflow: hidden;
   border: solid 2px;
   padding: 20% 0 5% $thumbnail-width + px;
+  position: relative;
+}
+
+#timeline-container {
+  height: 30px;
+  display: flex;
+  align-items: center;
   position: relative;
 }
 
@@ -49,7 +56,7 @@ $round-arrow-size: $cursor-width * 2;
   background-color: rgba(44, 164, 160, 0.6);
 }
 
-#timeline-container .round-icon {
+#chronology-container .round-icon {
   background: none;
   border: none;
   width: 70%;

@@ -5,11 +5,11 @@ import "./Header.style.scss";
 import LoginContext from "../context/LoginContext";
 
 const Header = () => {
-  const {loggedIn} = useContext(LoginContext)
+  const {loggedIn, setLoggedIn} = useContext(LoginContext)
 
   return (
     <header>
-     { loggedIn ? <div><div className="profile-icon">T</div><a href="/profil">Mon profil</a></div> : <p id="sign-up-in-container">
+     { loggedIn ? <div><div className="profile-icon">T</div><a className="inline-link" href="/profil">Mon profil</a><div className="inline-link" onClick={setLoggedIn(false)}>Se déconnecter</div></div> : <p id="sign-up-in-container">
         <a className="inline-link" href="/inscription">
           M'inscrire
         </a>

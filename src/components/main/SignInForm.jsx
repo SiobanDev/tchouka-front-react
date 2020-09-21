@@ -1,23 +1,22 @@
-import React, { useContext, useState } from "react";
+import React, { useContext } from "react";
 import NotificationContext from "../../context/NotificationContext";
 //libraries
 import Loader from "react-loader-spinner";
-import { apiSignUp, apiSignIn } from "../../services/apiServices";
+import { apiSignIn } from "../../services/apiServices";
 //styles
 import "./Form.style.scss";
 import { useForm } from "react-hook-form";
-import { apiSignInUrl } from "../../config/urlConstants";
 import LoginContext from "../../context/LoginContext";
 
 const SignInForm = () => {
-  const {loggedIn, setLoggedIn} = useContext(LoginContext)
+  const { setLoggedIn } = useContext(LoginContext);
   const notificationContext = useContext(NotificationContext);
-  const { register, handleSubmit, watch, errors } = useForm();
+  const { register, handleSubmit, errors } = useForm();
   const [waitingForApiResponse, setWaitingForApiResponse] = React.useState(
     false
   );
   const mailRegex = /^[^\W][a-zA-Z0-9_]+(\.[a-zA-Z0-9_]+)*\@[a-zA-Z0-9_]+(\.[a-zA-Z0-9_]+)*\.[a-zA-Z]{2,4}$/;
-  const passwordRegex = /^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[-+!*$@%_])([-+!*$@%_\w]{8,32})$/;
+  const passwordRegex = /^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[-+!*$@%_])([-+!*$@%_\w]).{8,32}$/;
 
   const onSubmit = async (data) => {
     const userData = {
@@ -34,7 +33,7 @@ const SignInForm = () => {
         notificationContext.setSeverityKind("success");
         notificationContext.setNotificationMessage(apiResponse.message);
         notificationContext.setOpen(true);
-        setLoggedIn(true)
+        setLoggedIn(true);
       } else if (!apiResponse.success) {
         setWaitingForApiResponse(false);
         notificationContext.setNotificationMessage(apiResponse.message);
@@ -52,7 +51,7 @@ const SignInForm = () => {
       <div id="form-container">
         <h4>Inscription</h4>
 
-        <form onSubmit={handleSubmit(onSubmit)} id="inscription-form">
+        <form id="inscription-form" onSubmit={handleSubmit(onSubmit)} >
           <input
             type="email"
             className="form-field"
@@ -64,12 +63,13 @@ const SignInForm = () => {
               required: { value: true, message: "Ce champ est vide" },
               pattern: {
                 value: mailRegex,
-                message: "Mon email n'est pas au bon format",
+                message: "L'email n'est pas au bon format",
               },
             })}
           />
-          {errors.email}
-
+          <p className="form-error-message">{errors.email && errors.email.message}
+</p>
+          
           <input
             type="password"
             id="password"
@@ -81,17 +81,17 @@ const SignInForm = () => {
               pattern: {
                 value: passwordRegex,
                 message:
-                  "Mon mot de passe doit contenir au minimum 8 caratères, donc au moins trois des quatres types suivants : majuscules, minuscules, chiffres, caratères spéciaux ",
+                  "Le mot de passe doit contenir au minimum 8 caratères, donc au moins trois des quatres types suivants : majuscules, minuscules, chiffres, caratères spéciaux ",
               },
             })}
           />
-          {errors.password}
+          <p className="form-error-message">{errors.password && errors.password.message}</p>
 
-          <input
+          <button
             id="connection-button"
             className="fas fa-check round-icon submit-button"
             type="submit"
-          ></input>
+          ></button>
         </form>
       </div>
     );

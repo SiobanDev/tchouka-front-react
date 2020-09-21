@@ -1,0 +1,21 @@
+$primary-color: #1b1b1dff;
+$red-color: #ff4436ff;
+$orange-color: #ff9036ff;
+$blue-color: #2ca4a0ff;
+
+main {
+  text-align: center;
+}
+
+#home h3, #home p{
+    color: $red-color;
+
+}
+
+#home p {
+  margin-bottom: 2%;
+}
+
+#home .round-icon{
+    color: $orange-color;
+}

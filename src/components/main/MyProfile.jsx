@@ -1,6 +1,5 @@
 import React, { useEffect, useCallback, useContext } from "react";
-//styles
-import "./Header.style.scss";
+
 import {
   apiGetAllScoresData,
   apiGetAllCompositionsData,

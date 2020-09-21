@@ -23,22 +23,31 @@ const Controls = ({ allImageDelayList }) => {
   };
   const onClickMovingStep = 500;
   const [forwardingValue, setForwardingValue] = useState(0);
+  const [timelineRef, setTimelineRef] = useState(null);
   const cursorProgress =
     (timeCode / allImageDelayList[allImageDelayList.length - 1]) * 100;
-  const chronologyLeftStyleValue =
-    (cursorProgress / 100) * scssVariables.chronologyContentWidth;
-  // const timelineEndLeftStyle = playingAnimation ? 0
-  const chronologyStyleLeft =
-    chronologyLeftStyleValue + forwardingValue >
-    scssVariables.chronologyContentWidth - onClickMovingStep
-      ? (scssVariables.chronologyContentWidth - onClickMovingStep) * -1
-      : (chronologyLeftStyleValue + forwardingValue) * -1;
 
-  const chronologyStyle = {
+  const timelineStyleWidthValue = timelineRef && timelineRef.clientWidth;
+  const maxShiftOfChronologyContent = (timelineStyleWidthValue - + onClickMovingStep) * -1;
+
+  const movingTimelinePosition =
+    ((cursorProgress / 100) * timelineStyleWidthValue + forwardingValue) * -1;
+
+  const timelineStyleLeft =
+    movingTimelinePosition <
+    (timelineStyleWidthValue * -1)
+      ? maxShiftOfChronologyContent
+      : movingTimelinePosition;
+
+      console.log("movingTimelinePosition : " + movingTimelinePosition + " and timelineStyleWidthValue : " + timelineStyleWidthValue + " and maxShiftOfChronologyContent : " + maxShiftOfChronologyContent)
+
+  const timelineStyle = {
     transition: `left 500ms ease-out`,
-    left: `${chronologyStyleLeft}px`,
+    left: `${timelineStyleLeft}px`,
+    width: `calc(15% * ${
+      allImageDelayList[allImageDelayList.length - 1] / onClickMovingStep
+    })`,
   };
-  const maxShiftOfChronologyContent = scssVariables.chronologyContentWidth * -1;
 
   useEffect(() => {
     if (
@@ -94,8 +103,8 @@ const Controls = ({ allImageDelayList }) => {
 
   return (
     <div id="step3-chronology">
-      <div id="timeline-container">
-        {!playingAnimation && chronologyStyleLeft < 0 ? (
+      <div id="chronology-container">
+        {!playingAnimation && timelineStyleLeft < 0 ? (
           <div id="go-backward-container">
             <i
               className="far fa-arrow-circle-left round-icon"
@@ -111,7 +120,7 @@ const Controls = ({ allImageDelayList }) => {
               className="far fa-arrow-circle-right round-icon"
               onClick={() => {
                 if (
-                  chronologyStyleLeft >
+                  timelineStyleLeft >
                   maxShiftOfChronologyContent + onClickMovingStep
                 ) {
                   setForwardingValue(forwardingValue + onClickMovingStep);
@@ -120,11 +129,13 @@ const Controls = ({ allImageDelayList }) => {
             ></i>
           </div>
         ) : null}
-        <TimeLine
-          allImageDelayList={allImageDelayList}
-          cursorProgress={cursorProgress}
-          chronologyStyle={chronologyStyle}
-        />
+            
+        <div id="timeline-container" ref={setTimelineRef} style={timelineStyle} >
+          <TimeLine
+            allImageDelayList={allImageDelayList}
+            cursorProgress={cursorProgress}
+          />
+        </div>
       </div>
 
       <div className="step3-commands-container">
@@ -161,7 +172,7 @@ const Controls = ({ allImageDelayList }) => {
               setLastSoundCount(-1);
             }}
           ></i>
-        </div>{" "}
+        </div>
         <form id="repeat-item">
           <input
             type="checkbox"

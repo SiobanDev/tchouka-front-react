@@ -21,6 +21,11 @@ form label{
     margin: 2% 0;
 }
 
+.form-error-message{
+    color: $red-color;
+    font-size: 90%;
+}
+
 .submit-button{
     background-color: $blue-color;
     border: none;

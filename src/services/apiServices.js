@@ -7,285 +7,183 @@ import {
   apiScoreUrl,
 } from "../config/urlConstants";
 
-export const apiSignIn = async (userData) => {
+const fetchApi = async (
+  req,
+  successMessage,
+  errorMessage,
+  exceptionMessage
+) => {
   try {
-    const req = new Request(apiSignInUrl, {
-      method: 'POST',
-      body: JSON.stringify(userData),
-      headers: new Headers({
-        'Content-Type': 'application/json',
-      }),
-    });
-
     const apiResponse = await fetch(req);
+    const jsonApiResponse = await apiResponse.json();
 
     if (apiResponse.ok) {
       return {
         success: true,
-        data: await apiResponse.json(),
-        message: "Mon inscription a bien été prise en compte.",
+        data: jsonApiResponse,
+        message: successMessage,
       };
     }
-    //TO DO : error modal
     return {
       success: false,
-      message: "Erreur d'inscription",
+      message: `${errorMessage} ${
+        jsonApiResponse.message && ": " + jsonApiResponse.message
+      }`,
     };
   } catch (e) {
     return {
       success: false,
-      message: "Impossible de s'inscrire",
+      message: exceptionMessage,
     };
   }
 };
 
+export const apiSignIn = async (userData) => {
+  const req = new Request(apiSignInUrl, {
+    method: "POST",
+    body: JSON.stringify(userData),
+    headers: new Headers({
+      "Content-Type": "application/json",
+    }),
+  });
+
+  const successMessage = "Inscription réussie";
+  const errorMessage = "Erreur d'inscrition";
+  const exceptionMessage = "Impossible de s'inscrire";
+
+  return await fetchApi(req, successMessage, errorMessage, exceptionMessage);
+};
+
 export const apiSignUp = async (userData) => {
-  try {
-    const req = new Request(apiSignUpUrl, {
-      method: "POST",
-      body: JSON.stringify(userData),
-      headers: new Headers({
-        "Content-Type": "application/json",
-      }),
-    });
+  const req = new Request(apiSignUpUrl, {
+    method: "POST",
+    body: JSON.stringify(userData),
+    headers: new Headers({
+      "Content-Type": "application/json",
+    }),
+  });
 
-    const apiResponse = await fetch(req);
+  const successMessage = "Connexion réussie";
+  const errorMessage = "Erreur de connexion";
+  const exceptionMessage = "Impossible de se connecter";
 
-    if (apiResponse.ok) {
-      return {
-        success: true,
-        data: await apiResponse.json(),
-        message: "Je suis bien connecté.e !",
-      };
-    }
-    //TO DO : error modal
-    return {
-      success: false,
-      message: apiResponse.message ? apiResponse.message : "Erreur de connexion",
-    };
-  } catch (e) {
-    return {
-      success: false,
-      message: "Impossible de se connecter",
-    };
-  }
+  return await fetchApi(req, successMessage, errorMessage, exceptionMessage);
 };
 
 export const saveNewScore = async (userScore) => {
   let getToken = localStorage.getItem("token");
 
-  try {
-    const req = new Request(apiScoreUrl, {
-      method: "POST",
-      headers: new Headers({
-        "Access-Control-Allow-Origin": "*",
-        "Content-Type": "application/json",
-        'Authorization': `Bearer ${getToken}`
-      }),
-      body: JSON.stringify(userScore),
-    });
+  const req = new Request(apiScoreUrl, {
+    method: "POST",
+    headers: new Headers({
+      "Access-Control-Allow-Origin": "*",
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${getToken}`,
+    }),
+    body: JSON.stringify(userScore),
+  });
 
-    const apiResponse = await fetch(req);
+  const successMessage = "La partition a bien été sauvegardée.";
+  const errorMessage = "Erreur de sauvegarde de la partition";
+  const exceptionMessage = "Impossible de sauvegarder la partition";
 
-    if (apiResponse.ok) {
-      return {
-        success: true,
-        data: await apiResponse.json(),
-        message: "Ma partition a bien été sauvegardée.",
-      };
-    }
-
-    return {
-      success: false,
-      message: "Erreur de sauvegarde de la partition",
-    };
-  } catch {
-    return {
-      success: false,
-      message: "Impossible de sauvegarder la partition",
-    };
-  }
+  return await fetchApi(req, successMessage, errorMessage, exceptionMessage);
 };
 
 export const deleteScore = async (userScoreId) => {
   let getToken = localStorage.getItem("token");
 
-  try {
-    const req = new Request(apiScoreUrl, {
-      method: "DELETE",
-      headers: new Headers({
-        "Access-Control-Allow-Origin": "*",
-        "Content-Type": "application/json",
-        'Authorization': `Bearer ${getToken}`
-      }),
-      body: JSON.stringify({scoreId: userScoreId}),
-    });
+  const req = new Request(apiScoreUrl, {
+    method: "DELETE",
+    headers: new Headers({
+      "Access-Control-Allow-Origin": "*",
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${getToken}`,
+    }),
+    body: JSON.stringify({ scoreId: userScoreId }),
+  });
 
-    const apiResponse = await fetch(req);
+  const successMessage = "La partition a bien été supprimée.";
+  const errorMessage = "Erreur de suppression de la partition";
+  const exceptionMessage = "Impossible de supprimer la partition";
 
-    if (apiResponse.ok) {
-      return {
-        success: true,
-        data: await apiResponse.json(),
-        message: "Ma partition a bien été supprimée.",
-      };
-    }
-
-    return {
-      success: false,
-      message: "Erreur de suppression de la partition",
-    };
-  } catch {
-    return {
-      success: false,
-      message: "Impossible de supprimer la partition",
-    };
-  }
+  return await fetchApi(req, successMessage, errorMessage, exceptionMessage);
 };
 
 export const saveNewComposition = async (userComposition) => {
   let getToken = localStorage.getItem("token");
 
-  try {
-    const req = new Request(apiCompositionUrl, {
-      method: "POST",
-      headers: new Headers({
-        "Access-Control-Allow-Origin": "*",
-        "Content-Type": "application/json",
-        'Authorization': `Bearer ${getToken}`
+  const req = new Request(apiCompositionUrl, {
+    method: "POST",
+    headers: new Headers({
+      "Access-Control-Allow-Origin": "*",
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${getToken}`,
+    }),
+    body: JSON.stringify(userComposition),
+  });
 
-      }),
-      body: JSON.stringify(userComposition),
-    });
+  const successMessage = "La composition a bien été sauvegardée.";
+  const errorMessage = "Erreur de sauvegarde de la composition";
+  const exceptionMessage = "Impossible de sauvegarder la composition";
 
-    const apiResponse = await fetch(req);
-
-    if (apiResponse.ok) {
-      return {
-        success: true,
-        data: await apiResponse.json(),
-        message: "Ma composition a bien été sauvegardée.",
-      };
-    }
-
-    return {
-      success: false,
-      message: "Erreur de sauvegarde de la composition",
-    };
-  } catch {
-    return {
-      success: false,
-      message: "Impossible de sauvegarder la composition",
-    };
-  }
+  return await fetchApi(req, successMessage, errorMessage, exceptionMessage);
 };
-
 
 export const deleteComposition = async (userCompositionId) => {
   let getToken = localStorage.getItem("token");
 
-  try {
-    const req = new Request(apiCompositionUrl, {
-      method: "DELETE",
-      headers: new Headers({
-        "Access-Control-Allow-Origin": "*",
-        "Content-Type": "application/json",
-        'Authorization': `Bearer ${getToken}`
+  const req = new Request(apiCompositionUrl, {
+    method: "DELETE",
+    headers: new Headers({
+      "Access-Control-Allow-Origin": "*",
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${getToken}`,
+    }),
+    body: JSON.stringify(userCompositionId),
+  });
 
-      }),
-      body: JSON.stringify(userCompositionId),
-    });
+  const successMessage = "La composition a bien été supprimée.";
+  const errorMessage = "Erreur de suppression de la composition";
+  const exceptionMessage = "Impossible de supprimer la composition";
 
-    const apiResponse = await fetch(req);
-
-    if (apiResponse.ok) {
-      return {
-        success: true,
-        data: await apiResponse.json(),
-        message: "Ma partition a bien été supprimée.",
-      };
-    }
-
-    return {
-      success: false,
-      message: "Erreur de suppression de la partition",
-    };
-  } catch {
-    return {
-      success: false,
-      message: "Impossible de supprimer la partition",
-    };
-  }
+  return await fetchApi(req, successMessage, errorMessage, exceptionMessage);
 };
 
 export const apiGetAllScoresData = async () => {
   let getToken = localStorage.getItem("token");
 
-  try {
-    const req = new Request(apiFetchAllScoresDataUrl, {
-      method: "GET",
-      headers: new Headers({
-        "Access-Control-Allow-Origin": "*",
-        "Content-Type": "application/json",
-        'Authorization': `Bearer ${getToken}`
+  const req = new Request(apiFetchAllScoresDataUrl, {
+    method: "GET",
+    headers: new Headers({
+      "Access-Control-Allow-Origin": "*",
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${getToken}`,
+    }),
+  });
 
-      }),
-    });
+  const successMessage = "Les partitions ont été correctement chargées.";
+  const errorMessage = "Erreur de récuparation des partitions";
+  const exceptionMessage = "Impossible de récupérer les partitions";
 
-    const apiResponse = await fetch(req);
-
-    if (apiResponse.ok) {
-      return {
-        success: true,
-        data: await apiResponse.json(),
-        message: "Les partitions ont été correctement chargées.",
-      };
-    }
-    //TO DO : error modal
-    return {
-      success: false,
-      message: "Erreur de récupération des partitions",
-    };
-  } catch (e) {
-    return {
-      success: false,
-      message: "Impossible de récupérer les partitions",
-    };
-  }
+  return await fetchApi(req, successMessage, errorMessage, exceptionMessage);
 };
 
 export const apiGetAllCompositionsData = async () => {
   let getToken = localStorage.getItem("token");
 
-  try {
-    const req = new Request(apiFetchAllCompositionsDataUrl, {
-      method: "GET",
-      headers: new Headers({
-        "Access-Control-Allow-Origin": "*",
-        "Content-Type": "application/json",
-        'Authorization': `Bearer ${getToken}`
+  const req = new Request(apiFetchAllCompositionsDataUrl, {
+    method: "GET",
+    headers: new Headers({
+      "Access-Control-Allow-Origin": "*",
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${getToken}`,
+    }),
+  });
 
-      }),
-    });
+  const successMessage = "Les compositions ont été correctement chargées.";
+  const errorMessage = "Erreur de récuparation des compositions";
+  const exceptionMessage = "Impossible de récupérer les compositions";
 
-    const apiResponse = await fetch(req);
-
-    if (apiResponse.ok) {
-      return {
-        success: true,
-        data: await apiResponse.json(),
-        message: "Les compositions ont été correctement chargées.",
-      };
-    }
-    //TO DO : error modal
-    return {
-      success: false,
-      message: "Erreur de récupération des compositions",
-    };
-  } catch (e) {
-    return {
-      success: false,
-      message: "Impossible de récupérer les compositions",
-    };
-  }
+  return await fetchApi(req, successMessage, errorMessage, exceptionMessage);
 };

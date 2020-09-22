@@ -2,7 +2,7 @@
 const apiUrl = "https://127.0.0.1:8000/api";
 
 export const apiSignUpUrl = `${apiUrl}/login_check`;
-export const apiSignInUrl = `${apiUrl}/login/sign-in`;
+export const apiSignInUrl = `${apiUrl}/sign-in`;
 
 export const apiFetchAllScoresDataUrl = `${apiUrl}/scores`;
 export const apiScoreUrl = `${apiUrl}/score`;

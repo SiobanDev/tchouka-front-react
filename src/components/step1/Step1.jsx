@@ -14,7 +14,7 @@ import "../shared/StepButtons.style.scss";
 import { rythmStep } from "../../config/mainConstants";
 import LoginContext from "../../context/LoginContext";
 import NotificationContext from "../../context/NotificationContext";
-import { saveNewScore } from "../../services/apiServices";
+import { saveNewUserData } from "../../services/apiServices";
 //libraries
 import Loader from "react-loader-spinner";
 import InscriptionHook from "../shared/InscriptionHook";
@@ -46,7 +46,7 @@ const Step1 = () => {
 
     try {
       setWaitingForApiResponse(true);
-      const apiResponse = await saveNewScore(apiScore);
+      const apiResponse = await saveNewUserData(apiScore);
 
       if (apiResponse.success) {
         setWaitingForApiResponse(false);

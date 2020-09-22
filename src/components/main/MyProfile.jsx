@@ -2,8 +2,7 @@ import React, { useEffect, useCallback, useContext, useState } from "react";
 
 import {
   apiGetUserData,
-  deleteScore,
-  deleteComposition,
+  deleteUserData,
 } from "../../services/apiServices";
 //libraries
 import Loader from "react-loader-spinner";
@@ -23,8 +22,6 @@ const MyProfile = () => {
   const scoreList = [];
   const compositionList = [];
   const apiErrorMessage = "Erreur avec la récupération des données.";
-  const { setComposition } = useContext(CompositionContext);
-  const { setScore } = useContext(ScoreContext);
   const [userEmail, setUserEmail] = useState(null);
 
   const getUserData = useCallback(async () => {
@@ -40,7 +37,7 @@ const MyProfile = () => {
               <p className="score-title">{score.title}</p>
               <i
                 className="fas fa-trash edition-button"
-                onClick={() => deleteScore(score.id)}
+                onClick={() => deleteUserData(score.id, "partition")}
               ></i>
               <i
                 className="fas fa-share edition-button"
@@ -65,7 +62,7 @@ const MyProfile = () => {
               <p className="composition-title">{composition.title}</p>
               <i
                 className="fas fa-trash edition-button"
-                onClick={() => deleteComposition(composition.id)}
+                onClick={() => deleteUserData(composition.id, "composition")}
               ></i>
               <i
                 className="fas fa-share edition-button"

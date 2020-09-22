@@ -1,8 +1,6 @@
 import {
   apiSignUpUrl,
   apiSignInUrl,
-  apiCompositionUrl,
-  apiScoreUrl,
 } from "../config/urlConstants";
 
 const fetchApi = async (
@@ -68,82 +66,48 @@ export const apiSignUp = async (userData) => {
   return await fetchApi(req, successMessage, errorMessage, exceptionMessage);
 };
 
-export const saveNewScore = async (userScore) => {
+export const saveNewUserData = async (
+  userCreationData,
+  userCreationDataType
+) => {
   let getToken = localStorage.getItem("token");
 
-  const req = new Request(apiScoreUrl, {
+  const req = new Request(`${userCreationDataType}Url`, {
     method: "POST",
     headers: new Headers({
       "Access-Control-Allow-Origin": "*",
       "Content-Type": "application/json",
       Authorization: `Bearer ${getToken}`,
     }),
-    body: JSON.stringify(userScore),
+    body: JSON.stringify(userCreationData),
   });
 
-  const successMessage = "La partition a bien été sauvegardée.";
-  const errorMessage = "Erreur de sauvegarde de la partition";
-  const exceptionMessage = "Impossible de sauvegarder la partition";
+  const successMessage = `La ${userCreationDataType} a bien été sauvegardée.`;
+  const errorMessage = `Erreur de sauvegarde de la ${userCreationDataType}`;
+  const exceptionMessage = `Impossible de sauvegarder la ${userCreationDataType}`;
 
   return await fetchApi(req, successMessage, errorMessage, exceptionMessage);
 };
 
-export const deleteScore = async (userScoreId) => {
+export const deleteUserData = async (
+  userCreationDataId,
+  userCreationDataType
+) => {
   let getToken = localStorage.getItem("token");
 
-  const req = new Request(apiScoreUrl, {
+  const req = new Request(`${userCreationDataType}Url`, {
     method: "DELETE",
     headers: new Headers({
       "Access-Control-Allow-Origin": "*",
       "Content-Type": "application/json",
       Authorization: `Bearer ${getToken}`,
     }),
-    body: JSON.stringify({ scoreId: userScoreId }),
+    body: JSON.stringify({ id: userCreationDataId }),
   });
 
-  const successMessage = "La partition a bien été supprimée.";
-  const errorMessage = "Erreur de suppression de la partition";
-  const exceptionMessage = "Impossible de supprimer la partition";
-
-  return await fetchApi(req, successMessage, errorMessage, exceptionMessage);
-};
-
-export const saveNewComposition = async (userComposition) => {
-  let getToken = localStorage.getItem("token");
-
-  const req = new Request(apiCompositionUrl, {
-    method: "POST",
-    headers: new Headers({
-      "Access-Control-Allow-Origin": "*",
-      "Content-Type": "application/json",
-      Authorization: `Bearer ${getToken}`,
-    }),
-    body: JSON.stringify(userComposition),
-  });
-
-  const successMessage = "La composition a bien été sauvegardée.";
-  const errorMessage = "Erreur de sauvegarde de la composition";
-  const exceptionMessage = "Impossible de sauvegarder la composition";
-
-  return await fetchApi(req, successMessage, errorMessage, exceptionMessage);
-};
-
-export const deleteComposition = async (userCompositionId) => {
-  let getToken = localStorage.getItem("token");
-
-  const req = new Request(apiCompositionUrl, {
-    method: "DELETE",
-    headers: new Headers({
-      "Access-Control-Allow-Origin": "*",
-      "Content-Type": "application/json",
-      Authorization: `Bearer ${getToken}`,
-    }),
-    body: JSON.stringify(userCompositionId),
-  });
-
-  const successMessage = "La composition a bien été supprimée.";
-  const errorMessage = "Erreur de suppression de la composition";
-  const exceptionMessage = "Impossible de supprimer la composition";
+  const successMessage = `La ${userCreationDataType} a bien été supprimée.`;
+  const errorMessage = `Erreur de suppression de la ${userCreationDataType}`;
+  const exceptionMessage = `Impossible de supprimer la ${userCreationDataType}`;
 
   return await fetchApi(req, successMessage, errorMessage, exceptionMessage);
 };
@@ -160,10 +124,12 @@ export const apiGetUserData = async () => {
     }),
   });
 
-  const successMessage = "Les données de l'utilisat.eur.rice ont été correctement chargées.";
-  const errorMessage = "Erreur de récupération les données de l'utilisat.eur.rice";
-  const exceptionMessage = "Impossible de récupérer les données de l'utilisat.eur.rice";
+  const successMessage =
+    "Les données de l'utilisat.eur.rice ont été correctement chargées.";
+  const errorMessage =
+    "Erreur de récupération les données de l'utilisat.eur.rice";
+  const exceptionMessage =
+    "Impossible de récupérer les données de l'utilisat.eur.rice";
 
   return await fetchApi(req, successMessage, errorMessage, exceptionMessage);
 };
-

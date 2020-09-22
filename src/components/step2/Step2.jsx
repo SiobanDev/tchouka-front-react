@@ -5,7 +5,7 @@ import "./Step2.style.scss";
 import Score from "./Score";
 import ModelJP from "./ModelJP";
 import StepContext from "../../context/StepContext";
-import { step3Url, step1Url, apiScoreUrl } from "../../config/urlConstants";
+import { step3Url, step1Url } from "../../config/urlConstants";
 import CompositionContext from "../../context/CompositionContext";
 import { useEffect } from "react";
 import PreviousStepButton from "../shared/PreviousStepButton";
@@ -15,7 +15,7 @@ import "../shared/StepButtons.style.scss";
 import { percussionStep } from "../../config/mainConstants";
 import { adaptComposition } from "./Step2.utils";
 import LoginContext from "../../context/LoginContext";
-import { saveNewComposition } from "../../services/apiServices";
+import { saveNewUserData } from "../../services/apiServices";
 import NotificationContext from "../../context/NotificationContext";
 //libraries
 import Loader from "react-loader-spinner";
@@ -42,7 +42,7 @@ const Step2 = () => {
 
     try {
       setWaitingForApiResponse(true);
-      const apiResponse = await saveNewComposition(apiComposition);
+      const apiResponse = await saveNewUserData(apiComposition);
 
       if (apiResponse.success) {
         setWaitingForApiResponse(false);

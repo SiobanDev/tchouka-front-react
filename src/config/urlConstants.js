@@ -5,8 +5,8 @@ export const apiSignUpUrl = `${apiUrl}/login_check`;
 export const apiSignInUrl = `${apiUrl}/sign-in`;
 
 export const apiGetDataUser = `${apiUrl}/user`;
-export const apiScoreUrl = `${apiUrl}/score`;
-export const apiCompositionUrl = `${apiUrl}/composition`;
+export const scoreUrl = `${apiUrl}/score`;
+export const compositionUrl = `${apiUrl}/composition`;
 
 export const homeUrl = "/";
 export const step1Url = "/rythme";

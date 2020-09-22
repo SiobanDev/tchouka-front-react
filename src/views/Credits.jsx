@@ -6,11 +6,11 @@ const Credits = () => {
     <section className="main-content">
       <h3>CRÉDITS</h3>
       <p>
-        Tes les éléments graphiques du site ainsi que le design général est la
+        Tous les éléments graphiques du site ainsi que le design général est la
         propriété exclusive de Sioban.
       </p>
       <p>
-        Pour la contacter, suivez
+        Pour la contacter, suivez 
         <a className="inline-link" href="mailto:contact@sioban.fr">
           ce lien
         </a>

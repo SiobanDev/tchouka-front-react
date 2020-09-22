@@ -2,6 +2,7 @@ $primary-color: #1b1b1dff;
 $red-color: #ff4436ff;
 $orange-color: #ff9036ff;
 $blue-color: #2ca4a0ff;
+$element-main-height: 25;
 
 header {
   display: flex;
@@ -14,34 +15,4 @@ header {
 h1 {
   font-weight: normal;
   text-align: center;
-}
-
-header #sign-up-in-container {
-  position: absolute;
-  right: 0;
-  display: flex;
-  top: -10px;
-  background-color: white;
-  padding: 0 2%;
-}
-
-header .inline-link {
-  color: $primary-color;
-  text-decoration: none;
-  background-color: white;
-  padding: 0 2%;
-  white-space: nowrap;
-}
-
-header .inline-link:hover,
-header .inline-link:focus {
-  text-decoration: underline;
-}
-
-.profile-icon{
-  width: 20px;
-  height: 20px;
-  background-color: $orange-color;
-  color: white;
-  line-height: 20px;
 }

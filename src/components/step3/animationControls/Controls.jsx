@@ -4,14 +4,11 @@ import "./Controls.style.scss";
 import AnimationContext from "../../../context/AnimationContext";
 import { timeCodeInterval } from "../../../config/mainConstants";
 import TimeLine from "./Timeline";
-import scssVariables from "./Timeline.style.scss";
 
 const Controls = ({ allImageDelayList }) => {
   const {
     playingAnimation,
     setPlayingAnimation,
-    goBackBeginning,
-    setGoBackBeginning,
     timeCode,
     setTimeCode,
     repeat,
@@ -27,26 +24,53 @@ const Controls = ({ allImageDelayList }) => {
   const cursorProgress =
     (timeCode / allImageDelayList[allImageDelayList.length - 1]) * 100;
 
-  const timelineStyleWidthValue = timelineRef && timelineRef.clientWidth;
-  const maxShiftOfChronologyContent = (timelineStyleWidthValue - + onClickMovingStep) * -1;
+  const timelineStyleWidthValue =
+    (timelineRef && timelineRef.clientWidth) || 10000;
+  const maxShiftOfChronologyContent =
+    timelineStyleWidthValue - onClickMovingStep;
 
   const movingTimelinePosition =
-    ((cursorProgress / 100) * timelineStyleWidthValue + forwardingValue) * -1;
+    (cursorProgress / 100) * timelineStyleWidthValue;
 
-  const timelineStyleLeft =
-    movingTimelinePosition <
-    (timelineStyleWidthValue * -1)
-      ? maxShiftOfChronologyContent
-      : movingTimelinePosition;
+  const timelineStyleLeft = playingAnimation
+    ? Math.min(movingTimelinePosition, maxShiftOfChronologyContent)
+    : forwardingValue;
 
-      console.log("movingTimelinePosition : " + movingTimelinePosition + " and timelineStyleWidthValue : " + timelineStyleWidthValue + " and maxShiftOfChronologyContent : " + maxShiftOfChronologyContent)
+  console.log(
+    `forworadingValue: ${forwardingValue} ` +
+      "movingTimelinePosition : " +
+      movingTimelinePosition
+  );
 
   const timelineStyle = {
     transition: `left 500ms ease-out`,
-    left: `${timelineStyleLeft}px`,
+    left: `${-timelineStyleLeft}px`,
     width: `calc(15% * ${
       allImageDelayList[allImageDelayList.length - 1] / onClickMovingStep
     })`,
+  };
+
+  const setClampedForwardingValue = (value) => {
+    console.log(
+      `forworadingValue: ${forwardingValue} new Value: ${value}, maxShift: ${maxShiftOfChronologyContent}`
+    );
+    setForwardingValue(
+      Math.max(0, Math.min(maxShiftOfChronologyContent, value))
+    );
+  };
+
+  const resetAnimation = () => {
+    setForwardingValue(timelineStyleLeft);
+    setPlayingAnimation(false);
+    setTimeCode(0);
+    setLastSoundCount(-1);
+  };
+
+  const stopAnimation = () => {
+    setForwardingValue(timelineStyleLeft);
+    setPlayingAnimation(false);
+    setTimeCode(allImageDelayList[allImageDelayList.length - 1]);
+    setLastSoundCount(-1);
   };
 
   useEffect(() => {
@@ -54,17 +78,11 @@ const Controls = ({ allImageDelayList }) => {
       playingAnimation &&
       timeCode >= allImageDelayList[allImageDelayList.length - 1]
     ) {
+      setForwardingValue(timelineStyleLeft);
       setPlayingAnimation(false);
-    }
-
-    if (goBackBeginning) {
-      setPlayingAnimation(false);
-      setTimeCode(0);
     }
 
     if (playingAnimation) {
-      setGoBackBeginning(false);
-
       if (
         timeCode === allImageDelayList[allImageDelayList.length - 1] ||
         timeCode >= allImageDelayList[allImageDelayList.length - 1]
@@ -91,46 +109,45 @@ const Controls = ({ allImageDelayList }) => {
     }
   }, [
     allImageDelayList,
-    goBackBeginning,
     playingAnimation,
     repeat,
-    setGoBackBeginning,
     setLastSoundCount,
     setPlayingAnimation,
     setTimeCode,
     timeCode,
+    timelineStyleLeft,
   ]);
 
   return (
     <div id="step3-chronology">
       <div id="chronology-container">
-        {!playingAnimation && timelineStyleLeft < 0 ? (
+        {!playingAnimation && timelineStyleLeft > 0 ? (
           <div id="go-backward-container">
             <i
               className="far fa-arrow-circle-left round-icon"
               onClick={() => {
-                setForwardingValue(forwardingValue - onClickMovingStep);
+                setClampedForwardingValue(
+                  timelineStyleLeft - onClickMovingStep
+                );
               }}
             ></i>
           </div>
         ) : null}
-        {!playingAnimation ? (
+        {!playingAnimation &&
+        timelineStyleLeft < maxShiftOfChronologyContent ? (
           <div id="go-forward-container">
             <i
               className="far fa-arrow-circle-right round-icon"
               onClick={() => {
-                if (
-                  timelineStyleLeft >
-                  maxShiftOfChronologyContent + onClickMovingStep
-                ) {
-                  setForwardingValue(forwardingValue + onClickMovingStep);
-                }
+                setClampedForwardingValue(
+                  timelineStyleLeft + onClickMovingStep
+                );
               }}
             ></i>
           </div>
         ) : null}
-            
-        <div id="timeline-container" ref={setTimelineRef} style={timelineStyle} >
+
+        <div id="timeline-container" ref={setTimelineRef} style={timelineStyle}>
           <TimeLine
             allImageDelayList={allImageDelayList}
             cursorProgress={cursorProgress}
@@ -142,9 +159,7 @@ const Controls = ({ allImageDelayList }) => {
         <div className="play-item">
           <i
             className="far fa-step-backward round-icon"
-            onClick={() => {
-              setGoBackBeginning(true);
-            }}
+            onClick={resetAnimation}
           ></i>
         </div>
         <div className="play-item">
@@ -159,6 +174,7 @@ const Controls = ({ allImageDelayList }) => {
           <i
             className="fas fa-pause-circle round-icon"
             onClick={() => {
+              setForwardingValue(timelineStyleLeft);
               setPlayingAnimation(false);
             }}
           ></i>
@@ -166,11 +182,7 @@ const Controls = ({ allImageDelayList }) => {
         <div className="play-item">
           <i
             className="fas fa-stop-circle round-icon"
-            onClick={() => {
-              setPlayingAnimation(false);
-              setTimeCode(0);
-              setLastSoundCount(-1);
-            }}
+            onClick={stopAnimation}
           ></i>
         </div>
         <form id="repeat-item">

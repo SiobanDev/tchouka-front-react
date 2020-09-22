@@ -6,28 +6,27 @@ import AvailableNotesContainer from "./AvailableNotesContainer";
 import StaveContainerStep1 from "./StaveContainerStep1";
 import ScoreContext from "../../context/ScoreContext";
 import StepContext from "../../context/StepContext";
-import {
-  step2Url,
-  apiCompositionUrl,
-  apiScoreUrl,
-} from "../../config/urlConstants";
+import { step2Url } from "../../config/urlConstants";
 import { useEffect } from "react";
-import NextStepButton from "../main/NextStepButton";
+import NextStepButton from "../shared/NextStepButton";
 //styles
-import "../main/StepButtons.style.scss";
+import "../shared/StepButtons.style.scss";
 import { rythmStep } from "../../config/mainConstants";
 import LoginContext from "../../context/LoginContext";
 import NotificationContext from "../../context/NotificationContext";
 import { saveNewScore } from "../../services/apiServices";
 //libraries
 import Loader from "react-loader-spinner";
+import InscriptionHook from "../shared/InscriptionHook";
 
 const Step1 = () => {
   const { score, setScore } = useContext(ScoreContext);
   const { setCurrentStep } = useContext(StepContext);
   const { loggedIn, userId } = useContext(LoginContext);
-  const [waitingForApiResponse, setWaitingForApiResponse] = useState(true);
-  const notificationContext = useContext(NotificationContext);
+  const [waitingForApiResponse, setWaitingForApiResponse] = useState(false);
+  const { setOpen, setSeverityKind, setNotificationMessage } = useContext(
+    NotificationContext
+  );
   useEffect(() => {
     if (score.length === 0 && localStorage.getItem("score")) {
       setScore(JSON.parse(localStorage.getItem("score")));
@@ -38,9 +37,9 @@ const Step1 = () => {
 
   const handleBackUp = async () => {
     const apiScore = {
-      scoreUser: userId,
-      scoreTitle: `Ma super partition n°${Math.random() * 10}`,
-      scoreNoteList: JSON.stringify(score)
+      user: userId,
+      title: `Ma super partition n°${Math.random() * 10}`,
+      noteList: JSON.stringify(score),
     };
 
     try {
@@ -49,13 +48,13 @@ const Step1 = () => {
 
       if (apiResponse.success) {
         setWaitingForApiResponse(false);
-        notificationContext.setSeverityKind("success");
-        notificationContext.setNotificationMessage(apiResponse.message);
-        notificationContext.setOpen(true);
+        setSeverityKind("success");
+        setNotificationMessage(apiResponse.message);
+        setOpen(true);
       } else if (!apiResponse.success) {
         setWaitingForApiResponse(false);
-        notificationContext.setNotificationMessage(apiResponse.message);
-        notificationContext.setOpen(true);
+        setNotificationMessage(apiResponse.message);
+        setOpen(true);
       }
     } catch (e) {
       setWaitingForApiResponse(false);
@@ -83,28 +82,30 @@ const Step1 = () => {
     localStorage.setItem("score", JSON.stringify(score));
   };
 
+  console.log(`logged : ${loggedIn}`);
+
   return (
     <section id="step1" className="main-content">
       <p className="instruction">
-        <span className="round-icon">1</span>J'écris ma score rythmique en
+        <span className="round-icon">1</span>J'écris ma partition rythmique en
         cliquant sur les notes ci-dessous.
       </p>
-      {!loggedIn && (
-        <p className="incription-hook">
-          Je peux sauvegarder ma partition en me connectant à mon compte.
-        </p>
-      )}
+
+      <InscriptionHook step={1} />
+
       <AvailableNotesContainer />
-      {loggedIn &&
-        (waitingForApiResponse ? (
-          <Loader type="TailSpin" color="#2ca4a0ff" height={30} width={30} />
-        ) : (
-          <i
-            id="reset-button"
-            className="fas fa-save edition-button"
-            onClick={handleBackUp}
-          ></i>
-        ))}
+
+      {loggedIn && waitingForApiResponse && (
+        <Loader type="TailSpin" color="#2ca4a0ff" height={30} width={30} />
+      )}
+      <i
+        id="save-button"
+        className={`fas fa-save edition-button hidden ${
+          loggedIn && !waitingForApiResponse ? "visible" : ""
+        }`}
+        onClick={handleBackUp}
+      ></i>
+
       <i
         id="reset-button"
         className="fas fa-trash edition-button"

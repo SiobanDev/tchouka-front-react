@@ -23,6 +23,7 @@ import SignUp from "../../views/SignUp";
 import SignIn from "../../views/SignIn";
 import LoginContext from "../../context/LoginContext";
 import MyProfile from "./MyProfile";
+import PrivateRoute from "./PrivateRoute";
 
 const MainContent = () => {
   var freeTime = 42;
@@ -34,9 +35,9 @@ const MainContent = () => {
   const [playingAnimation, setPlayingAnimation] = useState(false);
   const [repeat, setRepeat] = useState(false);
   const [timeCode, setTimeCode] = useState(0);
+  const [open, setOpen] = useState(false);
   const [lastSoundCount, setLastSoundCount] = useState(-1);
   const [isLastItemRemoved, setIsLastItemRemoved] = useState(false);
-  const [goBackBeginning, setGoBackBeginning] = useState(false);
   const [severityKind, setSeverityKind] = useState("error");
   const [loggedIn, setLoggedIn] = useState(false);
   const [notificationMessage, setNotificationMessage] = React.useState(
@@ -52,7 +53,13 @@ const MainContent = () => {
     if (!loggedIn) {
       setUserId(null);
     }
-  }, [loggedIn]);
+
+    if (localStorage.getItem("token")) {
+      setLoggedIn(true);
+    }
+  }, [loggedIn, setLoggedIn, setUserId]);
+
+  console.log(`loggued: ${loggedIn}`);
 
   return (
     <>
@@ -60,15 +67,18 @@ const MainContent = () => {
         <LoginContext.Provider
           value={{ loggedIn, setLoggedIn, userId, setUserId }}
         >
-          <NotificationContext.Provider
-            value={{
-              severityKind,
-              setSeverityKind,
-              notificationMessage,
-              setNotificationMessage,
-            }}
-          >
-            <StepContext.Provider value={{ currentStep, setCurrentStep }}>
+          <StepContext.Provider value={{ currentStep, setCurrentStep }}>
+            <Header />
+            <NotificationContext.Provider
+              value={{
+                severityKind,
+                setSeverityKind,
+                notificationMessage,
+                setNotificationMessage,
+                open,
+                setOpen,
+              }}
+            >
               <ScoreContext.Provider
                 value={{
                   score,
@@ -87,13 +97,10 @@ const MainContent = () => {
                     setIsLastItemRemoved,
                   }}
                 >
-                  <Header />
                   <AnimationContext.Provider
                     value={{
                       playingAnimation,
                       setPlayingAnimation,
-                      goBackBeginning,
-                      setGoBackBeginning,
                       timeCode,
                       setTimeCode,
                       repeat,
@@ -104,22 +111,20 @@ const MainContent = () => {
                   >
                     <main>
                       <Switch>
-                        <Route
+                        <PrivateRoute
                           exact
                           path="/profil"
-                          render={() =>
-                            loggedIn ? (
-                              <MyProfile />
-                            ) : (
-                              <Redirect to="/connexion" />
-                            )
-                          }
+                          component={MyProfile}
                         />
+
                         <Route exact path="/inscription" component={SignIn} />
-                        <Route exact path="/connexion" component={SignUp}>
-                          {loggedIn ? <Redirect to="/dashboard" /> : <Home />}
+
+                        <Route exact path="/connexion">
+                          {loggedIn ? <Redirect to="/" /> : <SignUp />}
                         </Route>
+
                         <Route exact path="/credits" component={Credits} />
+
                         <Route
                           exact
                           path="/conditions-generales-utilisation"
@@ -134,8 +139,8 @@ const MainContent = () => {
                   </AnimationContext.Provider>
                 </CompositionContext.Provider>
               </ScoreContext.Provider>
-            </StepContext.Provider>
-          </NotificationContext.Provider>
+            </NotificationContext.Provider>
+          </StepContext.Provider>
         </LoginContext.Provider>
       </Router>
       <Footer />

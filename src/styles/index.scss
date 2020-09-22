@@ -57,6 +57,8 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   color: $primary-color;
+  background: url("/media/images/movements/position-neutre.svg") no-repeat;
+  background-size: cover;
 }
 
 #root {
@@ -67,6 +69,7 @@ body {
   border: solid 2px;
   margin: 2%;
   position: relative;
+  background: rgba(255, 255, 255, 0.98);
 }
 
 main {
@@ -122,7 +125,7 @@ img {
   margin-right: 10px;
 }
 
-.incription-hook{
+.incription-hook {
   margin-left: 40px;
 }
 
@@ -138,3 +141,12 @@ img {
   font-size: 80%;
   color: gray;
 }
+
+.hidden{
+  display: none;
+}
+
+.visible{
+  display: flex;
+}
+

@@ -54,7 +54,7 @@ const MyProfile = () => {
       setWaitingForApiResponse(false);
       console.log("Error in getNotes in AvailableNotesContainer : " + e);
     }
-  }, []);
+  }, [notificationContext, scoreList, setScore]);
 
   const getCompositionsData = useCallback(async () => {
     try {
@@ -82,7 +82,7 @@ const MyProfile = () => {
       setWaitingForApiResponse(false);
       console.log("Error in getNotes in AvailableNotesContainer : " + e);
     }
-  }, [compositionList]);
+  }, [compositionList, notificationContext, setComposition]);
 
   useEffect(() => {
     getScoresData();

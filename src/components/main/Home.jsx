@@ -2,23 +2,23 @@ import React, { useEffect, useContext } from "react";
 import "./Home.style.scss";
 import { step1Url } from "../../config/urlConstants";
 import StepContext from "../../context/StepContext";
-import NextStepButton from "./NextStepButton";
 //styles
-import "./StepButtons.style.scss";
+import "../shared/StepButtons.style.scss";
 import ScoreContext from "../../context/ScoreContext";
 import CompositionContext from "../../context/CompositionContext";
+import NextStepButton from "../shared/NextStepButton";
+import { jpNeutre } from "../../config/mediasConstants";
+import InscriptionHook from "../shared/InscriptionHook";
 
 const Home = () => {
   const { setCurrentStep } = useContext(StepContext);
   const { score, setScore } = useContext(ScoreContext);
-  const { composition, setComposition } = useContext(
-    CompositionContext
-  );
+  const { composition, setComposition } = useContext(CompositionContext);
 
   useEffect(() => {
     setCurrentStep(0);
 
-    if(localStorage.getItem("score") || localStorage.getItem("composition")){
+    if (localStorage.getItem("score") || localStorage.getItem("composition")) {
       localStorage.clear();
     }
 
@@ -38,16 +38,16 @@ const Home = () => {
 
   return (
     <section id="home" className="main-content">
-      <h3>BONJOUR !</h3>
+      <h3>
+        BONJOUR <i className="far fa-smile"></i> !
+      </h3>
+
       <p>
         Bienvenue sur Tchouka où tu vas pouvoir créer ton propre tutoriel de
         percussions corporelles.
       </p>
 
-      <p>
-        Si tu veux sauvegarder tes partitions ou tes compositions TCHoUKA, inscris-toi !
-      </p>
-
+      <InscriptionHook step={0} />
       <p>Amuse-toi bien ;) </p>
 
       <div id="step-buttons-container">

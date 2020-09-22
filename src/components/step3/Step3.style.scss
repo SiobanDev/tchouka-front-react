@@ -16,7 +16,6 @@ $half-thumbnail-width: $thumbnail-width / 2;
   height: auto;
   position: relative;
   display: flex;
-  justify-content: flex-end;
 }
 
 #step3 #column2 {
@@ -29,6 +28,7 @@ $half-thumbnail-width: $thumbnail-width / 2;
 
 #step3 .instruction{
   width: 100%;
+  margin-bottom: 5%;
 }
 
 .movement-image {

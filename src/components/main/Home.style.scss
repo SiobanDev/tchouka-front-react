@@ -7,9 +7,11 @@ main {
   text-align: center;
 }
 
-#home h3, #home p{
-    color: $red-color;
-
+#home-background{
+  position: absolute;
+  top: 2%;
+  opacity: 0.05;
+  z-index: -999;
 }
 
 #home p {

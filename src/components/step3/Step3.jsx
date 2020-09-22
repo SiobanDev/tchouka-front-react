@@ -8,11 +8,12 @@ import CompositionContext from "../../context/CompositionContext";
 import JPAnimation from "./JPAnimation";
 import AnimationContext from "../../context/AnimationContext";
 //styles
-import "../main/StepButtons.style.scss";
-import PreviousStepButton from "../main/PreviousStepButton";
+import "../shared/StepButtons.style.scss";
+import PreviousStepButton from "../shared/PreviousStepButton";
 import { learningStep } from "../../config/mainConstants";
 import { getAllImageDurationList, getAllImageDelayList } from "./Step3.utils";
 import Controls from "./animationControls/Controls";
+import InscriptionHook from "../shared/InscriptionHook";
 
 const Step3 = () => {
   const { composition } = useContext(CompositionContext);
@@ -39,14 +40,13 @@ const Step3 = () => {
       </div>
 
       <div id="column2">
-      <p className="instruction">
-          <span className="round-icon">3</span>Je chante les mots associés à chaque partie du corps pour mieux mémoriser mon enchaînement Tchouka !
+        <p className="instruction">
+          <span className="round-icon">3</span>Je chante les mots associés à
+          chaque partie du corps pour mieux mémoriser mon enchaînement Tchouka !
         </p>
 
         <Controls allImageDelayList={allImageDelayList} />
       </div>
-
-      
 
       <div id="step-buttons-container">
         <PreviousStepButton

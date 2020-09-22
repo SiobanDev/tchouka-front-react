@@ -8,10 +8,10 @@ import StepContext from "../../context/StepContext";
 import { step3Url, step1Url, apiScoreUrl } from "../../config/urlConstants";
 import CompositionContext from "../../context/CompositionContext";
 import { useEffect } from "react";
-import PreviousStepButton from "../main/PreviousStepButton";
-import NextStepButton from "../main/NextStepButton";
+import PreviousStepButton from "../shared/PreviousStepButton";
+import NextStepButton from "../shared/NextStepButton";
 //styles
-import "../main/StepButtons.style.scss";
+import "../shared/StepButtons.style.scss";
 import { percussionStep } from "../../config/mainConstants";
 import { adaptComposition } from "./Step2.utils";
 import LoginContext from "../../context/LoginContext";
@@ -19,6 +19,7 @@ import { saveNewComposition } from "../../services/apiServices";
 import NotificationContext from "../../context/NotificationContext";
 //libraries
 import Loader from "react-loader-spinner";
+import InscriptionHook from "../shared/InscriptionHook";
 
 const Step2 = () => {
   const { loggedIn, userId } = useContext(LoginContext);
@@ -27,12 +28,14 @@ const Step2 = () => {
     CompositionContext
   );
   const [waitingForApiResponse, setWaitingForApiResponse] = useState(true);
-  const notificationContext = useContext(NotificationContext);
-
+  const { setOpen, setSeverityKind, setNotificationMessage } = useContext(
+    NotificationContext
+  );
   const handleBackUp = async () => {
     const apiComposition = {
-      scoreTitle: `Ma super composition n°${Math.random() * 10}`,
-      scoreNoteList: JSON.stringify(composition)
+      user: userId,
+      title: `Ma super composition n°${Math.floor(Math.random() * 10)}`,
+      movementList: JSON.stringify(composition),
     };
 
     try {
@@ -41,13 +44,13 @@ const Step2 = () => {
 
       if (apiResponse.success) {
         setWaitingForApiResponse(false);
-        notificationContext.setSeverityKind("success");
-        notificationContext.setNotificationMessage(apiResponse.message);
-        notificationContext.setOpen(true);
+        setSeverityKind("success");
+        setNotificationMessage(apiResponse.message);
+        setOpen(true);
       } else if (!apiResponse.success) {
         setWaitingForApiResponse(false);
-        notificationContext.setNotificationMessage(apiResponse.message);
-        notificationContext.setOpen(true);
+        setNotificationMessage(apiResponse.message);
+        setOpen(true);
       }
     } catch (e) {
       setWaitingForApiResponse(false);
@@ -102,23 +105,22 @@ const Step2 = () => {
       <div id="column2">
         <p className="instruction">
           <span className="round-icon">2</span>Je clique sur les parties du
-          corps de Jean-Patricia pour les associer à mes notes. 
+          corps de Jean-Patricia pour les associer à mes notes.
         </p>
-        {!loggedIn && (
-          <p className="instruction incription-hook">
-            Je peux sauvegarder ma composition en me connectant à mon compte.
-          </p>
+
+        <InscriptionHook step={2} />
+
+        {loggedIn && waitingForApiResponse && (
+          <Loader type="TailSpin" color="#2ca4a0ff" height={30} width={30} />
         )}
-        {loggedIn &&
-          (waitingForApiResponse ? (
-            <Loader type="TailSpin" color="#2ca4a0ff" height={30} width={30} />
-          ) : (
-            <i
-              id="reset-button"
-              className="fas fa-save edition-button"
-              onClick={handleBackUp}
-            ></i>
-          ))}
+        <i
+          id="save-button"
+          className={`fas fa-save edition-button hidden ${
+            loggedIn && !waitingForApiResponse ? "visible" : ""
+          }`}
+          onClick={handleBackUp}
+        ></i>
+
         <i
           id="reset-button"
           className="fas fa-trash edition-button"

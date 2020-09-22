@@ -1,0 +1,49 @@
+$primary-color: #1b1b1dff;
+$red-color: #ff4436ff;
+$orange-color: #ff9036ff;
+$blue-color: #2ca4a0ff;
+$element-main-height: 25;
+
+.sign-in-up-container {
+  position: absolute;
+  right: 0;
+  top: -10px;
+  background-color: white;
+  padding: 0 2%;
+}
+
+.inline-link {
+  color: $primary-color;
+  text-decoration: none;
+  background-color: white;
+  padding: 0 2%;
+  white-space: nowrap;
+}
+
+.inline-link,
+span {
+  line-height: $element-main-height + px;
+}
+
+#log-out-link{
+  cursor: pointer;
+}
+
+.profile-link {
+  padding-left: 10px;
+}
+
+.inline-link:hover,
+.inline-link:focus {
+  text-decoration: underline;
+}
+
+.profile-icon {
+  width: $element-main-height + px;
+  height: $element-main-height + px;
+  background-color: $orange-color;
+  color: white;
+  line-height: $element-main-height + px;
+  border: none;
+  min-width: $element-main-height + px;
+}

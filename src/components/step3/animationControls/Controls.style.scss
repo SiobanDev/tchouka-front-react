@@ -13,7 +13,7 @@ $half-thumbnail-width: $thumbnail-width / 2;
 $round-arrow-size: $cursor-width * 2;
 
 #step3-chronology {
-  width: 90%;
+  width: 100%;
 }
 
 #chronology-container {
@@ -67,8 +67,8 @@ $round-arrow-size: $cursor-width * 2;
 
 .step3-commands-container {
   display: flex;
-  align-items: center;
-  margin-top: 10%;
+  justify-content: center;
+  margin-top: 5%;
   position: relative;
   left: -$half-cursor-width + px;
 }
@@ -86,9 +86,13 @@ $round-arrow-size: $cursor-width * 2;
 
 #repeat-item {
   margin-right: 10%;
+  flex-direction: row;
 }
 
-.play-item i,
-#repeat-item input {
+.play-item i{
   margin-right: 2%;
+}
+
+#repeat-item input {
+  margin-right: 8%;
 }

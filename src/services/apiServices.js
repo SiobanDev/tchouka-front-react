@@ -1,5 +1,4 @@
 import {
-  apiUrl,
   apiFetchAllScoresDataUrl,
   apiFetchAllCompositionsDataUrl,
   apiSignUpUrl,
@@ -11,10 +10,10 @@ import {
 export const apiSignIn = async (userData) => {
   try {
     const req = new Request(apiSignInUrl, {
-      method: "POST",
+      method: 'POST',
       body: JSON.stringify(userData),
       headers: new Headers({
-        "Content-Type": "application/json",
+        'Content-Type': 'application/json',
       }),
     });
 
@@ -62,7 +61,7 @@ export const apiSignUp = async (userData) => {
     //TO DO : error modal
     return {
       success: false,
-      message: "Erreur de connexion",
+      message: apiResponse.message ? apiResponse.message : "Erreur de connexion",
     };
   } catch (e) {
     return {

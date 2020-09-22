@@ -6,11 +6,9 @@ import { apiSignIn } from "../../services/apiServices";
 //styles
 import "./Form.style.scss";
 import { useForm } from "react-hook-form";
-import LoginContext from "../../context/LoginContext";
 import AlertModal from "../shared/AlertModal";
 
 const SignInForm = () => {
-  const { setLoggedIn } = useContext(LoginContext);
   const {
     setOpen,
     setSeverityKind,
@@ -45,7 +43,6 @@ const SignInForm = () => {
         setSeverityKind("success");
         setNotificationMessage(apiResponse.message);
         setOpen(true);
-        setLoggedIn(true);
       } else if (!apiResponse.success) {
         setWaitingForApiResponse(false);
         setNotificationMessage(apiResponse.message);
@@ -63,10 +60,10 @@ const SignInForm = () => {
       <>
         <AlertModal modalOpen={open} closeModal={dialogHandleClickClose}>
           {notificationMessage}
-          {severityKind === "error" ? (
-            <i className="far fa-frown-open modal-smiley"></i>
-          ) : (
+          {severityKind === "success" ? (
             <i className="far fa-smile modal-smiley"></i>
+          ) : (
+            <i className="far fa-frown-open modal-smiley"></i>
           )}
         </AlertModal>
 

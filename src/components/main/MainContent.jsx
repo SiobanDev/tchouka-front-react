@@ -43,7 +43,6 @@ const MainContent = () => {
   const [notificationMessage, setNotificationMessage] = React.useState(
     "Une erreur est survenue."
   );
-  const [userId, setUserId] = useState(null);
 
   // console.log("score dans MainContent " + JSON.stringify(score));
   // console.log("allNotesWidth dans MainContent" + allNotesWidth);
@@ -51,21 +50,18 @@ const MainContent = () => {
 
   useEffect(() => {
     if (!loggedIn) {
-      setUserId(null);
-    }
+localStorage.removeItem('userId')    }
 
     if (localStorage.getItem("token")) {
       setLoggedIn(true);
     }
-  }, [loggedIn, setLoggedIn, setUserId]);
-
-  console.log(`loggued: ${loggedIn}`);
+  }, [loggedIn]);
 
   return (
     <>
       <Router>
         <LoginContext.Provider
-          value={{ loggedIn, setLoggedIn, userId, setUserId }}
+          value={{ loggedIn, setLoggedIn }}
         >
           <StepContext.Provider value={{ currentStep, setCurrentStep }}>
             <Header />
@@ -111,17 +107,17 @@ const MainContent = () => {
                   >
                     <main>
                       <Switch>
-                        <PrivateRoute
-                          exact
-                          path="/profil"
-                          component={MyProfile}
-                        />
-
                         <Route exact path="/inscription" component={SignIn} />
 
                         <Route exact path="/connexion">
                           {loggedIn ? <Redirect to="/" /> : <SignUp />}
                         </Route>
+
+                        <PrivateRoute
+                          exact
+                          path="/profil"
+                          component={MyProfile}
+                        />
 
                         <Route exact path="/credits" component={Credits} />
 

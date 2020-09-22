@@ -1,0 +1,48 @@
+$fonts-path: "/fonts/";
+$primary-color: #1b1b1dff;
+$red-color: #ff4436ff;
+$orange-color: #ff9036ff;
+$blue-color: #2ca4a0ff;
+$profile-icon-size: 100;
+
+#profile-header {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+#my-profile .profile-icon {
+  border-radius: 50%;
+  width: $profile-icon-size + px;
+  height: $profile-icon-size + px;
+  line-height: 100px;
+  font-size: 300%;
+}
+
+#profile-content {
+  display: flex;
+}
+
+.user-data-header {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+}
+
+.user-creation-total-count {
+  background-color: $blue-color;
+  color: white;
+  width: 10%;
+  padding: 2%;
+}
+
+.user-data-content {
+  display: flex;
+  flex-direction: column;
+}
+
+.user-data-content li {
+  display: flex;
+  align-items: center;
+}

@@ -22,7 +22,7 @@ import Loader from "react-loader-spinner";
 import InscriptionHook from "../shared/InscriptionHook";
 
 const Step2 = () => {
-  const { loggedIn, userId } = useContext(LoginContext);
+  const { loggedIn } = useContext(LoginContext);
   const { setCurrentStep } = useContext(StepContext);
   const { composition, setComposition, setIsLastItemRemoved } = useContext(
     CompositionContext
@@ -32,6 +32,8 @@ const Step2 = () => {
     NotificationContext
   );
   const handleBackUp = async () => {
+    const userId = localStorage.getItem("userId");
+
     const apiComposition = {
       user: userId,
       title: `Ma super composition n°${Math.floor(Math.random() * 10)}`,
@@ -107,9 +109,7 @@ const Step2 = () => {
           <span className="round-icon">2</span>Je clique sur les parties du
           corps de Jean-Patricia pour les associer à mes notes.
         </p>
-
         <InscriptionHook step={2} />
-
         {loggedIn && waitingForApiResponse && (
           <Loader type="TailSpin" color="#2ca4a0ff" height={30} width={30} />
         )}
@@ -120,16 +120,15 @@ const Step2 = () => {
           }`}
           onClick={handleBackUp}
         ></i>
-
-        <i
-          id="reset-button"
-          className="fas fa-trash edition-button"
-          onClick={handleReset}
-        ></i>
         <i
           id="backspace-button"
           className="fas fa-backspace edition-button"
           onClick={handleBackspace}
+        ></i>{" "}
+        <i
+          id="reset-button"
+          className="fas fa-trash edition-button"
+          onClick={handleReset}
         ></i>
         <div className="staves-container">
           <Score />

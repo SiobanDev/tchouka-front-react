@@ -1,8 +1,7 @@
-import React, { useEffect, useCallback, useContext } from "react";
+import React, { useEffect, useCallback, useContext, useState } from "react";
 
 import {
-  apiGetAllScoresData,
-  apiGetAllCompositionsData,
+  apiGetUserData,
   deleteScore,
   deleteComposition,
 } from "../../services/apiServices";
@@ -10,8 +9,10 @@ import {
 import Loader from "react-loader-spinner";
 import CompositionContext from "../../context/CompositionContext";
 import ScoreContext from "../../context/ScoreContext";
-import { handleScoreUploading, handleCompositionUploading } from "./MyProfile.services";
+import { handleUserCreationDataUpload } from "./MyProfile.services";
 import NotificationContext from "../../context/NotificationContext";
+//styles
+import "./MyProfile.style.scss";
 
 const MyProfile = () => {
   const [waitingForApiResponse, setWaitingForApiResponse] = React.useState(
@@ -22,20 +23,20 @@ const MyProfile = () => {
   const scoreList = [];
   const compositionList = [];
   const apiErrorMessage = "Erreur avec la récupération des données.";
-  const { setComposition } = useContext(
-    CompositionContext
-  );
+  const { setComposition } = useContext(CompositionContext);
   const { setScore } = useContext(ScoreContext);
+  const [userEmail, setUserEmail] = useState(null);
 
-
-  const getScoresData = useCallback(async () => {
+  const getUserData = useCallback(async () => {
     try {
-      const formattedApiResponse = await apiGetAllScoresData();
+      const formattedApiResponse = await apiGetUserData();
       if (formattedApiResponse) {
-        formattedApiResponse.data.map((score) => {
+        setUserEmail(formattedApiResponse.data.email);
+
+        formattedApiResponse.data.scoreList.map((score) => {
           scoreList.push(
             <li key={score.id}>
-              <div className="notes-number">{score.length - 1}</div>
+              <div className="user-data-number round-icon">{score.length}</div>
               <p className="score-title">{score.title}</p>
               <i
                 className="fas fa-trash edition-button"
@@ -43,27 +44,24 @@ const MyProfile = () => {
               ></i>
               <i
                 className="fas fa-share edition-button"
-                onClick={() => handleScoreUploading(score, setScore, notificationContext)}
+                onClick={() =>
+                  handleUserCreationDataUpload(
+                    score,
+                    "partition",
+                    notificationContext
+                  )
+                }
               ></i>
             </li>
           );
         });
-      }
-      setWaitingForApiResponse(false);
-    } catch (e) {
-      setWaitingForApiResponse(false);
-      console.log("Error in getNotes in AvailableNotesContainer : " + e);
-    }
-  }, [notificationContext, scoreList, setScore]);
 
-  const getCompositionsData = useCallback(async () => {
-    try {
-      const formattedApiResponse = await apiGetAllCompositionsData();
-      if (formattedApiResponse) {
-        formattedApiResponse.data.map((composition) => {
+        formattedApiResponse.data.compositionList.map((composition) => {
           compositionList.push(
             <li>
-              <div className="notes-number">{composition.length - 1}</div>
+              <div className="user-data-number round-icon">
+                {composition.length}
+              </div>
               <p className="composition-title">{composition.title}</p>
               <i
                 className="fas fa-trash edition-button"
@@ -71,7 +69,13 @@ const MyProfile = () => {
               ></i>
               <i
                 className="fas fa-share edition-button"
-                onClick={() => handleCompositionUploading(composition, setComposition, notificationContext)}
+                onClick={() =>
+                  handleUserCreationDataUpload(
+                    composition,
+                    "composition",
+                    notificationContext
+                  )
+                }
               ></i>
             </li>
           );
@@ -82,26 +86,25 @@ const MyProfile = () => {
       setWaitingForApiResponse(false);
       console.log("Error in getNotes in AvailableNotesContainer : " + e);
     }
-  }, [compositionList, notificationContext, setComposition]);
+  }, [compositionList, notificationContext, scoreList]);
 
   useEffect(() => {
-    getScoresData();
-    getCompositionsData();
-  }, [getCompositionsData, getScoresData]);
+    getUserData();
+  }, [getUserData]);
 
   return (
     <section id="my-profile" className="main-content">
-      <div className="profile-header">
-        <div className="profile-icon"></div>
-        <p className="profile-email"></p>
+      <div id="profile-header">
+        <div className="profile-icon">T</div>
+        <p className="profile-email">{userEmail}</p>
       </div>
 
-      <div className="profile-content">
+      <div id="profile-content">
         <div className="column1">
-          <div className="score-header">
-            <div className="score-number">{scoreList.length - 1}</div>
+          <div className="user-data-header">
+            <div className="user-creation-total-count">{scoreList.length}</div>
             <h4>Mes partitions TCHoUKA</h4>
-            <ul>
+            <ul className="user-data-content">
               {waitingForApiResponse ? (
                 <Loader
                   type="TailSpin"
@@ -119,12 +122,12 @@ const MyProfile = () => {
         </div>
 
         <div className="column2">
-          <div className="composition-header">
-            <div className="composition-number">
-              {compositionList.length - 1}
+          <div className="user-data-header">
+            <div className="user-creation-total-count">
+              {compositionList.length}
             </div>
             <h4>Mes compositions TCHoUKA</h4>
-            <ul>
+            <ul className="user-data-content">
               {waitingForApiResponse ? (
                 <Loader
                   type="TailSpin"

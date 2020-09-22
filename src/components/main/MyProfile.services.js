@@ -1,21 +1,10 @@
-export const handleScoreUploading = (score, setScore, notificationContext) => {
-  setScore(score);
+export const handleUserCreationDataUpload = (userCreationData, userCreationDataType, notificationContext) => {
+  localStorage.setItem(userCreationDataType, userCreationData)
   notificationContext.setSeverityKind("success");
   notificationContext.setNotificationMessage(
-    "Ma partition a été chargée à l'étape 1."
+    `Ma ${userCreationDataType} a été chargée à l'étape ${userCreationDataType === "partition" ? "1" : "2"}.`
   );
   notificationContext.setOpen(true);
 };
 
-export const handleCompositionUploading = (
-  composition,
-  setComposition,
-  notificationContext
-) => {
-  setComposition(composition);
-  notificationContext.setSeverityKind("success");
-  notificationContext.setNotificationMessage(
-    "Ma composition a été chargée à l'étape 2."
-  );
-  notificationContext.setOpen(true);
-};
+

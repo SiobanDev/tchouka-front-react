@@ -1,6 +1,4 @@
 import {
-  apiFetchAllScoresDataUrl,
-  apiFetchAllCompositionsDataUrl,
   apiSignUpUrl,
   apiSignInUrl,
   apiCompositionUrl,
@@ -150,10 +148,10 @@ export const deleteComposition = async (userCompositionId) => {
   return await fetchApi(req, successMessage, errorMessage, exceptionMessage);
 };
 
-export const apiGetAllScoresData = async () => {
+export const apiGetUserData = async () => {
   let getToken = localStorage.getItem("token");
 
-  const req = new Request(apiFetchAllScoresDataUrl, {
+  const req = new Request(apiGetUserData, {
     method: "GET",
     headers: new Headers({
       "Access-Control-Allow-Origin": "*",
@@ -162,28 +160,10 @@ export const apiGetAllScoresData = async () => {
     }),
   });
 
-  const successMessage = "Les partitions ont été correctement chargées.";
-  const errorMessage = "Erreur de récuparation des partitions";
-  const exceptionMessage = "Impossible de récupérer les partitions";
+  const successMessage = "Les données de l'utilisat.eur.rice ont été correctement chargées.";
+  const errorMessage = "Erreur de récupération les données de l'utilisat.eur.rice";
+  const exceptionMessage = "Impossible de récupérer les données de l'utilisat.eur.rice";
 
   return await fetchApi(req, successMessage, errorMessage, exceptionMessage);
 };
 
-export const apiGetAllCompositionsData = async () => {
-  let getToken = localStorage.getItem("token");
-
-  const req = new Request(apiFetchAllCompositionsDataUrl, {
-    method: "GET",
-    headers: new Headers({
-      "Access-Control-Allow-Origin": "*",
-      "Content-Type": "application/json",
-      Authorization: `Bearer ${getToken}`,
-    }),
-  });
-
-  const successMessage = "Les compositions ont été correctement chargées.";
-  const errorMessage = "Erreur de récuparation des compositions";
-  const exceptionMessage = "Impossible de récupérer les compositions";
-
-  return await fetchApi(req, successMessage, errorMessage, exceptionMessage);
-};

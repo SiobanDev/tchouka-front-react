@@ -22,7 +22,7 @@ import InscriptionHook from "../shared/InscriptionHook";
 const Step1 = () => {
   const { score, setScore } = useContext(ScoreContext);
   const { setCurrentStep } = useContext(StepContext);
-  const { loggedIn, userId } = useContext(LoginContext);
+  const { loggedIn } = useContext(LoginContext);
   const [waitingForApiResponse, setWaitingForApiResponse] = useState(false);
   const { setOpen, setSeverityKind, setNotificationMessage } = useContext(
     NotificationContext
@@ -36,9 +36,11 @@ const Step1 = () => {
   }, [score, setCurrentStep, setScore]);
 
   const handleBackUp = async () => {
+    const userId = localStorage.getItem("userId");
+
     const apiScore = {
       user: userId,
-      title: `Ma super partition n°${Math.random() * 10}`,
+      title: `Ma super partition n°${Math.trunc(Math.random() * 10)}`,
       noteList: JSON.stringify(score),
     };
 
@@ -90,11 +92,8 @@ const Step1 = () => {
         <span className="round-icon">1</span>J'écris ma partition rythmique en
         cliquant sur les notes ci-dessous.
       </p>
-
       <InscriptionHook step={1} />
-
       <AvailableNotesContainer />
-
       {loggedIn && waitingForApiResponse && (
         <Loader type="TailSpin" color="#2ca4a0ff" height={30} width={30} />
       )}
@@ -105,16 +104,15 @@ const Step1 = () => {
         }`}
         onClick={handleBackUp}
       ></i>
-
-      <i
-        id="reset-button"
-        className="fas fa-trash edition-button"
-        onClick={handleReset}
-      ></i>
       <i
         id="backspace-button"
         className="fas fa-backspace edition-button"
         onClick={handleBackspace}
+      ></i>{" "}
+      <i
+        id="reset-button"
+        className="fas fa-trash edition-button"
+        onClick={handleReset}
       ></i>
       <StaveContainerStep1 />
       <div id="step-buttons-container">

@@ -17,7 +17,8 @@ const SignUpForm = () => {
     open,
     notificationMessage,
     severityKind,
-  } = useContext(NotificationContext);  const { register, handleSubmit, errors } = useForm();
+  } = useContext(NotificationContext);
+  const { register, handleSubmit, errors } = useForm();
   const [
     waitingForformattedApiResponse,
     setWaitingForformattedApiResponse,
@@ -42,20 +43,16 @@ const SignUpForm = () => {
         setWaitingForformattedApiResponse(false);
 
         setSeverityKind("success");
-        setNotificationMessage(
-          formattedApiResponse.message
-        );
+        setNotificationMessage(formattedApiResponse.message);
         setOpen(true);
 
         setLoggedIn(true);
-        setUserId(formattedApiResponse.data.id);
+        localStorage.setItem('userId',formattedApiResponse.data.addedData.id);
 
         localStorage.setItem("token", formattedApiResponse.data.token);
       } else if (!formattedApiResponse.success) {
         setWaitingForformattedApiResponse(false);
-        setNotificationMessage(
-          formattedApiResponse.message
-        );
+        setNotificationMessage(formattedApiResponse.message);
         setOpen(true);
       }
     } catch (e) {
@@ -68,15 +65,12 @@ const SignUpForm = () => {
   } else {
     return (
       <>
-        <AlertModal
-          modalOpen={open}
-          closeModal={dialogHandleClickClose}
-        >
+        <AlertModal modalOpen={open} closeModal={dialogHandleClickClose}>
           {notificationMessage}
-          {severityKind === "error" ? (
-            <i className="far fa-frown-open modal-smiley"></i>
-          ) : (
+          {severityKind === "success" ? (
             <i className="far fa-smile modal-smiley"></i>
+          ) : (
+            <i className="far fa-frown-open modal-smiley"></i>
           )}
         </AlertModal>
 

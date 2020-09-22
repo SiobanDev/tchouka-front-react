@@ -8,7 +8,8 @@ const AuthSection = () => {
 
   const logOut = () => {
     localStorage.removeItem("token");
-    setLoggedIn(false);
+    localStorage.removeItem("userId");
+    setLoggedIn(false)
   };
 
   return (

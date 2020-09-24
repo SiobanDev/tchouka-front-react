@@ -13,7 +13,6 @@ import {
 } from "./Step3.utils";
 import CompositionContext from "../../context/CompositionContext";
 import { jpNeutre } from "../../config/mediasConstants";
-import { useState } from "react";
 
 export const JPAnimation = ({ allImageDelayList }) => {
   const { composition, setComposition } = useContext(CompositionContext);

@@ -49,9 +49,6 @@ const MainContent = () => {
   //console.log("composition dans MainContent " + JSON.stringify(composition));
 
   useEffect(() => {
-    if (!loggedIn) {
-localStorage.removeItem('userId')    }
-
     if (localStorage.getItem("token")) {
       setLoggedIn(true);
     }
@@ -60,9 +57,7 @@ localStorage.removeItem('userId')    }
   return (
     <>
       <Router>
-        <LoginContext.Provider
-          value={{ loggedIn, setLoggedIn }}
-        >
+        <LoginContext.Provider value={{ loggedIn, setLoggedIn }}>
           <StepContext.Provider value={{ currentStep, setCurrentStep }}>
             <Header />
             <NotificationContext.Provider

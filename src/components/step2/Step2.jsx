@@ -20,6 +20,7 @@ import NotificationContext from "../../context/NotificationContext";
 //libraries
 import Loader from "react-loader-spinner";
 import InscriptionHook from "../shared/InscriptionHook";
+import AlertModal from "../shared/AlertModal";
 
 const Step2 = () => {
   const { loggedIn } = useContext(LoginContext);
@@ -27,10 +28,20 @@ const Step2 = () => {
   const { composition, setComposition, setIsLastItemRemoved } = useContext(
     CompositionContext
   );
-  const [waitingForApiResponse, setWaitingForApiResponse] = useState(true);
-  const { setOpen, setSeverityKind, setNotificationMessage } = useContext(
-    NotificationContext
-  );
+  const [waitingForApiResponse, setWaitingForApiResponse] = useState(false);
+  const {
+    setOpen,
+    setSeverityKind,
+    setNotificationMessage,
+    open,
+    notificationMessage,
+    severityKind,
+  } = useContext(NotificationContext);
+
+  const dialogHandleClickClose = () => {
+    setOpen(false);
+  };
+
   const handleBackUp = async () => {
     const userId = localStorage.getItem("userId");
 
@@ -42,7 +53,7 @@ const Step2 = () => {
 
     try {
       setWaitingForApiResponse(true);
-      const apiResponse = await saveNewUserData(apiComposition);
+      const apiResponse = await saveNewUserData(apiComposition, "composition");
 
       if (apiResponse.success) {
         setWaitingForApiResponse(false);
@@ -101,6 +112,15 @@ const Step2 = () => {
 
   return (
     <section id="step2" className="main-content">
+      <AlertModal modalOpen={open} closeModal={dialogHandleClickClose}>
+        {notificationMessage}
+        {severityKind === "success" ? (
+          <i className="far fa-smile modal-smiley"></i>
+        ) : (
+          <i className="far fa-frown-open modal-smiley"></i>
+        )}
+      </AlertModal>
+
       <div id="column1">
         <ModelJP />
       </div>

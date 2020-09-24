@@ -1,6 +1,8 @@
 import {
   apiSignUpUrl,
   apiSignInUrl,
+  scoreUrl,
+  compositionUrl,
 } from "../config/urlConstants";
 
 const fetchApi = async (
@@ -72,10 +74,9 @@ export const saveNewUserData = async (
 ) => {
   let getToken = localStorage.getItem("token");
 
-  const req = new Request(`${userCreationDataType}Url`, {
+  const req = new Request(userCreationDataType === "partition" ? scoreUrl : compositionUrl, {
     method: "POST",
     headers: new Headers({
-      "Access-Control-Allow-Origin": "*",
       "Content-Type": "application/json",
       Authorization: `Bearer ${getToken}`,
     }),
@@ -98,7 +99,6 @@ export const deleteUserData = async (
   const req = new Request(`${userCreationDataType}Url`, {
     method: "DELETE",
     headers: new Headers({
-      "Access-Control-Allow-Origin": "*",
       "Content-Type": "application/json",
       Authorization: `Bearer ${getToken}`,
     }),
@@ -118,7 +118,6 @@ export const apiGetUserData = async () => {
   const req = new Request(apiGetUserData, {
     method: "GET",
     headers: new Headers({
-      "Access-Control-Allow-Origin": "*",
       "Content-Type": "application/json",
       Authorization: `Bearer ${getToken}`,
     }),

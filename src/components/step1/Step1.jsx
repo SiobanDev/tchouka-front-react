@@ -18,15 +18,25 @@ import { saveNewUserData } from "../../services/apiServices";
 //libraries
 import Loader from "react-loader-spinner";
 import InscriptionHook from "../shared/InscriptionHook";
+import AlertModal from "../shared/AlertModal";
 
 const Step1 = () => {
   const { score, setScore } = useContext(ScoreContext);
   const { setCurrentStep } = useContext(StepContext);
   const { loggedIn } = useContext(LoginContext);
   const [waitingForApiResponse, setWaitingForApiResponse] = useState(false);
-  const { setOpen, setSeverityKind, setNotificationMessage } = useContext(
-    NotificationContext
-  );
+  const {
+    setOpen,
+    setSeverityKind,
+    setNotificationMessage,
+    open,
+    notificationMessage,
+    severityKind,
+  } = useContext(NotificationContext);
+  const dialogHandleClickClose = () => {
+    setOpen(false);
+  };
+
   useEffect(() => {
     if (score.length === 0 && localStorage.getItem("score")) {
       setScore(JSON.parse(localStorage.getItem("score")));
@@ -46,7 +56,7 @@ const Step1 = () => {
 
     try {
       setWaitingForApiResponse(true);
-      const apiResponse = await saveNewUserData(apiScore);
+      const apiResponse = await saveNewUserData(apiScore, "partition");
 
       if (apiResponse.success) {
         setWaitingForApiResponse(false);
@@ -88,6 +98,15 @@ const Step1 = () => {
 
   return (
     <section id="step1" className="main-content">
+      <AlertModal modalOpen={open} closeModal={dialogHandleClickClose}>
+        {notificationMessage}
+        {severityKind === "success" ? (
+          <i className="far fa-smile modal-smiley"></i>
+        ) : (
+          <i className="far fa-frown-open modal-smiley"></i>
+        )}
+      </AlertModal>
+      
       <p className="instruction">
         <span className="round-icon">1</span>J'écris ma partition rythmique en
         cliquant sur les notes ci-dessous.

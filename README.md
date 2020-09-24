@@ -23,7 +23,7 @@ https://github.com/SiobanDev/tchouka-back-symfony
 
 #### Créer un fichier .env.local avec les constantes suivantes :
 
-- **API_URL**=https://127.0.0.1:8000/api
+- **REACT_APP_API_URL**
 
 ## Documentation
 ### Utilisation du localStorage

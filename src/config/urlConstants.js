@@ -1,5 +1,5 @@
-// const apiUrl = process.env.REACT_APP_API_URL;
-const apiUrl = "https://127.0.0.1:8000/api";
+const apiUrl = process.env.REACT_APP_API_URL;
+// const apiUrl = "https://127.0.0.1:8000/api";
 
 export const apiSignUpUrl = `${apiUrl}/login_check`;
 export const apiSignInUrl = `${apiUrl}/sign-in`;

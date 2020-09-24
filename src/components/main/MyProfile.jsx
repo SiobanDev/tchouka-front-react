@@ -6,8 +6,6 @@ import {
 } from "../../services/apiServices";
 //libraries
 import Loader from "react-loader-spinner";
-import CompositionContext from "../../context/CompositionContext";
-import ScoreContext from "../../context/ScoreContext";
 import { handleUserCreationDataUpload } from "./MyProfile.services";
 import NotificationContext from "../../context/NotificationContext";
 //styles

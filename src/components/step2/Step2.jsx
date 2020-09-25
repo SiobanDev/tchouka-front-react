@@ -77,10 +77,10 @@ const Step2 = () => {
       compositionTmp.splice(composition.length - 1, 1);
       setComposition(compositionTmp);
 
-      console.log(
-        "composition dans Step2 after backspace " +
-          JSON.stringify(composition, null, " ")
-      );
+      // console.log(
+      //   "composition dans Step2 after backspace " +
+      //     JSON.stringify(composition, null, " ")
+      // );
 
       setIsLastItemRemoved(true);
     }
@@ -108,7 +108,7 @@ const Step2 = () => {
     setCurrentStep(percussionStep);
   }, [composition, setComposition, setCurrentStep]);
 
-  console.log("composition in Step2 :" + JSON.stringify(composition));
+  // console.log("composition in Step2 :" + JSON.stringify(composition));
 
   return (
     <section id="step2" className="main-content">

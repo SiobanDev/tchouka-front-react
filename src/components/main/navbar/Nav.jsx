@@ -9,8 +9,8 @@ import { percussionStep } from "../../../config/mainConstants";
 
 const Nav = () => {
   const { currentStep, setCurrentStep } = useContext(StepContext);
-  const { score } = useContext(ScoreContext);
-  const { composition } = useContext(CompositionContext);
+  const { score, setScore } = useContext(ScoreContext);
+  const { composition, setComposition } = useContext(CompositionContext);
   const iconElements = [];
   const linkElements = [];
 
@@ -22,6 +22,16 @@ const Nav = () => {
   ];
 
   const urlMenuList = ["/", "/rythme", "/percussions", "/apprentissage"];
+
+  useEffect(() => {
+    if (localStorage.getItem("score")) {
+      setScore(JSON.parse(localStorage.getItem("score")));
+    }
+
+    if (localStorage.getItem("composition")) {
+      setComposition(JSON.parse(localStorage.getItem("composition")));
+    }
+  }, [composition.length, score.length, setComposition, setScore]);
 
   const lastAllowedStep =
     score.length === 0 ||

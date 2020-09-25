@@ -19,7 +19,8 @@ const Home = () => {
     setCurrentStep(0);
 
     if (localStorage.getItem("score") || localStorage.getItem("composition")) {
-      localStorage.clear();
+      localStorage.removeItem("score");
+      localStorage.removeItem("composition");
     }
 
     if (score.length > 0) {

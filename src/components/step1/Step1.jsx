@@ -56,7 +56,7 @@ const Step1 = () => {
 
     try {
       setWaitingForApiResponse(true);
-      const apiResponse = await saveNewUserData(apiScore, "partition");
+      const apiResponse = await saveNewUserData(apiScore, "score");
 
       if (apiResponse.success) {
         setWaitingForApiResponse(false);
@@ -94,7 +94,7 @@ const Step1 = () => {
     localStorage.setItem("score", JSON.stringify(score));
   };
 
-  console.log(`logged : ${loggedIn}`);
+  // console.log(`logged : ${loggedIn}`);
 
   return (
     <section id="step1" className="main-content">

@@ -3,6 +3,9 @@ import {
   apiSignInUrl,
   scoreUrl,
   compositionUrl,
+  fetchDataUserUrl,
+  allScoreUrl,
+allCompositionUrl
 } from "../config/urlConstants";
 
 const fetchApi = async (
@@ -74,7 +77,7 @@ export const saveNewUserData = async (
 ) => {
   let getToken = localStorage.getItem("token");
 
-  const req = new Request(userCreationDataType === "partition" ? scoreUrl : compositionUrl, {
+  const req = new Request(userCreationDataType === "score" ? scoreUrl : compositionUrl, {
     method: "POST",
     headers: new Headers({
       "Content-Type": "application/json",
@@ -83,9 +86,9 @@ export const saveNewUserData = async (
     body: JSON.stringify(userCreationData),
   });
 
-  const successMessage = `La ${userCreationDataType} a bien été sauvegardée.`;
-  const errorMessage = `Erreur de sauvegarde de la ${userCreationDataType}`;
-  const exceptionMessage = `Impossible de sauvegarder la ${userCreationDataType}`;
+  const successMessage = `La ${userCreationDataType === 'score' && "partition"} a bien été sauvegardée.`;
+  const errorMessage = `Erreur de sauvegarde de la ${userCreationDataType === 'score' && "partition"}`;
+  const exceptionMessage = `Impossible de sauvegarder la ${userCreationDataType === 'score' && "partition"}`;
 
   return await fetchApi(req, successMessage, errorMessage, exceptionMessage);
 };
@@ -96,31 +99,109 @@ export const deleteUserData = async (
 ) => {
   let getToken = localStorage.getItem("token");
 
-  const req = new Request(`${userCreationDataType}Url`, {
+  const req = new Request(userCreationDataType === "score" ? scoreUrl : compositionUrl, {
     method: "DELETE",
     headers: new Headers({
       "Content-Type": "application/json",
       Authorization: `Bearer ${getToken}`,
     }),
-    body: JSON.stringify({ id: userCreationDataId }),
+    body: JSON.stringify(userCreationDataId),
   });
 
-  const successMessage = `La ${userCreationDataType} a bien été supprimée.`;
-  const errorMessage = `Erreur de suppression de la ${userCreationDataType}`;
-  const exceptionMessage = `Impossible de supprimer la ${userCreationDataType}`;
+  const successMessage = `La ${userCreationDataType === 'score' && "partition"} a bien été supprimée.`;
+  const errorMessage = `Erreur de suppression de la ${userCreationDataType === 'score' && "partition"}`;
+  const exceptionMessage = `Impossible de supprimer la ${userCreationDataType === 'score' && "partition"}`;
 
   return await fetchApi(req, successMessage, errorMessage, exceptionMessage);
 };
 
-export const apiGetUserData = async () => {
+// export const apiGetUserData = async () => {
+//   let getToken = localStorage.getItem("token");
+
+//   const req = new Request(fetchDataUserUrl, {
+//     method: "GET",
+//     headers: new Headers({
+//       "Content-Type": "application/json",
+//       "Access-Control-Allow-Origin": "*",
+//       Authorization: `Bearer ${getToken}`,
+//       'Access-Control-Allow-Methods': 'GET'
+//     }),
+//     mode: 'cors'
+//   });
+
+//   const successMessage =
+//     "Les données de l'utilisat.eur.rice ont été correctement chargées.";
+//   const errorMessage =
+//     "Erreur de récupération les données de l'utilisat.eur.rice";
+//   const exceptionMessage =
+//     "Impossible de récupérer les données de l'utilisat.eur.rice";
+
+//   return await fetchApi(req, successMessage, errorMessage, exceptionMessage);
+// };
+
+
+export const apiGetUserEmail = async () => {
   let getToken = localStorage.getItem("token");
 
-  const req = new Request(apiGetUserData, {
+  const req = new Request(fetchDataUserUrl, {
     method: "GET",
     headers: new Headers({
       "Content-Type": "application/json",
+      "Access-Control-Allow-Origin": "*",
       Authorization: `Bearer ${getToken}`,
+      'Access-Control-Allow-Methods': 'GET'
     }),
+    mode: 'cors'
+  });
+
+  const successMessage =
+    "Les données de l'utilisat.eur.rice ont été correctement chargées.";
+  const errorMessage =
+    "Erreur de récupération les données de l'utilisat.eur.rice";
+  const exceptionMessage =
+    "Impossible de récupérer les données de l'utilisat.eur.rice";
+
+  return await fetchApi(req, successMessage, errorMessage, exceptionMessage);
+};
+
+
+export const apiFetchScores = async () => {
+  let getToken = localStorage.getItem("token");
+
+  const req = new Request(allScoreUrl, {
+    method: "GET",
+    headers: new Headers({
+      "Content-Type": "application/json",
+      "Access-Control-Allow-Origin": "*",
+      Authorization: `Bearer ${getToken}`,
+      'Access-Control-Allow-Methods': 'GET'
+    }),
+    mode: 'cors'
+  });
+
+  const successMessage =
+    "Les données de l'utilisat.eur.rice ont été correctement chargées.";
+  const errorMessage =
+    "Erreur de récupération les données de l'utilisat.eur.rice";
+  const exceptionMessage =
+    "Impossible de récupérer les données de l'utilisat.eur.rice";
+
+  return await fetchApi(req, successMessage, errorMessage, exceptionMessage);
+};
+
+
+export const apiFetchCompositions = async () => {
+  let getToken = localStorage.getItem("token");
+
+  const req = new Request(allCompositionUrl, {
+    method: "GET",
+    headers: new Headers({
+      "Content-Type": "application/json",
+      "Access-Control-Allow-Origin": "*",
+      Authorization: `Bearer ${getToken}`,
+      'Access-Control-Allow-Methods': 'GET'
+    }),
+    mode: 'cors'
   });
 
   const successMessage =

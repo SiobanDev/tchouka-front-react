@@ -23,7 +23,7 @@ const SignUpForm = () => {
     waitingForformattedApiResponse,
     setWaitingForformattedApiResponse,
   ] = React.useState(false);
-  const { setLoggedIn, setUserId } = useContext(LoginContext);
+  const { setLoggedIn } = useContext(LoginContext);
 
   const dialogHandleClickClose = () => {
     setOpen(false);

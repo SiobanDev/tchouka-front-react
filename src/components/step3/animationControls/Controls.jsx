@@ -36,11 +36,11 @@ const Controls = ({ allImageDelayList }) => {
     ? Math.min(movingTimelinePosition, maxShiftOfChronologyContent)
     : forwardingValue;
 
-  console.log(
-    `forworadingValue: ${forwardingValue} ` +
-      "movingTimelinePosition : " +
-      movingTimelinePosition
-  );
+  // console.log(
+  //   `forworadingValue: ${forwardingValue} ` +
+  //     "movingTimelinePosition : " +
+  //     movingTimelinePosition
+  // );
 
   const timelineStyle = {
     transition: `left 500ms ease-out`,
@@ -51,16 +51,16 @@ const Controls = ({ allImageDelayList }) => {
   };
 
   const setClampedForwardingValue = (value) => {
-    console.log(
-      `forworadingValue: ${forwardingValue} new Value: ${value}, maxShift: ${maxShiftOfChronologyContent}`
-    );
+    // console.log(
+    //   `forworadingValue: ${forwardingValue} new Value: ${value}, maxShift: ${maxShiftOfChronologyContent}`
+    // );
     setForwardingValue(
       Math.max(0, Math.min(maxShiftOfChronologyContent, value))
     );
   };
 
   const resetAnimation = () => {
-    setForwardingValue(timelineStyleLeft);
+    setForwardingValue(0);
     setPlayingAnimation(false);
     setTimeCode(0);
     setLastSoundCount(-1);
@@ -91,6 +91,7 @@ const Controls = ({ allImageDelayList }) => {
         setLastSoundCount(-1);
 
         if (repeat) {
+          setTimeCode(0);
           setPlayingAnimation(true);
         }
       } else {

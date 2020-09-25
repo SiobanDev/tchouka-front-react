@@ -9,6 +9,8 @@ $profile-icon-size: 100;
   width: 100%;
   display: flex;
   justify-content: center;
+  flex-direction: column;
+  align-items: center;
 }
 
 #my-profile .profile-icon {
@@ -17,10 +19,16 @@ $profile-icon-size: 100;
   height: $profile-icon-size + px;
   line-height: 100px;
   font-size: 300%;
+  margin-bottom: 1%;
 }
 
 #profile-content {
   display: flex;
+  width: 100%;
+}
+
+#my-profile .column{
+  width: 50%;
 }
 
 .user-data-header {

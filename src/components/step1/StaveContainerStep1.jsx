@@ -8,7 +8,16 @@ import ScoreContext from "../../context/ScoreContext";
 import { redStave } from "../../config/mediasConstants";
 
 const StaveContainerStep1 = () => {
-  const { score } = useContext(ScoreContext);
+  const { score, setScore } = useContext(ScoreContext);
+
+  useEffect(() => {
+    if (typeof score === "string") {
+      const scoreTmp = score;
+      JSON.parse(scoreTmp);
+      setScore(scoreTmp);
+    }
+  }, [score, setScore]);
+
   let firstStaveNotes = [];
   let secondStaveNotes = [];
 
@@ -16,8 +25,6 @@ const StaveContainerStep1 = () => {
     firstStaveNotes = score.slice(0, 20);
     secondStaveNotes = score.slice(20, 39);
   }
-
-  useEffect(() => {}, [score]);
 
   if (score.length > 0) {
     return (

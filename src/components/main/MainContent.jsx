@@ -59,7 +59,6 @@ const MainContent = () => {
       <Router>
         <LoginContext.Provider value={{ loggedIn, setLoggedIn }}>
           <StepContext.Provider value={{ currentStep, setCurrentStep }}>
-            <Header />
             <NotificationContext.Provider
               value={{
                 severityKind,
@@ -88,6 +87,8 @@ const MainContent = () => {
                     setIsLastItemRemoved,
                   }}
                 >
+                  <Header />
+
                   <AnimationContext.Provider
                     value={{
                       playingAnimation,

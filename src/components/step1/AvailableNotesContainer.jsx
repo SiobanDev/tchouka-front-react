@@ -16,7 +16,7 @@ export const AvailableNotesContainer = () => {
     addedNoteWidth,
   } = useContext(ScoreContext);
   
-  console.log("score in AvailabreContainer :" + JSON.stringify(score))
+  // console.log("score in AvailabreContainer :" + JSON.stringify(score))
 
       return (
         <div id="notes-to-choose-container">

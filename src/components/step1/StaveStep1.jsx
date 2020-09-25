@@ -5,7 +5,8 @@ import AddedNote from "../stave/AddedNote";
 
 const StaveStep1 = ({ id, scoreNotes }) => {
   // console.log("notes dans Stave " + JSON.stringify(scoreNotes));
-  if(scoreNotes){
+  if (scoreNotes) {
+
     return (
       <div id={`stave-${id}`} className="stave">
         {scoreNotes.map((note, i) => {
@@ -17,6 +18,5 @@ const StaveStep1 = ({ id, scoreNotes }) => {
   }
   return null;
 };
-
 
 export default StaveStep1;

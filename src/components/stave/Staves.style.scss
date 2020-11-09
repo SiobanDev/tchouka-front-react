@@ -1,7 +1,4 @@
-$primary-color: #1b1b1dff;
 $red-color: #ff4436ff;
-$orange-color: #ff9036ff;
-$blue-color: #2ca4a0ff;
 
 .staves-container {
   display: flex;
@@ -20,13 +17,11 @@ $blue-color: #2ca4a0ff;
   padding: 0 10px;
 }
 
-
 #stave-1 {
   margin-bottom: 5%;
 }
 
-.added-note{
+.added-note {
   width: 5%;
   padding: 5px 0;
 }
-

@@ -1,15 +1,15 @@
-import React from 'react';
+import React from "react";
 
 const initialValues = {
   open: false,
   setOpen: () => {
     return null;
   },
-  severityKind: 'error',
+  severityKind: "error",
   setSeverityKind: () => {
     return null;
   },
-  notificationMessage: 'Une erreur est survenue.',
+  notificationMessage: "Une erreur est survenue.",
   setNotificationMessage: () => {
     return null;
   },

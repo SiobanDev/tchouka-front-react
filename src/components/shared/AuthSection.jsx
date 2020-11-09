@@ -1,6 +1,7 @@
 import React, { useContext } from "react";
 //styles
 import "./AuthSection.style.scss";
+//Contexts
 import LoginContext from "../../context/LoginContext";
 
 const AuthSection = () => {
@@ -9,7 +10,7 @@ const AuthSection = () => {
   const logOut = () => {
     localStorage.removeItem("token");
     localStorage.removeItem("userId");
-    setLoggedIn(false)
+    setLoggedIn(false);
   };
 
   return (

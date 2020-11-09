@@ -1,17 +1,17 @@
 import React, { useEffect, useContext } from "react";
-//components
-//data
-//styles
+//Styles
 import "./Step3.style.scss";
-//libraries
+//Contexts
 import AnimationContext from "../../context/AnimationContext";
+import CompositionContext from "../../context/CompositionContext";
+//Utils
 import {
   getAllImageSrcList,
   getAllSoundDurationList,
   getAllSoundDelayList,
   addBackgroundToImages,
 } from "./Step3.utils";
-import CompositionContext from "../../context/CompositionContext";
+//Constants
 import { jpNeutre } from "../../config/mediasConstants";
 
 export const JPAnimation = ({ allImageDelayList }) => {
@@ -30,8 +30,6 @@ export const JPAnimation = ({ allImageDelayList }) => {
     if (composition.length === 0 && localStorage.getItem("composition")) {
       setComposition(JSON.parse(localStorage.getItem("composition")));
     }
-
-    // console.log("composition dans JPAnimation " + JSON.stringify(composition));
   }, [composition.length, setComposition]);
 
   const soundCount = (() => {
@@ -64,7 +62,6 @@ export const JPAnimation = ({ allImageDelayList }) => {
       movementSound.play();
 
       setLastSoundCount(soundCount);
-      // console.log("timeCode in JPAnimation : " + timeCode);
     }
   }, [
     composition,

@@ -1,10 +1,11 @@
 import React, { useContext, useEffect } from "react";
-//styles
+//Styles
 import "../stave/Staves.style.scss";
-//components
+//Components
 import StaveStep1 from "./StaveStep1";
-//context
+//Contexts
 import ScoreContext from "../../context/ScoreContext";
+//Constants
 import { redStave } from "../../config/mediasConstants";
 
 const StaveContainerStep1 = () => {

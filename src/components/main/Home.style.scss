@@ -1,13 +1,10 @@
-$primary-color: #1b1b1dff;
-$red-color: #ff4436ff;
 $orange-color: #ff9036ff;
-$blue-color: #2ca4a0ff;
 
 main {
   text-align: center;
 }
 
-#home-background{
+#home-background {
   position: absolute;
   top: 2%;
   opacity: 0.05;
@@ -16,8 +13,9 @@ main {
 
 #home p {
   margin-bottom: 2%;
+  text-align: center;
 }
 
-#home .round-icon{
-    color: $orange-color;
+#root #home .round-icon {
+  color: $orange-color;
 }

@@ -1,6 +1,7 @@
 import React, { useContext } from "react";
-//styles
+//Styles
 import "./InscriptionHook.style.scss";
+//Contexts
 import LoginContext from "../../context/LoginContext";
 
 const InscriptionHook = ({ step }) => {

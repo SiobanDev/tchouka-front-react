@@ -1,13 +1,11 @@
- 
 import React from "react";
-//styles
+//Styles
 import "../stave/Staves.style.scss";
+//Components
 import AddedNote from "../stave/AddedNote";
 import SingingWordsStave from "./SingingWordsStave";
 
 const StaveStep2 = ({ id, notesList, singingWordList }) => {
-  // console.log("composition in StaveStep2 :" + JSON.stringify(composition));
-
   if (notesList) {
     return (
       <>

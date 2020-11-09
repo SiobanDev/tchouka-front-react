@@ -5,8 +5,8 @@ const initialContextValues = {
   setScore: () => {},
   freeTime: 42,
   allNotesWidth: 0,
-  setAllNotesWidth: ()=>{},
-  addedNoteWidth: 5
+  setAllNotesWidth: () => {},
+  addedNoteWidth: 5,
 };
 
 const ScoreContext = React.createContext(initialContextValues);

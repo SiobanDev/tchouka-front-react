@@ -1,6 +1,9 @@
 import React from "react";
-//styles
+//Styles
 import "./AlertModal.style.scss";
+//Librairies
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faTimes } from "@fortawesome/free-solid-svg-icons";
 
 const AlertModal = ({ modalOpen, title, closeModal, children }) => {
   const showHideClassName = modalOpen
@@ -18,10 +21,10 @@ const AlertModal = ({ modalOpen, title, closeModal, children }) => {
       <div id="modal">
         <div id="modal-header">
           <h4 id="form-dialog-title">{title}</h4>
-          <i
-            onClick={closeModal}
+          <FontAwesomeIcon
             id="form-dialog-cross"
-            className="fas fa-times "
+            icon={faTimes}
+            onClick={closeModal}
           />
         </div>
         <div className="modal-content">{children}</div>

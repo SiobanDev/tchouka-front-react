@@ -1,25 +1,23 @@
-import React, { useState } from "react";
-//images
+import React, { useState, useContext } from "react";
+//Assets
 import {
   jpNeutre,
   jpNeutreTransp,
   bodyPartList,
 } from "../../config/mediasConstants";
-//styles
+//Styles
 import "./ModelJP.style.scss";
+//Components
 import BodyPart from "./BodyPart";
-import { useContext } from "react";
+//Contexts
 import ScoreContext from "../../context/ScoreContext";
 import CompositionContext from "../../context/CompositionContext";
-import { useEffect } from "react";
+//Utils
 import { handleClickOnBodyPart } from "./ModelJP.service";
 
 const ModelJP = () => {
   const { score } = useContext(ScoreContext);
-  const {
-    composition,
-    setComposition
-  } = useContext(CompositionContext);
+  const { composition, setComposition } = useContext(CompositionContext);
   const [movementImageToDisplay, setMovementImageToDisplay] = useState([]);
 
   return (

@@ -1,4 +1,6 @@
+//Constants
 import { jpNeutre } from "../../config/mediasConstants";
+//Data
 import { defaultAvailableNotes } from "../../data/defaultNotes";
 
 export const adaptComposition = (composition, setComposition) => {
@@ -19,7 +21,7 @@ export const adaptComposition = (composition, setComposition) => {
     const shorterNoteDuration =
       defaultAvailableNotes[defaultAvailableNotes.length - 1].duration;
     const imageDurationTmp = shorterNoteDuration / 2 - 50;
-    
+
     const numberOfImagesExceptNeutral =
       compositionTmp[i].movementList.length - 1;
     const neutralPositionDuration =
@@ -35,8 +37,5 @@ export const adaptComposition = (composition, setComposition) => {
     compositionTmp[i].durationList = movementDurationTmp;
   }
 
-  // console.log(
-  //   "compositionTpm after MODIFY" + JSON.stringify(compositionTmp, null, " ")
-  // );
   setComposition(compositionTmp);
 };

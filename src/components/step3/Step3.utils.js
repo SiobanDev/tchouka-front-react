@@ -1,5 +1,3 @@
-import { jpNeutre } from "../../config/mediasConstants";
-
 export const getAllImageSrcList = (composition) => {
   const allImageSrcList = [];
 
@@ -65,8 +63,6 @@ export const getAllSoundDelayList = (allSoundDurationList) => {
 };
 
 export const addBackgroundToImages = (allImageSrcList, imageCount) => {
-  //console.log("imageCount : " + imageCount);
-
   const movementImageSrc = allImageSrcList[imageCount]
     ? allImageSrcList[imageCount].replace(".svg", "-fd.svg")
     : allImageSrcList[0].replace(".svg", "-fd.svg") + "-fd.svg";

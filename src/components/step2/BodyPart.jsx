@@ -1,10 +1,9 @@
 import React from "react";
 
-
 /**
  * Score contains two staves made to receive the user's choosen notes.
  */
-const BodyPart = ({name, handleClick}) => {
+const BodyPart = ({ name, handleClick }) => {
   if (name) {
     return (
       <div

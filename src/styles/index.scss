@@ -92,13 +92,20 @@ main > section {
 
 p {
   margin: 0;
+  width: 100%;
+  text-align: justify;
+}
+
+.main-content .inline-link{
+  text-decoration: underline;
+  padding: 0
 }
 
 img {
   display: block;
 }
 
-.round-icon {
+#root .round-icon {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -119,7 +126,7 @@ img {
   text-align: left;
 }
 
-.instruction .round-icon {
+#root .instruction .round-icon {
   background-color: $orange-color;
   border: none;
   margin-right: 10px;
@@ -142,15 +149,14 @@ img {
   color: gray;
 }
 
-.hidden{
+.hidden {
   display: none;
 }
 
-.visible{
+.visible {
   display: flex;
 }
 
-.fa-trash{
+.trash {
   color: grey;
 }
-

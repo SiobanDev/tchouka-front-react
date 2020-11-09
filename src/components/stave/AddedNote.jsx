@@ -1,18 +1,16 @@
 import React from "react";
-//styles
+//Styles
 import "./Staves.style.scss";
 
 //context
 
 const AddedNote = ({ noteData }) => {
-  // console.log("noteData dans AddedNote " + JSON.stringify(noteData));
   if (noteData) {
     return (
       <img
         className="added-note"
         src={noteData.imageSrc}
         alt="added-note"
-        // style={{ width: `${addedNoteWidth}%`}}
       />
     );
   }

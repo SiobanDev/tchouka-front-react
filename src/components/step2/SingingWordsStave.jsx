@@ -1,5 +1,5 @@
 import React from "react";
-//styles
+//Styles
 import "../stave/Staves.style.scss";
 
 const SingingWordsStave = ({ singingWordList }) => {

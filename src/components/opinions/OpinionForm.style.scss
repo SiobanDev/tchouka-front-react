@@ -1,0 +1,52 @@
+#opinion p{
+  margin: 0 auto 2% auto;
+  width: 50%;
+}
+
+#opinion form {
+  border: 1px solid gray;
+  padding: 3%;
+  margin-top: 2%;
+  align-items: center;
+}
+
+.input-group,
+fieldset, textarea {
+  margin-bottom: 3%;
+  width: 100%;
+  text-align: left;
+}
+
+#opinion .checkbox-hook{
+    margin: 3% 0 1% 0;
+    width: 100%;
+}
+
+.checkbox-group{
+    width: 100%;
+}
+
+.checkbox-label{
+    margin: 0 3% 0 1%;
+}
+
+fieldset {
+  border: none;
+  padding: 0;
+  width: 100%;
+}
+
+textarea {
+  resize: none;
+  outline: none;
+  padding: 1%;
+  border-radius: 6px;
+  background: linear-gradient(rgba(240, 240, 240, 0.3) 0%, white 70%);
+  font-family: sans-serif;
+  font-size: 90%;
+  margin-top: 3%;
+}
+
+button, .loader{
+  align-self: flex-end;
+}

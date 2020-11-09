@@ -1,30 +1,35 @@
-import React, { useContext, useState } from "react";
-//styles
+import React, { useContext, useState, useEffect } from "react";
+//Styles
 import "./Step2.style.scss";
-//components
+import "../shared/StepButtons.style.scss";
+//Components
 import Score from "./Score";
 import ModelJP from "./ModelJP";
-import StepContext from "../../context/StepContext";
-import { step3Url, step1Url } from "../../config/urlConstants";
-import CompositionContext from "../../context/CompositionContext";
-import { useEffect } from "react";
 import PreviousStepButton from "../shared/PreviousStepButton";
 import NextStepButton from "../shared/NextStepButton";
-//styles
-import "../shared/StepButtons.style.scss";
-import { percussionStep } from "../../config/mainConstants";
-import { adaptComposition } from "./Step2.utils";
-import LoginContext from "../../context/LoginContext";
-import { saveNewUserData } from "../../services/apiServices";
-import NotificationContext from "../../context/NotificationContext";
-//libraries
-import Loader from "react-loader-spinner";
 import InscriptionHook from "../shared/InscriptionHook";
 import AlertModal from "../shared/AlertModal";
+import ResponseIcon from "../shared/ResponseIcon";
+//Constants
+import { step3Url, step1Url } from "../../config/urlConstants";
+//Contexts
+import CompositionContext from "../../context/CompositionContext";
+import LoginContext from "../../context/LoginContext";
+import NotificationContext from "../../context/NotificationContext";
+//Utils
+import { adaptComposition } from "./Step2.utils";
+import { saveNewUserData } from "../../services/apiServices";
+//Libraries
+import Loader from "react-loader-spinner";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+  faSave,
+  faBackspace,
+  faTrash,
+} from "@fortawesome/free-solid-svg-icons";
 
 const Step2 = () => {
   const { loggedIn } = useContext(LoginContext);
-  const { setCurrentStep } = useContext(StepContext);
   const { composition, setComposition, setIsLastItemRemoved } = useContext(
     CompositionContext
   );
@@ -38,9 +43,11 @@ const Step2 = () => {
     severityKind,
   } = useContext(NotificationContext);
 
-  const dialogHandleClickClose = () => {
-    setOpen(false);
-  };
+  useEffect(() => {
+    if (composition.length === 0 && localStorage.getItem("composition")) {
+      setComposition(JSON.parse(localStorage.getItem("composition")));
+    }
+  }, [composition, setComposition]);
 
   const handleBackUp = async () => {
     const userId = localStorage.getItem("userId");
@@ -72,23 +79,19 @@ const Step2 = () => {
   };
 
   const handleBackspace = () => {
+    localStorage.removeItem("composition");
+
     if (composition.length > 0) {
       const compositionTmp = [...composition];
       compositionTmp.splice(composition.length - 1, 1);
       setComposition(compositionTmp);
-
-      // console.log(
-      //   "composition dans Step2 after backspace " +
-      //     JSON.stringify(composition, null, " ")
-      // );
-
       setIsLastItemRemoved(true);
     }
   };
 
   const handleReset = () => {
-    setComposition([]);
     localStorage.removeItem("composition");
+    setComposition([]);
   };
 
   const goToPreviousStep = () => {
@@ -101,24 +104,11 @@ const Step2 = () => {
     localStorage.setItem("composition", JSON.stringify(composition));
   };
 
-  useEffect(() => {
-    if (composition.length === 0 && localStorage.getItem("composition")) {
-      setComposition(JSON.parse(localStorage.getItem("composition")));
-    }
-    setCurrentStep(percussionStep);
-  }, [composition, setComposition, setCurrentStep]);
-
-  // console.log("composition in Step2 :" + JSON.stringify(composition));
-
   return (
     <section id="step2" className="main-content">
-      <AlertModal modalOpen={open} closeModal={dialogHandleClickClose}>
+      <AlertModal modalOpen={open} closeModal={()=>setOpen(false)}>
         {notificationMessage}
-        {severityKind === "success" ? (
-          <i className="far fa-smile modal-smiley"></i>
-        ) : (
-          <i className="far fa-frown-open modal-smiley"></i>
-        )}
+        <ResponseIcon severityKind={severityKind} />
       </AlertModal>
 
       <div id="column1">
@@ -133,23 +123,24 @@ const Step2 = () => {
         {loggedIn && waitingForApiResponse && (
           <Loader type="TailSpin" color="#2ca4a0ff" height={30} width={30} />
         )}
-        <i
+        <FontAwesomeIcon
           id="save-button"
-          className={`fas fa-save edition-button hidden ${
+          className={`edition-button hidden ${
             loggedIn && !waitingForApiResponse ? "visible" : ""
           }`}
+          icon={faSave}
           onClick={handleBackUp}
-        ></i>
-        <i
-          id="backspace-button"
-          className="fas fa-backspace edition-button"
+        />
+        <FontAwesomeIcon
+          className="edition-button"
+          icon={faBackspace}
           onClick={handleBackspace}
-        ></i>{" "}
-        <i
-          id="reset-button"
-          className="fas fa-trash edition-button"
+        />
+        <FontAwesomeIcon
+          className="trash edition-button"
+          icon={faTrash}
           onClick={handleReset}
-        ></i>
+        />
         <div className="staves-container">
           <Score />
         </div>

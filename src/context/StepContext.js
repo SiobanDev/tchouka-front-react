@@ -1,5 +1,10 @@
 import React from "react";
 
-const StepContext = React.createContext();
+const initialContextValues = {
+    currentStep: 0,
+    setCurrentStep: () => {},
+  };
+
+const StepContext = React.createContext(initialContextValues);
 
 export default StepContext;

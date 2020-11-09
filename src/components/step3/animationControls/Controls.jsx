@@ -1,9 +1,22 @@
 import React, { useContext, useEffect, useState } from "react";
-//styles
+//Styles
 import "./Controls.style.scss";
+//Contexts
 import AnimationContext from "../../../context/AnimationContext";
+//Constants
 import { timeCodeInterval } from "../../../config/mainConstants";
+//Components
 import TimeLine from "./Timeline";
+//Libraries
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+  faArrowCircleLeft,
+  faArrowCircleRight,
+  faStepBackward,
+  faPlayCircle,
+  faPauseCircle,
+  faStopCircle,
+} from "@fortawesome/free-solid-svg-icons";
 
 const Controls = ({ allImageDelayList }) => {
   const {
@@ -36,12 +49,6 @@ const Controls = ({ allImageDelayList }) => {
     ? Math.min(movingTimelinePosition, maxShiftOfChronologyContent)
     : forwardingValue;
 
-  // console.log(
-  //   `forworadingValue: ${forwardingValue} ` +
-  //     "movingTimelinePosition : " +
-  //     movingTimelinePosition
-  // );
-
   const timelineStyle = {
     transition: `left 500ms ease-out`,
     left: `${-timelineStyleLeft}px`,
@@ -51,9 +58,6 @@ const Controls = ({ allImageDelayList }) => {
   };
 
   const setClampedForwardingValue = (value) => {
-    // console.log(
-    //   `forworadingValue: ${forwardingValue} new Value: ${value}, maxShift: ${maxShiftOfChronologyContent}`
-    // );
     setForwardingValue(
       Math.max(0, Math.min(maxShiftOfChronologyContent, value))
     );
@@ -124,27 +128,29 @@ const Controls = ({ allImageDelayList }) => {
       <div id="chronology-container">
         {!playingAnimation && timelineStyleLeft > 0 ? (
           <div id="go-backward-container">
-            <i
-              className="far fa-arrow-circle-left round-icon"
+            <FontAwesomeIcon
+              className="round-icon"
+              icon={faArrowCircleLeft}
               onClick={() => {
                 setClampedForwardingValue(
                   timelineStyleLeft - onClickMovingStep
                 );
               }}
-            ></i>
+            />
           </div>
         ) : null}
         {!playingAnimation &&
         timelineStyleLeft < maxShiftOfChronologyContent ? (
           <div id="go-forward-container">
-            <i
-              className="far fa-arrow-circle-right round-icon"
+            <FontAwesomeIcon
+              className="round-icon"
+              icon={faArrowCircleRight}
               onClick={() => {
                 setClampedForwardingValue(
                   timelineStyleLeft + onClickMovingStep
                 );
               }}
-            ></i>
+            />
           </div>
         ) : null}
 
@@ -158,33 +164,37 @@ const Controls = ({ allImageDelayList }) => {
 
       <div className="step3-commands-container">
         <div className="play-item">
-          <i
-            className="far fa-step-backward round-icon"
+          <FontAwesomeIcon
+            className="round-icon"
+            icon={faStepBackward}
             onClick={resetAnimation}
-          ></i>
+          />
         </div>
         <div className="play-item">
-          <i
-            className="far fa-play-circle round-icon"
+          <FontAwesomeIcon
+            className="round-icon"
+            icon={faPlayCircle}
             onClick={() => {
               setPlayingAnimation(true);
             }}
-          ></i>
+          />
         </div>
         <div className="play-item">
-          <i
-            className="fas fa-pause-circle round-icon"
+          <FontAwesomeIcon
+            className="round-icon"
+            icon={faPauseCircle}
             onClick={() => {
               setForwardingValue(timelineStyleLeft);
               setPlayingAnimation(false);
             }}
-          ></i>
+          />
         </div>
         <div className="play-item">
-          <i
-            className="fas fa-stop-circle round-icon"
+          <FontAwesomeIcon
+            className="round-icon"
+            icon={faStopCircle}
             onClick={stopAnimation}
-          ></i>
+          />
         </div>
         <form id="repeat-item">
           <input

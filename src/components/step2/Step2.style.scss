@@ -1,6 +1,4 @@
-$primary-color: #1b1b1dff;
 $red-color: #ff4436ff;
-$orange-color: #ff9036ff;
 $blue-color: #2ca4a0ff;
 
 #step2 {
@@ -33,20 +31,20 @@ $blue-color: #2ca4a0ff;
   margin-bottom: 8%;
 }
 
-#step2 .word-stave{
+#step2 .word-stave {
   width: 100%;
   display: flex;
   padding: 0 10px;
   min-height: 30px;
 }
 
-#step2 .added-note, .word-stave .word-container{
+#step2 .added-note,
+.word-stave .word-container {
   width: 10%;
 }
 
-#step2 .word-stave .word-container{
+#step2 .word-stave .word-container {
   color: $red-color;
   font-weight: bold;
   font-size: 110%;
 }
-

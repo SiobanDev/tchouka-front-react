@@ -1,12 +1,18 @@
 import React, { useContext } from "react";
+//Contexts
 import NotificationContext from "../../context/NotificationContext";
-//libraries
-import Loader from "react-loader-spinner";
-import { apiSignIn } from "../../services/apiServices";
-//styles
-import "./Form.style.scss";
+//Libraries
 import { useForm } from "react-hook-form";
+import Loader from "react-loader-spinner";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faArrowDown } from "@fortawesome/free-solid-svg-icons";
+//Utils
+import { apiSignIn } from "../../services/apiServices";
+//Styles
+import "./Form.style.scss";
+//Components
 import AlertModal from "../shared/AlertModal";
+import ResponseIcon from "../shared/ResponseIcon";
 
 const SignInForm = () => {
   const {
@@ -23,10 +29,6 @@ const SignInForm = () => {
   );
   const mailRegex = /^[^\W][a-zA-Z0-9_]+(\.[a-zA-Z0-9_]+)*\@[a-zA-Z0-9_]+(\.[a-zA-Z0-9_]+)*\.[a-zA-Z]{2,4}$/;
   const passwordRegex = /^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[-+!*$@\.%_])([-+!*\.$@%_\w]).{8,50}$/;
-
-  const dialogHandleClickClose = () => {
-    setOpen(false);
-  };
 
   const onSubmit = async (data) => {
     const userData = {
@@ -58,13 +60,9 @@ const SignInForm = () => {
   } else {
     return (
       <>
-        <AlertModal modalOpen={open} closeModal={dialogHandleClickClose}>
+        <AlertModal modalOpen={open} closeModal={()=>setOpen(false)}>
           {notificationMessage}
-          {severityKind === "success" ? (
-            <i className="far fa-smile modal-smiley"></i>
-          ) : (
-            <i className="far fa-frown-open modal-smiley"></i>
-          )}
+          <ResponseIcon severityKind={severityKind} />
         </AlertModal>
 
         <div id="form-container">
@@ -109,11 +107,9 @@ const SignInForm = () => {
               {errors.password && errors.password.message}
             </p>
 
-            <button
-              id="inscrption-button"
-              className="fas fa-check round-icon submit-button"
-              type="submit"
-            ></button>
+            <button className="round-icon submit-button" type="submit">
+              <FontAwesomeIcon icon={faArrowDown} />
+            </button>
           </form>
         </div>
       </>

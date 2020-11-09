@@ -1,7 +1,5 @@
-$primary-color: #1b1b1dff;
 $red-color: #ff4436ff;
 $orange-color: #ff9036ff;
-$blue-color: #2ca4a0ff;
 
 .model-container {
   position: relative;
@@ -76,10 +74,10 @@ $blue-color: #2ca4a0ff;
   border: none;
 }
 
-.animated-model{
+.animated-model {
   position: absolute;
 }
 
-.neutral-model{
+.neutral-model {
   opacity: 0;
 }

@@ -1,28 +1,29 @@
-import React, { useContext, useState } from "react";
-//styles
+import React, { useContext, useState, useEffect } from "react";
+//Styles
 import "./Step1.style.scss";
-//components
+import "../shared/StepButtons.style.scss";
+//Components
 import AvailableNotesContainer from "./AvailableNotesContainer";
 import StaveContainerStep1 from "./StaveContainerStep1";
-import ScoreContext from "../../context/ScoreContext";
-import StepContext from "../../context/StepContext";
-import { step2Url } from "../../config/urlConstants";
-import { useEffect } from "react";
 import NextStepButton from "../shared/NextStepButton";
-//styles
-import "../shared/StepButtons.style.scss";
-import { rythmStep } from "../../config/mainConstants";
-import LoginContext from "../../context/LoginContext";
-import NotificationContext from "../../context/NotificationContext";
-import { saveNewUserData } from "../../services/apiServices";
-//libraries
-import Loader from "react-loader-spinner";
 import InscriptionHook from "../shared/InscriptionHook";
 import AlertModal from "../shared/AlertModal";
+import ResponseIcon from "../shared/ResponseIcon";
+//Contexts
+import ScoreContext from "../../context/ScoreContext";
+import LoginContext from "../../context/LoginContext";
+import NotificationContext from "../../context/NotificationContext"; //Constants
+import { step2Url } from "../../config/urlConstants";
+//Utils
+import { saveNewUserData } from "../../services/apiServices";
+//Libraries
+import Loader from "react-loader-spinner";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faTrash, faBackspace } from "@fortawesome/free-solid-svg-icons";
+import { faSave } from "@fortawesome/free-regular-svg-icons";
 
 const Step1 = () => {
   const { score, setScore } = useContext(ScoreContext);
-  const { setCurrentStep } = useContext(StepContext);
   const { loggedIn } = useContext(LoginContext);
   const [waitingForApiResponse, setWaitingForApiResponse] = useState(false);
   const {
@@ -33,17 +34,12 @@ const Step1 = () => {
     notificationMessage,
     severityKind,
   } = useContext(NotificationContext);
-  const dialogHandleClickClose = () => {
-    setOpen(false);
-  };
 
   useEffect(() => {
     if (score.length === 0 && localStorage.getItem("score")) {
       setScore(JSON.parse(localStorage.getItem("score")));
     }
-
-    setCurrentStep(rythmStep);
-  }, [score, setCurrentStep, setScore]);
+  }, [score, setScore]);
 
   const handleBackUp = async () => {
     const userId = localStorage.getItem("userId");
@@ -75,9 +71,9 @@ const Step1 = () => {
   };
 
   const handleBackspace = () => {
-    //console.log("score before : " + score);
-
     if (score.length > 0) {
+      localStorage.removeItem("score");
+
       const scoreTmp = [...score];
       scoreTmp.splice(score.length - 1, 1);
       setScore(scoreTmp);
@@ -85,28 +81,20 @@ const Step1 = () => {
   };
 
   const handleReset = () => {
-    setScore([]);
     localStorage.removeItem("score");
+    setScore([]);
   };
 
   const goToNextStep = () => {
-    console.log("score in Step1 :" + JSON.stringify(score));
     localStorage.setItem("score", JSON.stringify(score));
   };
 
-  // console.log(`logged : ${loggedIn}`);
-
   return (
     <section id="step1" className="main-content">
-      <AlertModal modalOpen={open} closeModal={dialogHandleClickClose}>
+      <AlertModal modalOpen={open} closeModal={()=>setOpen(false)}>
         {notificationMessage}
-        {severityKind === "success" ? (
-          <i className="far fa-smile modal-smiley"></i>
-        ) : (
-          <i className="far fa-frown-open modal-smiley"></i>
-        )}
+        <ResponseIcon severityKind={severityKind} />
       </AlertModal>
-      
       <p className="instruction">
         <span className="round-icon">1</span>J'écris ma partition rythmique en
         cliquant sur les notes ci-dessous.
@@ -116,23 +104,25 @@ const Step1 = () => {
       {loggedIn && waitingForApiResponse && (
         <Loader type="TailSpin" color="#2ca4a0ff" height={30} width={30} />
       )}
-      <i
+      <FontAwesomeIcon
         id="save-button"
-        className={`fas fa-save edition-button hidden ${
+        className={`edition-button hidden ${
           loggedIn && !waitingForApiResponse ? "visible" : ""
         }`}
+        icon={faSave}
         onClick={handleBackUp}
-      ></i>
-      <i
-        id="backspace-button"
-        className="fas fa-backspace edition-button"
+      />
+      <FontAwesomeIcon
+        className="edition-button"
+        icon={faBackspace}
         onClick={handleBackspace}
-      ></i>{" "}
-      <i
-        id="reset-button"
-        className="fas fa-trash edition-button"
+      />
+      <FontAwesomeIcon
+        className="trash edition-button"
+        icon={faTrash}
         onClick={handleReset}
-      ></i>
+      />
+
       <StaveContainerStep1 />
       <div id="step-buttons-container">
         <NextStepButton

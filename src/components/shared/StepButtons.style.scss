@@ -1,7 +1,4 @@
 $primary-color: #1b1b1dff;
-$red-color: #ff4436ff;
-$orange-color: #ff9036ff;
-$blue-color: #2ca4a0ff;
 
 #step-buttons-container {
   display: flex;
@@ -9,14 +6,16 @@ $blue-color: #2ca4a0ff;
   width: 100%;
 }
 
-.joint-step, .not-allowed-joint-step {
+.joint-step,
+.not-allowed-joint-step {
   display: flex;
   flex-direction: column;
   align-items: center;
   margin: 5% 0 0 0;
 }
 
-.joint-step a, .not-allowed-joint-step div {
+.joint-step a,
+.not-allowed-joint-step div {
   text-decoration: none;
   text-align: center;
   display: flex;
@@ -30,18 +29,20 @@ $blue-color: #2ca4a0ff;
   font-weight: bold;
 }
 
-.joint-step .round-icon, .not-allowed-joint-step .round-icon {
+#root .joint-step .round-icon,
+#root .not-allowed-joint-step .round-icon {
   background: none;
   color: $primary-color;
   border: none;
   font-size: 30px;
 }
 
-.not-allowed-joint-step div{
+.not-allowed-joint-step div {
   cursor: not-allowed;
 }
 
-.not-allowed-joint-step div, .not-allowed-joint-step .round-icon{
+.not-allowed-joint-step div,
+#root .not-allowed-joint-step .round-icon {
   color: gray;
 }
 
@@ -53,7 +54,7 @@ $blue-color: #2ca4a0ff;
   margin-left: 5%;
 }
 
-.nav-icon-not-allowed .round-icon{
+#root .nav-icon-not-allowed .round-icon {
   background-color: gray;
   border: solid gray 2px;
 }

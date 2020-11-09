@@ -1,7 +1,4 @@
-$fonts-path: "/fonts/";
-$primary-color: #1b1b1dff;
 $red-color: #ff4436ff;
-$orange-color: #ff9036ff;
 $blue-color: #2ca4a0ff;
 
 form{
@@ -30,5 +27,5 @@ form label{
     background-color: $blue-color;
     border: none;
     cursor: pointer;
-    margin: 5% 0;
+    margin: 5% auto;
 }

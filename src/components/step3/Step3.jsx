@@ -1,34 +1,23 @@
-import React, { useContext, useEffect } from "react";
-//styles
+import React, { useContext } from "react";
+//Styles
 import "./Step3.style.scss";
-//components
-import StepContext from "../../context/StepContext";
-import { step2Url } from "../../config/urlConstants";
-import CompositionContext from "../../context/CompositionContext";
-import JPAnimation from "./JPAnimation";
-import AnimationContext from "../../context/AnimationContext";
-//styles
 import "../shared/StepButtons.style.scss";
+//Components
+import { step2Url } from "../../config/urlConstants";
+import JPAnimation from "./JPAnimation";
 import PreviousStepButton from "../shared/PreviousStepButton";
-import { learningStep } from "../../config/mainConstants";
-import { getAllImageDurationList, getAllImageDelayList } from "./Step3.utils";
 import Controls from "./animationControls/Controls";
-import InscriptionHook from "../shared/InscriptionHook";
+//Contexts
+import AnimationContext from "../../context/AnimationContext";
+import CompositionContext from "../../context/CompositionContext";
+//Utils
+import { getAllImageDurationList, getAllImageDelayList } from "./Step3.utils";
 
 const Step3 = () => {
   const { composition } = useContext(CompositionContext);
-  const { setCurrentStep } = useContext(StepContext);
   const { playingAnimation } = useContext(AnimationContext);
   const allImageDurationList = getAllImageDurationList(composition);
   const allImageDelayList = getAllImageDelayList(allImageDurationList);
-
-  useEffect(() => {
-    setCurrentStep(learningStep);
-  }, [setCurrentStep]);
-
-  // console.log(
-  //   "in step 3. repeat : " + repeat + " and playAnimation :" + playingAnimation
-  // );
 
   return (
     <section id="step3" className="main-content">

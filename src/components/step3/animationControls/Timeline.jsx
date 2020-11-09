@@ -1,18 +1,21 @@
 import React, { useContext } from "react";
-//styles
+//Styles
 import "./Timeline.style.scss";
+import scssVariables from "./Timeline.style.scss";
+//Contexts
 import AnimationContext from "../../../context/AnimationContext";
-import { timeCodeInterval } from "../../../config/mainConstants";
 import CompositionContext from "../../../context/CompositionContext";
+//Constants
+import { timeCodeInterval } from "../../../config/mainConstants";
+//Utils
 import {
   getWholeMovememntDurationList,
   getAllMovementDelayList,
 } from "./Timeline.utils";
-import scssVariables from "./Timeline.style.scss";
 
 const TimeLine = ({ allImageDelayList, cursorProgress }) => {
   const { composition } = useContext(CompositionContext);
-  const { playingAnimation, setPlayingAnimation, timeCode } = useContext(
+  const { playingAnimation } = useContext(
     AnimationContext
   );
   const wholeMovementDurationList = getWholeMovememntDurationList(composition);
@@ -30,7 +33,6 @@ const TimeLine = ({ allImageDelayList, cursorProgress }) => {
       : undefined,
     left: `calc(${cursorPosition}% - ${scssVariables.halfCursorWidth}px + ${scssVariables.halfLineWidth}px)`,
   };
-  // console.log("cursorProgress in Timeline : " + cursorProgress);
 
   for (let i = 0; i <= numberOfSecondsInAnimation; i++) {
     const percentageElementPosition =
@@ -54,8 +56,6 @@ const TimeLine = ({ allImageDelayList, cursorProgress }) => {
       wholeMovementDelayList[wholeMovementDelayList.length - 1];
     landmarkPositionList.push(landmarkPosition);
   }
-
-  // console.log("wholeMovementDelayList :" + JSON.stringify(wholeMovementDelayList))
 
   return (
     <>

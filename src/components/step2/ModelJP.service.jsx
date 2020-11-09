@@ -1,9 +1,6 @@
 import React from "react";
-
-import {
-  soundList,
-  movementList,
-} from "../../config/mediasConstants";
+//Constants
+import { soundList, movementList } from "../../config/mediasConstants";
 
 const createComposition = (
   bodyPartName,
@@ -11,8 +8,10 @@ const createComposition = (
   composition,
   setComposition
 ) => {
-
   if (composition.length < score.length) {
+    localStorage.getItem("composition") &&
+      localStorage.removeItem("composition");
+
     const newCompositionItem = {
       id: composition.length,
       durationList:
@@ -85,17 +84,7 @@ export const handleClickOnBodyPart = (
   setComposition,
   setMovementImageToDisplay
 ) => {
-  createComposition(
-    bodyPartName,
-    score,
-    composition,
-    setComposition
-  );
+  createComposition(bodyPartName, score, composition, setComposition);
   playSoundOfBodyPart(bodyPartName, score, composition);
-  playOneMovement(
-    bodyPartName,
-    setMovementImageToDisplay,
-    score,
-    composition
-  );
+  playOneMovement(bodyPartName, setMovementImageToDisplay, score, composition);
 };

@@ -1,7 +1,3 @@
-$primary-color: #1b1b1dff;
-$red-color: #ff4436ff;
-$orange-color: #ff9036ff;
-$blue-color: #2ca4a0ff;
 $thumbnail-width: 80;
 $half-thumbnail-width: $thumbnail-width / 2;
 
@@ -26,7 +22,7 @@ $half-thumbnail-width: $thumbnail-width / 2;
   flex-direction: column;
 }
 
-#step3 .instruction{
+#step3 .instruction {
   width: 100%;
   margin-bottom: 5%;
 }

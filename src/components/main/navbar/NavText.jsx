@@ -1,8 +1,10 @@
 import React, { useContext } from "react";
-//components
+//Libraries
 import { Link } from "react-router-dom";
+//Contexts
 import ScoreContext from "../../../context/ScoreContext";
 import CompositionContext from "../../../context/CompositionContext";
+//Utils
 import { adaptComposition } from "../../step2/Step2.utils";
 
 const NavText = ({
@@ -30,7 +32,6 @@ const NavText = ({
         className="navbar-link"
         to={urlMenuList[i]}
         onClick={() => {
-
           if (currentStep === 1 && i === 2) {
             localStorage.setItem("score", JSON.stringify(score));
           } else if ((currentStep === 2 || currentStep === 3) && i === 1) {

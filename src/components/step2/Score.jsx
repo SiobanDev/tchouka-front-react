@@ -1,10 +1,11 @@
 import React, { useContext, useEffect } from "react";
-//context
-import ScoreContext from "../../context/ScoreContext";
-//components
-import StaveStep2 from "./StaveStep2";
-import { blueStave } from "../../config/mediasConstants";
+//Contexts
 import CompositionContext from "../../context/CompositionContext";
+import ScoreContext from "../../context/ScoreContext";
+//Components
+import StaveStep2 from "./StaveStep2";
+//Constants
+import { blueStave } from "../../config/mediasConstants";
 
 /**
  * Score contains two staves made to receive the user's choosen notes.
@@ -18,8 +19,6 @@ const Score = () => {
   let scoreToSplit = [...score];
   let tempComposition = [...composition];
   let singingWordListToSplit = [];
-
-  // console.log("staveNumber : " + staveNumber);
 
   useEffect(() => {
     if (score.length === 0 && localStorage.getItem("score")) {

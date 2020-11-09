@@ -1,14 +1,19 @@
 import React, { useEffect, useContext } from "react";
+//Styles
 import "./Home.style.scss";
-import { step1Url } from "../../config/urlConstants";
-import StepContext from "../../context/StepContext";
-//styles
 import "../shared/StepButtons.style.scss";
+//Constants
+import { step1Url } from "../../config/urlConstants";
+//Contexts
+import StepContext from "../../context/StepContext";
 import ScoreContext from "../../context/ScoreContext";
 import CompositionContext from "../../context/CompositionContext";
+//Components
 import NextStepButton from "../shared/NextStepButton";
-import { jpNeutre } from "../../config/mediasConstants";
 import InscriptionHook from "../shared/InscriptionHook";
+//Libraries
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faSmile } from "@fortawesome/free-regular-svg-icons";
 
 const Home = () => {
   const { setCurrentStep } = useContext(StepContext);
@@ -40,7 +45,7 @@ const Home = () => {
   return (
     <section id="home" className="main-content">
       <h3>
-        BONJOUR <i className="far fa-smile"></i> !
+        BONJOUR <FontAwesomeIcon icon={faSmile} /> !
       </h3>
 
       <p>

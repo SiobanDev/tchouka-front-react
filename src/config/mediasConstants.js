@@ -1,9 +1,9 @@
-
+//TODO add quarter beat
 // export const quarterBeatDuration = 250;
-export const halfBeatDuration = 500;
-export const oneBeatDuration = 1000;
-export const TwoBeatsDuration = 2000;
-export const FourBeatsDuration = 4000;
+export const halfBeatDuration = 125;
+export const oneBeatDuration = 250;
+export const TwoBeatsDuration = 500;
+export const FourBeatsDuration = 1000;
 
 const audioPath = "/media/audio/";
 const imagePath = "/media/images/";
@@ -37,10 +37,7 @@ const bouImages = [movementPath + "bou.svg"];
 const claImages = [movementPath + "cla.svg"];
 const diImages = [movementPath + "di.svg"];
 const douImages = [movementPath + "dou.svg"];
-const piImages = [
-  movementPath + "pi-debut.svg",
-  movementPath + "pi-fin.svg",
-];
+const piImages = [movementPath + "pi-debut.svg", movementPath + "pi-fin.svg"];
 const pouImages = [
   movementPath + "pou-debut.svg",
   movementPath + "pou-fin.svg",

@@ -1,39 +1,34 @@
-$primary-color: #1b1b1dff;
-$red-color: #ff4436ff;
-$orange-color: #ff9036ff;
 $blue-color: #2ca4a0ff;
 
 #notes-to-choose-container {
-    width: 100%;
-    display: flex;
-    justify-content: center;
-  }
-  
-  .available-note-container > div {
-    width: 60px;
-    height: 60px;
-    margin: 20px;
-    display: flex;
-    justify-content: center;
-    padding: 10px;
-    background: $blue-color;
-    color: white;
-    cursor: pointer;
-  }
-  
-  .note-to-choose {
-    max-width: 100%;
-    height: 100%;
-  }
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
 
-  .available-note-container{
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-  }
+.available-note-container > div {
+  width: 60px;
+  height: 60px;
+  margin: 20px;
+  display: flex;
+  justify-content: center;
+  padding: 10px;
+  background: $blue-color;
+  color: white;
+  cursor: pointer;
+}
 
-  .note-caption{
-    margin: 0;
-  }
+.note-to-choose {
+  max-width: 100%;
+  height: 100%;
+}
 
-  
+.available-note-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.note-caption {
+  margin: 0;
+}

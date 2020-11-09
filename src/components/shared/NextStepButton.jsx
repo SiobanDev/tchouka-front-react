@@ -1,12 +1,14 @@
 import React, { useContext } from "react";
+//Libraries
 import { Link } from "react-router-dom";
-//styles
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faArrowCircleRight } from "@fortawesome/free-solid-svg-icons";
+//Styles
 import "./StepButtons.style.scss";
+//Contexts
 import ScoreContext from "../../context/ScoreContext";
 import StepContext from "../../context/StepContext";
 import CompositionContext from "../../context/CompositionContext";
-
-//text, boolean,
 
 const NextStepButton = ({ handleClick, nextPageUrl, text }) => {
   const { score } = useContext(ScoreContext);
@@ -20,7 +22,7 @@ const NextStepButton = ({ handleClick, nextPageUrl, text }) => {
     return (
       <div id="next-step" className="not-allowed-joint-step">
         <div>
-          <i className="fas fa-arrow-circle-right round-icon"></i>
+          <FontAwesomeIcon icon={faArrowCircleRight} />
         </div>
         <div>{text}</div>
       </div>
@@ -30,7 +32,7 @@ const NextStepButton = ({ handleClick, nextPageUrl, text }) => {
   return (
     <div id="next-step" className="joint-step">
       <Link to={nextPageUrl} onClick={handleClick}>
-        <i className="fas fa-arrow-circle-right round-icon"></i>
+        <FontAwesomeIcon className="round-icon" icon={faArrowCircleRight} />
       </Link>
       <Link to={nextPageUrl} onClick={handleClick}>
         {text}

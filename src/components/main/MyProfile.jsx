@@ -1,19 +1,26 @@
 import React, { useEffect, useCallback, useContext, useState } from "react";
-
+//Utils
 import {
   apiGetUserEmail,
   deleteUserData,
   apiFetchScores,
   apiFetchCompositions,
 } from "../../services/apiServices";
-//libraries
+//Libraries
 import Loader from "react-loader-spinner";
-import NotificationContext from "../../context/NotificationContext";
-//styles
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faTrashAlt } from "@fortawesome/free-regular-svg-icons";
+import { faShare, faTrash } from "@fortawesome/free-solid-svg-icons";
+//Styles
 import "./MyProfile.style.scss";
+//Context
+import NotificationContext from "../../context/NotificationContext";
 import CompositionContext from "../../context/CompositionContext";
 import ScoreContext from "../../context/ScoreContext";
+//Components
 import AlertModal from "../shared/AlertModal";
+
+import ResponseIcon from "../shared/ResponseIcon";
 
 const MyProfile = () => {
   const [waitingForApiResponse, setWaitingForApiResponse] = React.useState(
@@ -33,10 +40,6 @@ const MyProfile = () => {
   const [userEmail, setUserEmail] = useState(null);
   const { setComposition, composition } = useContext(CompositionContext);
   const { score, setScore } = useContext(ScoreContext);
-
-  const dialogHandleClickClose = () => {
-    setOpen(false);
-  };
 
   useEffect(() => {}, [score, composition]);
 
@@ -105,16 +108,18 @@ const MyProfile = () => {
                 {composition.length}
               </div>
               <p className="composition-title">{composition.title}</p>
-              <i
-                className="fas fa-trash edition-button"
+              <FontAwesomeIcon
+                className="trash edition-button"
+                icon={faTrashAlt}
                 onClick={() => handleDataDelete(composition.id, "score")}
-              ></i>
-              <i
-                className="fas fa-share edition-button"
+              />
+              <FontAwesomeIcon
+                className="edition-button"
+                icon={faShare}
                 onClick={() =>
                   handleUserCreationDataUpload(composition, "composition")
                 }
-              ></i>
+              />
             </li>
           )
         );
@@ -136,14 +141,16 @@ const MyProfile = () => {
           <li key={score.id}>
             <div className="user-data-number round-icon">{score.length}</div>
             <p className="score-title">{score.title}</p>
-            <i
-              className="fas fa-trash edition-button"
+            <FontAwesomeIcon
+              className="trash edition-button"
+              icon={faTrash}
               onClick={() => handleDataDelete(score.id, "score")}
-            ></i>
-            <i
-              className="fas fa-share edition-button"
+            />
+            <FontAwesomeIcon
+              className="edition-button"
+              icon={faShare}
               onClick={() => handleUserCreationDataUpload(score, "score")}
-            ></i>
+            />
           </li>
         ));
 
@@ -170,13 +177,9 @@ const MyProfile = () => {
 
   return (
     <section id="my-profile" className="main-content">
-      <AlertModal modalOpen={open} closeModal={dialogHandleClickClose}>
+      <AlertModal modalOpen={open} closeModal={()=>setOpen(false)}>
         {notificationMessage}
-        {severityKind === "success" ? (
-          <i className="far fa-smile modal-smiley"></i>
-        ) : (
-          <i className="far fa-frown-open modal-smiley"></i>
-        )}
+        <ResponseIcon severityKind={severityKind} />
       </AlertModal>
 
       <div id="profile-header">

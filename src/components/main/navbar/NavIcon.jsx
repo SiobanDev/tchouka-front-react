@@ -1,15 +1,19 @@
 import React from "react";
-//components
+//Libraries
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faHome } from "@fortawesome/free-solid-svg-icons";
 
 const NavIcon = ({ isAllowed, i, isActive }) => {
   const notAllowedClass = isAllowed ? "" : "nav-icon-not-allowed";
   const isActiveClass = isActive ? "active" : "";
-  const componentClasses = `navbar-element ${notAllowedClass}`
+  const componentClasses = `navbar-element ${notAllowedClass}`;
 
   if (i === 0) {
     return (
       <li id="navbar-element-0" className={componentClasses} key={i}>
-        <span className={`fas fa-home round-icon menu-icon ${isActiveClass}`}></span>
+        <span className={`round-icon menu-icon ${isActiveClass}`}>
+          <FontAwesomeIcon icon={faHome} />
+        </span>
       </li>
     );
   }

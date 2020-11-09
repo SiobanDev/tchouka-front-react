@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+//Libraries
 import {
   BrowserRouter as Router,
   Switch,
@@ -9,21 +10,23 @@ import {
 import Step1 from "../step1/Step1";
 import Step2 from "../step2/Step2";
 import Step3 from "../step3/Step3";
+import Opinions from "../opinions/Opinions";
 import Home from "./Home";
+import MyProfile from "./MyProfile";
+import PrivateRoute from "./PrivateRoute";
+//Views
 import Header from "../../views/Header";
+import Credits from "../../views/Credits";
+import Footer from "../../views/Footer";
+import SignUp from "../../views/SignUp";
+import SignIn from "../../views/SignIn";
+//Contexts
 import ScoreContext from "../../context/ScoreContext";
 import StepContext from "../../context/StepContext";
 import CompositionContext from "../../context/CompositionContext";
 import AnimationContext from "../../context/AnimationContext";
-import TermsAndConditions from "../../views/TermsAndConditions";
-import Credits from "../../views/Credits";
-import Footer from "../../views/Footer";
 import NotificationContext from "../../context/NotificationContext";
-import SignUp from "../../views/SignUp";
-import SignIn from "../../views/SignIn";
 import LoginContext from "../../context/LoginContext";
-import MyProfile from "./MyProfile";
-import PrivateRoute from "./PrivateRoute";
 
 const MainContent = () => {
   var freeTime = 42;
@@ -43,10 +46,6 @@ const MainContent = () => {
   const [notificationMessage, setNotificationMessage] = React.useState(
     "Une erreur est survenue."
   );
-
-  // console.log("score dans MainContent " + JSON.stringify(score));
-  // console.log("allNotesWidth dans MainContent" + allNotesWidth);
-  //console.log("composition dans MainContent " + JSON.stringify(composition));
 
   useEffect(() => {
     if (localStorage.getItem("token")) {
@@ -117,11 +116,7 @@ const MainContent = () => {
 
                         <Route exact path="/credits" component={Credits} />
 
-                        <Route
-                          exact
-                          path="/conditions-generales-utilisation"
-                          component={TermsAndConditions}
-                        />
+                        <Route exact path="/mon-avis" component={Opinions} />
                         <Route exact path="/apprentissage" component={Step3} />
                         <Route exact path="/percussions" component={Step2} />
                         <Route exact path="/rythme" component={Step1} />

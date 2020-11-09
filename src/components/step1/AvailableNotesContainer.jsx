@@ -1,10 +1,11 @@
-import React, { useContext} from "react";
-//context
+import React, { useContext } from "react";
+//Contexts
 import ScoreContext from "../../context/ScoreContext";
+//Components
 import AvailableNote from "./AvailableNote";
-//styles
+//Styles
 import "./AvailableNotesContainer.style.scss";
-//libraries
+//Data
 import { defaultAvailableNotes } from "../../data/defaultNotes";
 
 export const AvailableNotesContainer = () => {
@@ -15,34 +16,31 @@ export const AvailableNotesContainer = () => {
     setAllNotesWidth,
     addedNoteWidth,
   } = useContext(ScoreContext);
-  
-  // console.log("score in AvailabreContainer :" + JSON.stringify(score))
 
-      return (
-        <div id="notes-to-choose-container">
-          {defaultAvailableNotes.map((note, i) => (
-            <div className="available-note-container" key={note.id}>
-              <AvailableNote
-                imageSource={note.imageSrc}
-                onClick={() => {
-                  const newScoreNote = {
-                    id: score.length,
-                    duration: note.duration,
-                    imageSrc: note.imageSrc,
-                  };
+  return (
+    <div id="notes-to-choose-container">
+      {defaultAvailableNotes.map((note, i) => (
+        <div className="available-note-container" key={note.id}>
+          <AvailableNote
+            imageSource={note.imageSrc}
+            onClick={() => {
+              localStorage.getItem("score") && localStorage.removeItem("score");
 
-                  setScore([...score, newScoreNote]);
-                  setAllNotesWidth(allNotesWidth + addedNoteWidth);
+              const newScoreNote = {
+                id: score.length,
+                duration: note.duration,
+                imageSrc: note.imageSrc,
+              };
 
-                }}
-              />
-              <p className="note-caption">{note.caption}</p>
-            </div>
-          ))}
+              setScore([...score, newScoreNote]);
+              setAllNotesWidth(allNotesWidth + addedNoteWidth);
+            }}
+          />
+          <p className="note-caption">{note.caption}</p>
         </div>
-      );
-    
-
+      ))}
+    </div>
+  );
 };
 
 export default AvailableNotesContainer;

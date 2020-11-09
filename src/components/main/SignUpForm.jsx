@@ -1,13 +1,19 @@
 import React, { useContext } from "react";
+//Contexts
 import NotificationContext from "../../context/NotificationContext";
-//libraries
-import Loader from "react-loader-spinner";
-import { apiSignUp } from "../../services/apiServices";
-//styles
-import "./Form.style.scss";
-import { useForm } from "react-hook-form";
 import LoginContext from "../../context/LoginContext";
+//Libraries
+import Loader from "react-loader-spinner";
+import { useForm } from "react-hook-form";
+import { faSignInAlt } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+//Utils
+import { apiSignUp } from "../../services/apiServices";
+//Styles
+import "./Form.style.scss";
+//Components
 import AlertModal from "../shared/AlertModal";
+import ResponseIcon from "../shared/ResponseIcon";
 
 const SignUpForm = () => {
   const {
@@ -24,10 +30,6 @@ const SignUpForm = () => {
     setWaitingForformattedApiResponse,
   ] = React.useState(false);
   const { setLoggedIn } = useContext(LoginContext);
-
-  const dialogHandleClickClose = () => {
-    setOpen(false);
-  };
 
   const onSubmit = async (data) => {
     const userData = {
@@ -47,7 +49,7 @@ const SignUpForm = () => {
         setOpen(true);
 
         setLoggedIn(true);
-        localStorage.setItem('userId',formattedApiResponse.data.addedData.id);
+        localStorage.setItem("userId", formattedApiResponse.data.addedData.id);
 
         localStorage.setItem("token", formattedApiResponse.data.token);
       } else if (!formattedApiResponse.success) {
@@ -65,13 +67,9 @@ const SignUpForm = () => {
   } else {
     return (
       <>
-        <AlertModal modalOpen={open} closeModal={dialogHandleClickClose}>
+        <AlertModal modalOpen={open} closeModal={()=>setOpen(false)}>
           {notificationMessage}
-          {severityKind === "success" ? (
-            <i className="far fa-smile modal-smiley"></i>
-          ) : (
-            <i className="far fa-frown-open modal-smiley"></i>
-          )}
+          <ResponseIcon severityKind={severityKind} />
         </AlertModal>
 
         <div id="form-container">
@@ -105,9 +103,11 @@ const SignUpForm = () => {
 
             <button
               id="connection-button"
-              className="fas fa-sign-in-alt round-icon submit-button"
+              className="round-icon submit-button"
               type="submit"
-            ></button>
+            >
+              <FontAwesomeIcon icon={faSignInAlt} />
+            </button>
           </form>
         </div>
       </>

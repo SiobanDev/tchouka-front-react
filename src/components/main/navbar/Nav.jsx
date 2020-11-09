@@ -1,10 +1,14 @@
 import React, { useContext, useEffect } from "react";
+//Styles
 import "./NavStyle.scss";
+//Contexts
 import StepContext from "../../../context/StepContext";
 import ScoreContext from "../../../context/ScoreContext";
 import CompositionContext from "../../../context/CompositionContext";
+//Components
 import NavIcon from "./NavIcon";
 import NavText from "./NavText";
+//Constants
 import { percussionStep } from "../../../config/mainConstants";
 
 const Nav = () => {
@@ -38,8 +42,6 @@ const Nav = () => {
     (composition.length !== score.length && currentStep === percussionStep)
       ? currentStep
       : currentStep + 1;
-
-  //console.log("current step in Nav : " + currentStep);
 
   for (let i = 0; i < itemNameMenuList.length; i++) {
     const isActive = i === currentStep;

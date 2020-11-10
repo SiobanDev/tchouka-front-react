@@ -13,9 +13,9 @@ import {
   faArrowCircleLeft,
   faArrowCircleRight,
   faStepBackward,
-  faPlayCircle,
-  faPauseCircle,
-  faStopCircle,
+  faPlay,
+  faPause,
+  faStop,
 } from "@fortawesome/free-solid-svg-icons";
 
 const Controls = ({ allImageDelayList }) => {
@@ -163,36 +163,32 @@ const Controls = ({ allImageDelayList }) => {
       </div>
 
       <div className="step3-commands-container">
-        <div className="play-item">
+        <div className="round-icon play-item">
           <FontAwesomeIcon
-            className="round-icon"
             icon={faStepBackward}
             onClick={resetAnimation}
           />
         </div>
-        <div className="play-item">
+        <div className="round-icon play-item">
           <FontAwesomeIcon
-            className="round-icon"
-            icon={faPlayCircle}
+            icon={faPlay}
             onClick={() => {
               setPlayingAnimation(true);
             }}
           />
         </div>
-        <div className="play-item">
+        <div className="round-icon play-item">
           <FontAwesomeIcon
-            className="round-icon"
-            icon={faPauseCircle}
+            icon={faPause}
             onClick={() => {
               setForwardingValue(timelineStyleLeft);
               setPlayingAnimation(false);
             }}
           />
         </div>
-        <div className="play-item">
+        <div className="round-icon play-item">
           <FontAwesomeIcon
-            className="round-icon"
-            icon={faStopCircle}
+            icon={faStop}
             onClick={stopAnimation}
           />
         </div>

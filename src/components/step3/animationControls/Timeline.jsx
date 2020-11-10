@@ -59,7 +59,6 @@ const TimeLine = ({ allImageDelayList, cursorProgress }) => {
 
   return (
     <>
-      {" "}
       <div id="timeline-cursor" style={cursorStyle}></div>
       {composition.map((movement, i) => {
         const imageSrcWithFocus = movement.movementList[0].replace(
